@@ -10,7 +10,7 @@
 
 ## 第5章　[全局大喇叭，详解广播机制](https://github.com/LuckyTerry/ReadingNotes/blob/master/%E7%AC%AC%E4%B8%80%E8%A1%8C%E4%BB%A3%E7%A0%81/%E7%AC%AC5%E7%AB%A0%20%E5%85%A8%E5%B1%80%E5%A4%A7%E5%96%87%E5%8F%AD%EF%BC%8C%E8%AF%A6%E8%A7%A3%E5%B9%BF%E6%92%AD%E6%9C%BA%E5%88%B6.md)
 
-## 第6章　[数据存储全方案，详解持久化技术](https://github.com/LuckyTerry/ReadingNotes/blob/master/%E7%AC%AC%E4%B8%80%E8%A1%8C%E4%BB%A3%E7%A0%81/%E7%AC%AC6%E7%AB%A0%E3%80%80%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E5%85%A8%E6%96%B9%E6%A1%88%EF%BC%8C%E8%AF%A6%E8%A7%A3%E6%8C%81%E4%B9%85%E5%8C%96%E6%8A%80%E6%9C%AF.md)
+## 第6章　[数据存储全方案，详解持久化技术](https://github.com/LuckyTerry/ReadingNotes/blob/master/%E7%AC%AC%E4%B8%80%E8%A1%8C%E4%BB%A3%E7%A0%81/%E7%AC%AC6%E7%AB%A0%20%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E5%85%A8%E6%96%B9%E6%A1%88%EF%BC%8C%E8%AF%A6%E8%A7%A3%E6%8C%81%E4%B9%85%E5%8C%96%E6%8A%80%E6%9C%AF.md)
 
 ## 第7章　[跨程序共享数据，探究内容提供器 ](https://github.com/LuckyTerry/ReadingNotes/blob/master/%E7%AC%AC%E4%B8%80%E8%A1%8C%E4%BB%A3%E7%A0%81/%E7%AC%AC7%E7%AB%A0%20%E8%B7%A8%E7%A8%8B%E5%BA%8F%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE%EF%BC%8C%E6%8E%A2%E7%A9%B6%E5%86%85%E5%AE%B9%E6%8F%90%E4%BE%9B%E5%99%A8.md)
 
