@@ -337,8 +337,8 @@ b.xml
     listView.setOnItemClickListener(new OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Fruit fruit = fruitList.get(position);
-            Toast.makeText(MainActivity.this, fruit.getName(), Toast.LENGTH_SHORT).show();
+            String fruit = data[position];
+            Toast.makeText(MainActivity.this, fruit, Toast.LENGTH_SHORT).show();
         }
     });
 
@@ -349,11 +349,11 @@ b.xml
     if (convertView == null) {
         convertView = LayoutInflater.from(getContext()).inflate(resourceId, null);
         viewHolder = new ViewHolder();
-        viewHolder.fruitImage = (ImageView) view.findViewById(R.id.fruit_image);
-        viewHolder.fruitName = (TextView) view.findViewById(R.id.fruit_name);
+        viewHolder.fruitImage = (ImageView) convertView.findViewById(R.id.fruit_image);
+        viewHolder.fruitName = (TextView) convertView.findViewById(R.id.fruit_name);
         view.setTag(viewHolder); // 将ViewHolder存储在View中
     } else {
-        viewHolder = (ViewHolder) view.getTag(); // 重新获取ViewHolder
+        viewHolder = (ViewHolder) convertView.getTag(); // 重新获取ViewHolder
     }
     viewHolder.fruitImage.setImageResource(fruit.getImageId());
     viewHolder.fruitName.setText(fruit.getName());
@@ -373,7 +373,7 @@ b.xml
 
 ### dp
 
-密度无关像素,也被称作 dip（density independent pix）
+设备独立像素,也被称作 dip（device independent pix）
 
 ### sp
 
@@ -383,8 +383,13 @@ b.xml
 
 屏幕每英寸所包含的像素数，通常以 dpi 为单位
 
-    float xdpi = getResources().getDisplayMetrics().xdpi;
-    float ydpi = getResources().getDisplayMetrics().ydpi;
+    int width = getResources().getDisplayMetrics().widthPixels;
+    int height = getResources().getDisplayMetrics().heightPixels;
+    
+    DisplayMetrics metrics = new DisplayMetrics();
+    getWindowManager().getDefaultDisplay().getMetrics(metrics);
+    int width = metrics.widthPixels;
+    int height = metrics.heightPixels;
 
 ### Android 的规定
 
