@@ -124,7 +124,7 @@ Activity A启动了Activity B(B是标准模式)，那么B就会进入到A所在�
 
 > * FLAG_ACTIVITY_NEW_TASK -> 同singleTask
 > * FLAG_ACTIVITY_SINGLE_TOP -> 同singleTop
-> * FLAG_ACTIVITY_CLEAR_TOP ->  与FLAG_ACTIVITY_NEW_TASK配合使用，它连同它上面的Activity都要出栈，系统会创建新的Activity实例并放入栈顶。相比较只使用FLAG_ACTIVITY_NEW_TASK（或singleTask），它也会出栈并重建，而不是回调onNewIntent
+> * FLAG_ACTIVITY_CLEAR_TOP ->  与FLAG_ACTIVITY_NEW_TASK配合使用，它连同它上面的Activity都要出栈，系统会创建新的Activity实例并放入栈顶。相比较只使用FLAG_ACTIVITY_NEW_TASK（或singleTask），它也会出栈并重建，而不是回调onNewIntent（这里有点懵逼！？）
 > * FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS -> 同android:excuteFromRecents="true" 具有这个标记的Activity不会出现在历史Activity列表中
 
 ## 3 IntentFilter的匹配规则
