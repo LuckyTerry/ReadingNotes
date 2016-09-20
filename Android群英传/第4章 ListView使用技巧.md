@@ -67,16 +67,22 @@ item点击效果
     
 处理空ListView
 
-    //empty_view.xml
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        
         <TextView
+            android:id="@+id/empty_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="Empty" />
-    </LinearLayout>
+    </FrameLayout>
     
     listView.setEmptyView(findViewById(R.id.empty_view));
     

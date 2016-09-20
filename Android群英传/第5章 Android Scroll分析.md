@@ -23,9 +23,9 @@
 > * 向下Y轴正方向
 
     //触控事件在视图坐标系中的横坐标
-    getRawX() 
+    getX() 
     //触控事件在视图坐标系中的纵坐标
-    getRawY() 
+    getY() 
 
 ## MotionEvent
 
@@ -79,13 +79,13 @@
 
 ## LayoutParams
 
-    LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) getLayoutParams;
+    LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) getLayoutParams();
     layoutParams.leftMargin = getLeft() + offsetX();
     layoutParams.topMargin = getTop() + offsetY();
     setLayoutParams(layoutParams);
     //requestLayout();//也可使用这一句，其实setLayoutParams内部调用了requestLayout
     
-    ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) getLayoutParams;
+    ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) getLayoutParams();
     layoutParams.leftMargin = getLeft() + offsetX();
     layoutParams.topMargin = getTop() + offsetY();
     setLayoutParams(layoutParams);
@@ -113,7 +113,7 @@
     public void computeScroll(){
         super.computeScroll();
         if(mScroller.computeScrollOffset()){
-            ((View)getParent().scrollTo(mScroller.getCurrentX(), mScroller.getCurrentY()));
+            ((View)getParent()).scrollTo(mScroller.getCurrentX(), mScroller.getCurrentY());
             invalidate();
         }
     }
@@ -166,11 +166,12 @@
 		@Override
 		public void onViewReleased(View releasedChild, float xvel, float yvel){
 			super.onViewReleased(releasedChild, xvel, yvel);
-			if(){
+			if(?){
 				mViewDragHelper.smoothSlideViewTo(mMainView, 0, 0);
-				ViewCompat.postInvalidateOnAnimation(DragViewGroup.this);
+				ViewCompat.postInvalidateOnAnimation(DragViewGroup.this);//与startScroll方法非常像
 			}else{
 				mViewDragHelper.smoothSlideViewTo(mMainView, 300, 0);
+				ViewCompat.postInvalidateOnAnimation(DragViewGroup.this);
 			}
 		}
 	}
