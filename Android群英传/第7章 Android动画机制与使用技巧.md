@@ -403,7 +403,7 @@ set.setTarget(myObject);
 set.start();
 ```
 
-### 2.3 View的animate方法
+### 2.3 View的animate方法，即 ViewPropertyAnimator 
 
 ```
 mButton.animate().x(50f).y(100f).alpha(0).setDuration(3000)

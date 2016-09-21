@@ -225,9 +225,9 @@ public void computeScroll() {
 
 ### 2.1 scrollTo和scrollBy
 
-scrollTo和scrollBy方法只能改变view内容的位置而不能改变View在布局中的位置
-mScrollX，View左边缘和view内容左边缘在水平方向的距离，View左边缘在View内容左边缘右边时为+
-mScrollY，View上边缘和view内容上边缘在竖直方向的距离，View上边缘在View内容上边缘下边时为+
+scrollTo和scrollBy方法只能改变view内容的位置而不能改变View在布局中的位置。
+mScrollX，View左边缘和view内容左边缘在水平方向的距离，View左边缘在View内容左边缘右边时为+ 。
+mScrollY，View上边缘和view内容上边缘在竖直方向的距离，View上边缘在View内容上边缘下边时为+ 。
 
 一准则：
 > * View在滑动，View的内容始终不滑动。而对人眼来说惯性坐标系是View，因此看起来就是View的内容在滑动（并且实质上应该反向的）
@@ -667,7 +667,7 @@ setOnLongClickListener 会将View的LONG_CLICKABLE属性设为true
 
 * 水平方向和竖直方向的距离差
 * 滑动路径和水平方向的夹角
-* 水平和竖直方向的距离差
+* 水平和竖直方向的速度差
 
 场景2
 

@@ -197,7 +197,7 @@ public static int getChildMeasureSpec(int spec, int padding, int childDimension)
 
 先看三组API
 
-* View
+* class View （关注下面6个函数）
 ```
 public final void measure(int widthMeasureSpec, int heightMeasureSpec){
     ...
@@ -230,7 +230,7 @@ protected void onDraw(Canvas canvas) {
 }，这是一个空实现
 ```
 
-* ViewGroup extends View
+* abstract class ViewGroup extends View （除了onLayout，其他5各都是继承自View，添加了measureChildren等方法）
 ```
 protected void measureChildren(int widthMeasureSpec, int heightMeasureSpec) {
     final int size = mChildrenCount;
@@ -258,54 +258,174 @@ protected void onDraw(Canvas canvas){
 }
 ```
 
-### 3.1 measure过程
-#### 3.1.1 ViewGroup的measure
-#### 3.1.2 ViewGroup的onMeasure
-#### 3.1.3 View的measure
-#### 3.1.4 View的onMeasure
+### 3.1 measure 过程 （3.1.3 -> 3.1.4 -> 3.1.1 -> 3.1.2）
 
-### 3.2 layout过程
-#### 3.2.1 ViewGroup的layout
-#### 3.2.2 ViewGroup的onLayout
-#### 3.2.3 View的layout
-#### 3.2.4 View的onLayout
+#### 3.1.1 View 的 measure
+参考上面第一组API，内部调用onMeasure。
 
-### 3.3 draw过程
-#### 3.3.1 ViewGroup的draw
-#### 3.3.2 ViewGroup的onDraw
-#### 3.3.3 View的draw
-#### 3.3.4 View的onDraw
+#### 3.1.2 View 的 onMeasure
+参考上面第一组API，内部只是setMeasuredDimension，设置进去的值就是测量值。
+
+#### 3.1.3 ViewGroup 的 measure
+继承自View的measure，没有重写。
+
+#### 3.1.4 ViewGroup 的 onMeasure
+继承自View的onMeasure，没有重写。因为不同容器的特性不同，所以这个需要子类来实现。
+但是提供了measureChildren方法（内部遍历调用child的measure方法），供开发者调用以测量child。一般来说该方法使用在重写的onMeasure()或onLayout()中，先测量child，再根据child的测量高宽等参数布局该容器。图方便可以使用在重写的onLayout()里。
+
+#### 3.1.5 Activity 启动的时候正确获取测量宽高
+由于measure与Activity生命周期不同步，无法保证onCreate、onStart、onResume时某个View已经测量完毕，此时想要获取测量宽高，有如下四种方法：
+
+```
+@Override
+public void onWindowsFocusChanged(boolean hasFocus) {
+    super.onWindowsFocusChanged(hasFocus);
+    if(hasFocus) {
+        int width = view.getMeasureWidth();
+        int height = view.getMeasureHeight();
+    }
+}
+```
+```
+protect void onStart() {
+    super.onStart();
+    view.post(new Runnable() {
+        @Override
+        public void run () {
+            int width = view.getMeasureWidth();
+            int height = view.getMeasureHeight();
+        }
+    });
+}
+```
+```
+protect void onStart() {
+    super.onStart();
+    ViewTreeObserver observer = view.getViewTreeObserver();
+    observer.addOnGloabalLayoutListener(new onGlobalLayoutListener() {
+        @SuppressWarnings("deprecation")
+        @Override
+        public void onGlobalLayout() {
+            view.getViewTreeObserver().removeGloabalOnLayoutListener(this);
+            int width = view.getMeasureWidth();
+            int height = view.getMeasureHeight();
+        }
+    });
+}
+```
+```
+//手动测量，根据View的LayoutParams分三种情况
+
+//match_parent 
+无法知道parentSize，测量不出，放弃
+
+//具体数值
+int widthMeasureSpec = MeasureSpec.makeMeasureSpec(100, MeasureSpec.EXACTLY);
+int heightMeasureSpec = MeasureSpec.makeMeasureSpec(100, MeasureSpec.EXACTLY);
+view.measure(widthMeasureSpec, heightMeasureSpec);
+
+//wrap_content
+int widthMeasureSpec = MeasureSpec.makeMeasureSpec( (1 << 30) - 1, MeasureSpec.AT_MOST);
+int heightMeasureSpec = MeasureSpec.makeMeasureSpec( (1 << 30) - 1, MeasureSpec.AT_MOST);
+view.measure(widthMeasureSpec, heightMeasureSpec);
+```
+
+#### 3.1.6 示例：LineaLayout 的 onMeasure 过程
+有时间把原文的LineaLayout的onMeasure过程多看几遍
+
+### 3.2 layout 过程 （3.2.3 -> 3.2.4 -> 3.2.1 -> 3.2.2）
+
+#### 3.2.1 View 的 layout
+
+* setFrame(l, t, r, b)设置4个顶点的位置，View的顶点一旦确定，那么View的位置也就确定了。（竟然是layout确定的View的位置，我还一直以为是onLayout确定的呢。。。）
+* onLayout方法，用于父容器确定子元素的位置。（骚年，记清楚，layout确定View位置，onLayout确定子元素位置）
+
+```
+@SuppressWarnings({"unchecked"})
+    public void layout(int l, int t, int r, int b) {
+        if ((mPrivateFlags3 & PFLAG3_MEASURE_NEEDED_BEFORE_LAYOUT) != 0) {
+            onMeasure(mOldWidthMeasureSpec, mOldHeightMeasureSpec);
+            mPrivateFlags3 &= ~PFLAG3_MEASURE_NEEDED_BEFORE_LAYOUT;
+        }
+
+        int oldL = mLeft;
+        int oldT = mTop;
+        int oldB = mBottom;
+        int oldR = mRight;
+
+        boolean changed = isLayoutModeOptical(mParent) ?
+                setOpticalFrame(l, t, r, b) : setFrame(l, t, r, b);
+
+        if (changed || (mPrivateFlags & PFLAG_LAYOUT_REQUIRED) == PFLAG_LAYOUT_REQUIRED) {
+            onLayout(changed, l, t, r, b);
+            mPrivateFlags &= ~PFLAG_LAYOUT_REQUIRED;
+
+            ListenerInfo li = mListenerInfo;
+            if (li != null && li.mOnLayoutChangeListeners != null) {
+                ArrayList<OnLayoutChangeListener> listenersCopy =
+                        (ArrayList<OnLayoutChangeListener>)li.mOnLayoutChangeListeners.clone();
+                int numListeners = listenersCopy.size();
+                for (int i = 0; i < numListeners; ++i) {
+                    listenersCopy.get(i).onLayoutChange(this, l, t, r, b, oldL, oldT, oldR, oldB);
+                }
+            }
+        }
+
+        mPrivateFlags &= ~PFLAG_FORCE_LAYOUT;
+        mPrivateFlags3 |= PFLAG3_IS_LAID_OUT;
+    }
+```
+
+#### 3.2.2 View 的 onLayout
+View没有子元素，所以当然是空实现咯。当然自定义View也没必要且不应该重写该方法，毕竟View位置都是在layout中确定的。
+
+#### 3.2.3 ViewGroup 的 layout
+继承自View的layout，没有重写。确定ViewGroup的位置
+
+#### 3.2.4 ViewGroup 的 onLayout
+重写View的layout，并且改变了限定符，现在是个abstract class了。继承自ViewGroup的子类必须重写该方法，以确定子元素的位置。
+
+#### 3.2.5 示例：LineaLayout的onLayout过程
+有时间把原文的LineaLayout的onLayout过程多看几遍。
+
+### 3.3 draw 过程 （3.3.3 -> 3.3.4 -> 3.3.1 -> 3.3.2）
+
+#### 3.3.1 View 的 draw
+上面第一组API看看就明白了。画背景、画自己、画children、画装饰。
+
+#### 3.3.2 View 的 onDraw
+都不知道是什么View，当然是空实现。自定义View的画就重写该方法自己画去。
+
+#### 3.3.3 ViewGroup 的 draw
+继承自View，没有重写。
+
+#### 3.3.4 ViewGroup 的 onDraw
+继承自View，没有重写。一般来说ViewGroup也不需要绘制自己，因为只需要“容纳”子元素就功成身退了。
 
 ## 4 自定义View
+
 ### 4.1 自定义View的分类
+
+ 1. 继承View重写onDraw方法
+ 2. 继承ViewGroup派生特殊的Layout
+ 3. 继承特定的View（比如TextView）
+ 4. 继承特定的ViewGroup（比如LinearLayout）
+
+找到一种代价最小、最高效的方法去实现。
+ 
 ### 4.2 自定义View须知
+
+ 1. 让View支持wrap_content
+ 2. 支持padding
+ 3. 不要使用Handler ？
+ 4. View中如果有线程或者动画，需要及时停止
+ 5. 滑动嵌套，需要处理好滑动冲突
+
 ### 4.3 自定义View示例
+
+ 1. 继承View重写onDraw方法 -> 略，这个还是看书吧
+ 2. 继承ViewGroup派生特殊的Layout -> 略，这个还是看书吧
+
 ### 4.4 自定义View的思想
 
-首先一个常识：ViewGroup继承自View
-
-View的final void measure(int widthMeasureSpec, int heightMeasureSpec)，意味着不能被Override
-View的void onMeasure(int widthMeasureSpec, int heightMeasureSpec)，有默认实现
-measure调用onMeasure
-
-ViewGroup的measure，继承自View，与View完全相同
-ViewGroup的onMeasure，继承自View，与View完全相同，不同的ViewGroup有不同的特性，因此没有且不应该Override。
-measure调用onMeasure
-
-LinearLayout的measure，继承自ViewGroup，与View完全相同
-LinearLayout的onMeasure，继承自ViewGroup，有自己的特性，因此Override
-measure调用onMeasure
-
-api:
-View    void layout(int l, int t, int r, int b)
-
-View的layout，根据测量值设置自己四个顶点的坐标，
-View的onLayout，没有默认实现，因为没有子View
-
-api:
-ViewGroup   
-public final void layout(int l, int t, int r, int b)
-protected abstract void	onLayout(boolean changed, int l, int t, int r, int b)
-
-ViewGroup的layout，同View的
-ViewGroup的onLayout，
+我觉得自定义View还是等我真正上手项目后再认真研究，看过谁说的一句话，千万不要刻意去自定义View。。。弥足深陷。。。
