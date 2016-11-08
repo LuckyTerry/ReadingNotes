@@ -195,8 +195,7 @@ android:startOffset	    setStartOffset(long)
 </set>  
 
 Animation animation = AnimationUtils.loadAnimation(mContext,R.anim.tween_animation);
-mView.setAnimation(animation);
-mView.startAnimation();
+mView.startAnimation(animation);
 ```
 
 ----------
@@ -305,7 +304,7 @@ animation.start();
 PropertyValuesHolder pvh1 = PropertyValuesHolder.ofFloat("translationX", 300f);
 PropertyValuesHolder pvh2 = PropertyValuesHolder.ofFloat("scaleX", 1f, 0f, 1f);
 PropertyValuesHolder pvh3 = PropertyValuesHolder.ofFloat("scaleY", 1f, 0f, 1f);
-ObjectAnimator.ofPropertyValuesHolder(pvh1, pvh2, pvh3).setDuration(3000).start();
+ObjectAnimator.ofPropertyValuesHolder(mButton, pvh1, pvh2, pvh3).setDuration(3000).start();
 ```
 
 #### AnimatorSet
@@ -539,7 +538,7 @@ X Y 为终点坐标
 
 * VectorDrawable 对应vector标签。创建一个静态SVG图形
 * ObjectAnimator 对应objectAnimator标签。创建静态SVG图形需要的动画
-* AnimatedVectorDrawable 对应animated-vector标签画。谷歌工程师把AnimatedVectorDrawable比喻为一个胶水，通过AnimatedVectorDrawable来连接静态的VectorDrawable和动态的objectAnimator
+* AnimatedVectorDrawable 对应animated-vector标签。谷歌工程师把AnimatedVectorDrawable比喻为一个胶水，通过AnimatedVectorDrawable来连接静态的VectorDrawable和动态的objectAnimator
     
 标准模板如下所示，animated-vector和vector放drawable目录下，objectAnimator放animator目录下。
 
