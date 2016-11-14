@@ -87,8 +87,7 @@ super.onCreate(savedInstanceState);
 setContentView(R.layout.activity_main);
 
 View decorView = getWindow().getDecorView();
-int option = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-        | View.SYSTEM_UI_FLAG_FULLSCREEN;
+int option = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
 decorView.setSystemUiVisibility(option);
 ActionBar actionBar = getSupportActionBar();
 actionBar.hide();
@@ -103,11 +102,9 @@ setContentView(R.layout.activity_main);
 if (Build.VERSION.SDK_INT >= 21) {
     View decorView = getWindow().getDecorView();
     int option = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
             | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
     decorView.setSystemUiVisibility(option);
     getWindow().setNavigationBarColor(Color.TRANSPARENT);
-    getWindow().setStatusBarColor(Color.TRANSPARENT);
 }
 ActionBar actionBar = getSupportActionBar();
 actionBar.hide();
@@ -164,32 +161,44 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int INITIAL_DELAY = 1500;
     private View mDecorView;
-    private ActionBar mActionBar;
     private View mContentView;
+    private ActionBar mActionBar;
+    private GestureDetector mGestureDetector;
+    
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             hideSystemUI();
         }
     };
-    private GestureDetector gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener(){
-        @Override
-        public boolean onSingleTapUp(MotionEvent e) {
-            if ((mDecorView.getSystemUiVisibility() & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0){
-                hideSystemUI();
-            }else {
-                showSystemUI();
-            }
-            return true;
-        }
-    });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDecorView = getWindow().getDecorView();
         mContentView = LayoutInflater.from(this).inflate(R.layout.activity_immersive, null);
-        setContentView(mContentView);
+        setContentView(contentView);
+        mDecorView = getWindow().getDecorView();
+
+        mGestureDetector = new GestureDetector(ImmersiveActivity.this, new GestureDetector.SimpleOnGestureListener(){
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
+                if ((mDecorView.getSystemUiVisibility() & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0){
+                    hideSystemUI();
+                }else {
+                    showSystemUI();
+                }
+                return true;
+            }
+        });
+
+        mContentView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                mGestureDetector.onTouchEvent(event);
+                return true;
+            }
+        });
+
         mDecorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
             @Override
             public void onSystemUiVisibilityChange(int visibility) {
@@ -202,15 +211,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        mContentView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                gestureDetector.onTouchEvent(event);
-                return true;
-            }
-        });
+
         mActionBar = getSupportActionBar();
         mActionBar.setShowHideAnimationEnabled(true);
+    
         showSystemUI();
     }
 
@@ -866,28 +870,66 @@ app:layout_collapseMode 属性以控制TooBar的折叠效果。
 
 ## SearchView
 
-放在ToolBar同级，与ToolBar互为兄弟View。
+在menu/xxxx.xml的菜单布局文件将SearchView以菜单条目的方式加入到ToolBar中
+```
+<item
+    android:id="@+id/action_search"
+    android:title="@String/action_search"
+    android:icon="@drawable/ic_action_search"
+    app:showAsAction="ifRoom|collapseActionView"
+    app:actionViewClass="android.support.v7.widget.SearchView" />
+```
 
 ```
-private void initSearchView() {
-    final SearchView searchView = (SearchView) mToolbar.getMenu()
-            .findItem(R.id.menu_search).getActionView();
-    searchView.setQueryHint("搜索…");
+@Override
+public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.menu_test, menu);
+    MenuItem menuItem = menu.findItem(R.id.action_search);
+        
+    // 设置打开关闭动作监听，一般不用设置
+    MenuItemCompat.setOnActionExpandListener(menuItem, new MenuItemCompat.OnActionExpandListener() {
+        @Override
+        public boolean onMenuItemActionExpand(MenuItem item) {
+            Toast.makeText(MainActivity.this, "Expand", Toast.LENGTH_LONG).show();
+            return true;
+        }
+        @Override
+        public boolean onMenuItemActionCollapse(MenuItem item) {
+            Toast.makeText(MainActivity.this, "Collapse", Toast.LENGTH_LONG).show();
+            return true;
+        }
+    });
+        
+    // 设置menuItem点击动作监听，一般不用设置
+    menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            Toast.makeText(MainActivity.this, "Click", Toast.LENGTH_LONG).show();
+            return true;
+        }
+    });
+
+    // SearchView相关操作，必要
+    SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+    searchView.setQueryHint("搜索...");
     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
         @Override
         public boolean onQueryTextSubmit(String query) {
-            showToast("query=" + query);
+            Toast.makeText(MainActivity.this, "query: " + query, Toast.LENGTH_LONG).show();
             return false;
         }
+
         @Override
-        public boolean onQueryTextChange(String s) {
-            LogUtil.d("onQueryTextChange=" + s);
-            // UserFeedback.show( "SearchOnQueryTextChanged: " + s);
+        public boolean onQueryTextChange(String newText) {
+            Toast.makeText(MainActivity.this, "newText: " + newText, Toast.LENGTH_LONG).show();
             return false;
         }
     });
+        
+    return super.onCreateOptionsMenu(menu);
 }
 ```
+至此，其实就已经实现了一个基础的搜索功能。但是，如果为了能够让自己的应用的某些功能被Android系统的Search功能检索到，我们就需要做更进一步的操作，例如定义Searchable，实现一个SearchableActivity，响应系统的Search行为等等。国内的应用很少会去关注这个功能，这里就不展开了，感兴趣点击下面的链接进一步学习：https://developer.android.com/guide/topics/search/index.html
 
 ----------
 
@@ -1270,7 +1312,7 @@ public class FloatingActionButtonScrollBehavior extends FloatingActionButton.Beh
 
 ## SnackBar
 
-SnackBar通过在屏幕底部展示简洁的信息，为一个操作提供了一个轻量级的反馈，并且在Snackbar中还可以包含一个操作，在同一时间内，仅且只能显示一个Snackbar，它的显示依赖于UI，不像Toast那样可以脱离应用显示。它的用法和Toast很相似，唯一不同的就是它的第一个参数不是传入Context而是传入它所依附的父视图（该父视图会依次向上查找，直到找到DrawerLayout并使用DrawerLayout），但是他比Toast更强大。
+SnackBar通过在屏幕底部展示简洁的信息，为一个操作提供了一个轻量级的反馈，并且在Snackbar中还可以包含一个操作，在同一时间内，仅且只能显示一个Snackbar，它的显示依赖于UI，不像Toast那样可以脱离应用显示。它的用法和Toast很相似，唯一不同的就是它的第一个参数不是传入Context而是传入它所依附的父视图（建议使用CoordinatorLayout或其子View作为父视图传入，但实测传入子View之AppbarLayout会报错，其它好像都行），但是他比Toast更强大。
 
 Snackbar常用方法解析：
 ```
@@ -1282,7 +1324,7 @@ getView() --> 获取 snackbar 视图
 
 Snackbar使用方法：
 ```
-Snackbar.make(mDrawerLayout, "SnackbarClicked", Snackbar.LENGTH_SHORT)
+Snackbar.make(mCoordinatorLayout, "SnackbarClicked", Snackbar.LENGTH_SHORT)
     .setAction("Action", new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -1560,6 +1602,9 @@ xml
         android:layout_height="?actionBarSize"
         android:layout_alignParentBottom="true"
         android:background="@android:color/holo_purple"
+        app:elevation="4dp"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="300dp"
         app:layout_behavior="@string/bottom_sheet_behavior">
 
         <Button
@@ -1593,13 +1638,24 @@ xml
 java
 
 ```
-
 mBottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottom_sheet_layout));
-if (mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
-    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-} else if (mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
-    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-}
+mBottomSheetBehavior.setHideable(true);
+mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+Button button = (Button) findViewById(R.id.btn_bottom_sheet_control);
+button.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        if (mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_HIDDEN) {
+            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        } else {
+            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        }
+    }
+});
+
+// app:behavior_hideable="true"
+// mBottomSheetBehavior.setHideable(true);
+// 以上两句至少设置一句，如果没有设置能够隐藏，setState隐藏会报错
 ```
 
 
