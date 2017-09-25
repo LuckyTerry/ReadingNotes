@@ -298,3 +298,19 @@ public void onCreate(@Nullable Bundle savedInstanceState) {
 
 ```
 
+### 4.因屏幕旋转导致重启时DialogFragment内回调的保存处理
+```
+        Type type = getClass().getGenericSuperclass();
+        if (type instanceof ParameterizedType) {
+            ParameterizedType parameterizedType = (ParameterizedType) type;
+            Class<T> listenerType = (Class<T>) parameterizedType.getActualTypeArguments()[0];
+            if (listenerType.isInstance(getTargetFragment())) {
+                mDialogListener = listenerType.cast(getTargetFragment());
+            } else if (listenerType.isInstance(getParentFragment())) {
+                mDialogListener = listenerType.cast(getParentFragment());
+            } else if (listenerType.isInstance(getActivity())) {
+                mDialogListener = listenerType.cast(getActivity());
+            }
+        }
+```
+
