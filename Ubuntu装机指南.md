@@ -807,7 +807,6 @@ Xauthority，是startx脚本记录文件。Xserver启动时，读文件~/.Xautho
 没有代理的话，软件更新-其他软件-删除无法连接的源。
 
 
-  [9  [7]: http://tieba.baidu.com/p/4897237773
 
 
   [1]: http://www.cnblogs.com/jiayongji/p/5771444.html
@@ -817,8 +816,8 @@ Xauthority，是startx脚本记录文件。Xserver启动时，读文件~/.Xautho
   [5]: http://www.afox.cc/archives/83
   [6]: http://tieba.baidu.com/p/3053319181
   [7]: http://blog.sina.com.cn/s/blog_6d0cbb0301019egu.html
-  [8]: http://blog.csdn.net/lj779323436/article/details/52649068
+  [8]: http://tieba.baidu.com/p/4897237773
   [9]: https://www.zybuluo.com/cmd/
   [10]: http://sqlitebrowser.org/
-  [11cle/details/52649068
+  [11]:http://blog.csdn.net/lj779323436/article/details/52649068
   [9]: https://www.zybuluo.com/cmd/
