@@ -4,6 +4,10 @@
 
 ---
 
+## 第一次启动的时候
+
+    不要设置代理
+
 ## 无法安装软件，无法调试
 
     DELETE_FAILED_INTERNAL_ERROR 
