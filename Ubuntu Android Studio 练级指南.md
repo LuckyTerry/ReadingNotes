@@ -52,6 +52,10 @@ File->settings->Buil,Execution,Deployment->Instant Run->Disable it.
     export XMODIFIERS=@im=fcitx
     export QT_IM_MODULE=fcitx
 
+## Proxy无效时
+
+AS-setting中关闭SS代理，不使用代理。（怎么会这样呢？）
+
 
   [1]: https://stackoverflow.com/questions/38892270/delete-failed-internal-error-error-while-installing-apk/43063569
   [2]: https://confluence.jetbrains.com/display/IDEADEV/Inotify+Watches+Limit

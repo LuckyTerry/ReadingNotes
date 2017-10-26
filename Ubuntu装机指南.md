@@ -916,6 +916,9 @@ enter the license（sublime_text_3_build_3143_x64_注册码，亲测有效）
     export PATH=$PATH:${ANDROID_HOME}/platform-tools
     export PATH=$PATH:${ANDROID_HOME}/tools
     
+    使在当前terminal下生效
+    source /etc/profile
+    
     验证
     adb -version
 
@@ -1075,6 +1078,34 @@ Xauthority，是startx脚本记录文件。Xserver启动时，读文件~/.Xautho
 
 ## 其它
 
+## Ubuntu三种级别的环境变量配置
+
+### 临时变量，即在退出terminal后便会失效。
+
+    export PATH=${PATH}
+
+### 单一用户变量，相当于windows的“用户变量”
+
+    sudo vim ~/.bashrc
+
+### 系统变量，相当于windows的”系统变量”–提示千万别修改环境变量！
+
+    sudo vim /etc/environment
+    
+### Tip：Ubuntu修改了environment无法进入系统
+
+按ctrl+alt+F1进入命令提示符模式，输入用户名和密码
+
+编辑/etc/environment
+
+    /usr/bin/sudo /usr/bin/vim /etc/environment
+    
+修改成初始值
+
+    PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+    
+重启即可
+
 ## 填坑之路
 
 ### sudo apt-get update 相关
@@ -1129,10 +1160,6 @@ Ubuntu桌面环境下，遇到的大部分情况可能就是Compiz配置出了�
 命令：xkill
 点击相应的行，设置键盘快捷键ctrl + shift + x（不重复就行，用完删了最好）
 按下设置的快捷键，将变成“X”的光标点击无响应的软件即可。
-
-## Proxy无效时
-
-AS-setting中关闭SS代理，不使用代理。（怎么会这样呢？）
 
 
   [1]: http://blog.csdn.net/enjoy5512/article/details/53137918
