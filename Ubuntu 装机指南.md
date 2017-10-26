@@ -1,4 +1,4 @@
-﻿# Ubuntu装机指南
+﻿# Ubuntu 装机指南
 
 [TOC]
 
@@ -69,17 +69,17 @@
     
     mv a.txt /b/c.txt（移动一个文件到指定目录，并改变文件名）
     
-    tar -zxvf *.tar.gz（解压 tar.gz格式的文件）
+    sudo tar -zxvf *.tar.gz（解压 tar.gz格式的文件）
     
-    tar -zxvf *.tar.gz -C 指定目录名（解压 tar.gz格式的文件到指定目录）
+    sudo tar -zxvf *.tar.gz -C 指定目录名（解压 tar.gz格式的文件到指定目录）
     
-    unzip -d 指定目录名 *.zip（解压 .zip格式的文件到指定目录）
+    sudo unzip -d 指定目录名 *.zip（解压 .zip格式的文件到指定目录）
     
-    chmod +x *.sh 这个命令是为sh文件增加可执行权限
+    sudo chmod +x *.sh 这个命令是为sh文件增加可执行权限
     
-    chmod -R 777 *.*  对当前目录下的所有子目录和子文件进行777权限的变更
+    sudo chmod -R 777 *.*  对当前目录下的所有子目录和子文件进行777权限的变更
     
-    chmod -R 777 /opt/*（对opt目录下的所有子目录和子文件进行777权限的变更）
+    sudo chmod -R 777 /opt/*（对opt目录下的所有子目录和子文件进行777权限的变更）
     
     sudo apt-get purge remove xxx
     sudo apt-get --purge remove xxx（移除应用，移除配置，保留依赖包）
@@ -102,17 +102,19 @@
     
     sudo passwd -l root //清除root密码
     
-## 安装vim
+## vim
 
-安装
+### 安装
 
     sudo apt-get install vim
     
-美化-->
+### 美化-->
 
-帮助-->[传送门][2]
+### 常用命令
 
-## 设置鼠标灵敏度
+### 帮助-->[传送门][2]
+
+## mouse
 
 ### xinput命令
 
@@ -229,134 +231,6 @@ systemctl start /etc/systemd/system/shadowsocks.service
 备注 Shadowsocks-Qt5
 ```
 
-## 移动Unity所处位置
-安装 Unity Tweak Tool 图形界面工具之后在 「Unity」-「启动器」-「外观」-「Position」中进行配置
-
-或者
-
-    gsettings set com.canonical.Unity.Launcher launcher-position Bottom
-
-
-## 点击图标最小化
-安装 Unity Tweak Tool 图形界面工具之后在 「Unity」-「Launcher」-「Minimise」中进行配置
-
-或者 
-
-    gsettings set org.compiz.unityshell:/org/compiz/profiles/unity/plugins/unityshell/ launcher-minimize-window true
-
-## 搜狗输入法
-输入法需要直接从官网上下载，因此在连上网络之后直接使用Firefox下载安装Sogou Input。安装完成之后重启一下，再右上角按钮第一个（一般来说）是输入法。这时候fcitx输入法管理器已经自动安装，菜单中的设置打开fcitx设置界面，加号添加输入法，先取消了Only Show Current Language，然后拉列表到最下找Sogou Input添加。最后设置一下熟悉的切换键位就好。添加成功之后输入法的设置会改为默认使用Sogou的设置，想再打开fcitx的设置需要再Sogou的设置中高级中最下方找。建议切换键位通过fcitx修改，选择会比较多。
-
-先删除ibus,否则某些第三方软件无法输入中文
-
-    sudo apt-get remove ibus
-    
-查看是否安装了 fcitx，libssh2-1 依赖
-
-    dpkg -l | grep fcitx
-    dpkg -l | grep libssh
-    
-若未安装，进行安装
-
-    sudo apt-get install fcitx libssh2-1
-    
-下载最新deb[官网][7]
-
-安装搜狗输入法
-
-    sudo dpkg -i sogoupinyin_2.1.0.0086_amd64.deb
-    
-若出现依赖问题先修复依赖，再运行上面的安装命令
-
-    sudo apt-get upgrade -f
-    
-设置系统的键盘输入方式为fcitx
-
-    系统设置>语言支持>键盘输入方式系统，然后选择 fcitx 项
-    
-fcitx配置中选择sougo输入法
-
-    状态栏点击“键盘”>配置Fcitx>左下角添加>取消勾选“仅显示当前语言”>在列表中选择“搜狗输入法”
-    
-
-## 安装中文字体
-
-## 安装flash Player
-
-    sudo apt-get update
-    sudo apt-get install flashplugin-installer
-
-## 安装git
-
-### apt安装（方便，但是不是最新版）
-
-安装
-
-    sudo apt-get install git
-    
-全局配置
-
-    git config --global user.name "YOUR NAME"
-    git config --global user.email "YOUR EMAIL ADDRESS"
-    
-生成key
-
-    ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
-    
-查看key（位于/home/terry/.ssh/id_rsa.pub）
-
-    cat /home/terry/.ssh/id_rsa.pub
-    
-### 下载Git源码编译安装
-
-下载源代码
-
-    https://github.com/git/git
-    
-make编译
-
-    sudo apt-get install openssl  
-    sudo apt-get install libssl-dev build-essential zlibc zlib-bin libidn11-dev libidn11  
-    sudo apt-get install libcurl4-gnutls-dev  
-    sudo apt-get install libexpat1-dev  
-    make prefix=/usr/local all  
-    sudo make prefix=/usr/local install  
-    
-其中/usr/local是编译安装后的位置，如果想要更改，则需在/etc/enviroment中添加或其他环境变量配置文件中添加即可,添加完之后，执行 source environment 命令。
-
-安装过程中可能会出现如下问题：openssl/ssl.h 没有那个文件或目录
-只要执行这个命令`sudo apt-get install libssl-dev `，重新执行上面命令即可。
-
-### 配置SS代理（若需要）
-
-    git config --global http.proxy 'socks5://127.0.0.1:1080' 
-    git config --global https.proxy 'socks5://127.0.0.1:1080'
-    
-## 安装svn
-
-安装
-
-    sudo apt-get install subversion  
-    
-帮助
-
-    svn help
-    
-## 配置 python
-
-    sudo apt-get install python-<lib>
-    
-这里列举每次必安装的库：numpy, scipy, h5py, matplotlib
-
-    sudo apt-get install python-numpy python-scipy python-h5py
-
-对于matplotlib，先安装依赖的库
-
-    sudo apt-get install libpng-dev
-    sudo apt-get install python-matplotlib
-
-安装完成后进入python并逐个import即可验证安装。
-
 ## 终端走SS代理
 
 ### 安装proxychains
@@ -409,6 +283,33 @@ make编译
     curl https://www.youtube.com/
     
 如果有响应，则全局代理配置成功。
+
+## Unity Tweak Tool 图形界面工具
+
+### 软件商店安装
+
+    搜索 Unity Tweak Tool 安装即可
+
+### apt安装
+
+    sudo apt-get install unity-tweak-tool 
+    
+### 界面配置指南
+
+#### 移动Unity所处位置
+
+    「Unity」-「启动器」-「外观」-「Position」中进行配置
+    或者
+    gsettings set com.canonical.Unity.Launcher launcher-position Bottom
+
+
+#### 点击图标最小化
+
+    「Unity」-「Launcher」-「Minimise」中进行配置
+    或者 
+    gsettings set org.compiz.unityshell:/org/compiz/profiles/unity/plugins/unityshell/ launcher-minimize-window true
+
+#### 热区设置
 
 ## 主题设置
 软件中心安装Unity Tweak Tool，进入Theme，一般我个人将主题换为Radiance，图标换为Ubuntu-mono-light。
@@ -545,7 +446,7 @@ cd
 
 ### 卸载字体
 
-## 安装indicator-sysmonitor
+## indicator-sysmonitor
 
 添加源
 
@@ -569,18 +470,49 @@ cd
     General--勾选 Run on startup 
     Advanced--Customize output--输入 CPU: {cpu} 内存: {mem} 网络: {net}
 
-## 删除libreoffice
+## flash Player
 
-    sudo apt-get remove libreoffice-common 
+    sudo apt-get update
+    sudo apt-get install flashplugin-installer
+    
+## 中文字体
 
-## 删除Amazon的链接
+## 搜狗输入法
+输入法需要直接从官网上下载，因此在连上网络之后直接使用Firefox下载安装Sogou Input。安装完成之后重启一下，再右上角按钮第一个（一般来说）是输入法。这时候fcitx输入法管理器已经自动安装，菜单中的设置打开fcitx设置界面，加号添加输入法，先取消了Only Show Current Language，然后拉列表到最下找Sogou Input添加。最后设置一下熟悉的切换键位就好。添加成功之后输入法的设置会改为默认使用Sogou的设置，想再打开fcitx的设置需要再Sogou的设置中高级中最下方找。建议切换键位通过fcitx修改，选择会比较多。
 
-    sudo apt-get remove unity-webapps-common 
+先删除ibus,否则某些第三方软件无法输入中文
 
-## 删掉基本不用的自带软件
+    sudo apt-get remove ibus
+    
+查看是否安装了 fcitx，libssh2-1 依赖
 
-    sudo apt-get remove thunderbird totem rhythmbox empathy brasero simple-scan gnome-mahjongg aisleriot gnome-mines cheese transmission-common gnome-orca webbrowser-app gnome-sudoku  landscape-client-ui-install 
-    sudo apt-get remove onboard deja-dup 
+    dpkg -l | grep fcitx
+    dpkg -l | grep libssh
+    
+若未安装，进行安装
+
+    sudo apt-get install fcitx libssh2-1
+    
+下载最新deb[官网][7]
+
+安装搜狗输入法
+
+    sudo dpkg -i sogoupinyin_2.1.0.0086_amd64.deb
+    
+若出现依赖问题先修复依赖，再运行上面的安装命令
+
+    sudo apt-get upgrade -f
+    
+设置系统的键盘输入方式为fcitx
+
+    系统设置>语言支持>键盘输入方式系统，然后选择 fcitx 项
+    
+fcitx配置中选择sougo输入法
+
+    状态栏点击“键盘”>配置Fcitx>左下角添加>取消勾选“仅显示当前语言”>在列表中选择“搜狗输入法”
+    然后删除多余输入法，仅保留“键盘-汉语”和“搜狗输入法”两种输入法即可。
+    
+ReLogin 或 Reboot 即可。
 
 ## Chrome
 
@@ -628,32 +560,6 @@ cd
 ## WPS Office
 
     sudo apt-get -i wps-office_10.1.0.5672-a21_amd64.deb
-
-## 微信
-
-下载对应自己系统的wechat链接
-
-    https://github.com/geeeeeeeeek/electronic-wechat/releases
-    
-解压到指定目录
-
-     sudo tar -xzvf Linux-x64.tar.gz -C /opt
-     
-为了方便起见，把解压的文件夹重命名为wechat
-
-下载一个微信的png图片直接放进去，为美观的话最好选择微信图标然后透明背景
-
-设置快捷启动
-
-    sudo vim /usr/share/applications/wechat.desktop 
-    
-    [Desktop Entry]
-    Name=WeChat
-    Comment=wechat
-    Exec=/opt/wechat/electronic-wechat
-    Icon=/opt/wechat/wechat.png
-    Terminal=false
-    Type=Application
     
 ## Crossover
 
@@ -687,39 +593,48 @@ cd
 
     底部点击“安装Windows软件”
 
-## 搜狗输入法
+## 微信
 
-搜狗安装需要先删除ibus,否则某些第三方软件无法输入中文
+### deb安装
 
-    sudo apt-get remove ibus
+下载对应自己系统的wechat链接
+
+    https://github.com/geeeeeeeeek/electronic-wechat/releases
     
-查看是否安装了fcitx，libssh2-1依赖
+解压到指定目录
 
-    dpkg -l | grep fcitx
-    dpkg -l | grep libssh
+     sudo tar -xzvf Linux-x64.tar.gz -C /opt
+     
+更名：进入/opt目录
+
+    sudo mv *wechat* wechat
     
-若未安装，则进行安装
+拷入wechat.png
 
-    sudo apt-get install fcitx libssh2-1
+    sudo cp wechat.png /opt/wechat
 
-安装搜狗输入法
+添加快捷方式
 
-    sudo dpkg -i sogoupinyin_2.0.0.0078_amd64.deb
+    sudo vim /usr/share/applications/wechat.desktop 
     
-    apt-get install -f // 若依赖缺失，用该命令解决
+    #添加以下文字
+    [Desktop Entry]
+    Name=WeChat
+    Comment=wechat
+    Exec=/opt/wechat/electronic-wechat
+    Icon=/opt/wechat/wechat.png
+    Terminal=false
+    Type=Application
     
-系统设置>语言支持>键盘输入方式系统，然后选择 fcitx 项。
-
-若语言未安装完全，会有提示，此处要根据提示进行安装。
-
-在Fcitx设置的Input Method选显卡中记得添加Sogou Pinyin。
-
-在Android Studio等第三方软件上无法切换到搜狗输入法，将以下内容，添加到androidstudo/bin，studio.sh的第2行即可
-
-    export XMODIFIERS=@im=fcitx
-    export QT_IM_MODULE=fcitx
-
+    添加执行权限
+    sudo chmod +x /usr/share/applications/wechat.desktop
+    
+    打开applications文件夹，把wechat.desktop文件拖动到Launcher条上
+    sudo nautilus /usr/share/applications
+    
 ## 网易云音乐
+
+### deb安装
 
 修复依赖
 
@@ -731,35 +646,175 @@ cd
 
 ## FoxitReader
 
-进入下载文件所在目录
+### tar.gz安装
 
-    cd /tmp
-
-使用一下命令解压可执行文件
-
-    gzip -d ''
-
-使用一下命令对.tar文件进行解包
-
-    tar vxf ''
-
-使用以下命令安装程序
-
-    ./'.run'
+进入下载文件所在目录，右键提取到此处，双击.run执行安装即可。
 
 ## 下载工具
 
+### Deluge
+
+软件商店搜索下载即可
+
+### qBittorrent
+
+软件商店搜索下载即可
+    
+### Transmission
+
+系统已自带
+
+### axel
+
+### uGet
+
+#### 安装uGet
+
+添加uGet源
+
+    sudo add-apt-repository ppa:plushuang-tw/uget-stable
+
+更新
+
+    sudo apt-get update
+    
+安装uget
+
+    sudo apt-get install uget
+    
+#### 安装aria2
+    
+添加aria2源
+
+    sudo add-apt-repository ppa:t-tujikawa/ppa
+
+更新
+
+    sudo apt-get update
+    
+安装aria2
+
+    sudo apt-get install aria2
+    
+配置uGet默认下载插件为aria2
+
+    编辑->设置->插件->插件匹配顺序->选择aria2
+    
+#### 安装uget-chrome-wrapper
+
+添加uget-chrome-wrapper源
+
+    sudo add-apt-repository ppa:slgobinath/uget-chrome-wrapper
+    
+更新
+
+    sudo apt update
+    
+安装
+
+    sudo apt install uget-chrome-wrapper
+    
+#### 安装Chrome插件[传送门][11]
+    
+添加uGet扩展后，谷歌浏览器右上角即可显示uGet图标。重启谷歌浏览器，只要点击下载链接，就会自动弹出uGet下载界面、自动添加下载任务。
+
+## 删除libreoffice
+
+    sudo apt-get remove libreoffice-common 
+
+## 删除Amazon的链接
+
+    sudo apt-get remove unity-webapps-common 
+
+## 删掉基本不用的自带软件
+
+    sudo apt-get remove thunderbird totem rhythmbox empathy brasero simple-scan gnome-mahjongg aisleriot gnome-mines cheese transmission-common gnome-orca webbrowser-app gnome-sudoku  landscape-client-ui-install 
+    sudo apt-get remove onboard deja-dup 
+
+## git
+
+### apt安装（方便，但是不是最新版）
+
+安装
+
+    sudo apt-get install git
+    
+全局配置
+
+    git config --global user.name "YOUR NAME"
+    git config --global user.email "YOUR EMAIL ADDRESS"
+    
+生成key
+
+    ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+    
+查看key（位于/home/terry/.ssh/id_rsa.pub）
+
+    cat /home/terry/.ssh/id_rsa.pub
+    
+### 下载Git源码编译安装
+
+下载源代码
+
+    https://github.com/git/git
+    
+make编译
+
+    sudo apt-get install openssl  
+    sudo apt-get install libssl-dev build-essential zlibc zlib-bin libidn11-dev libidn11  
+    sudo apt-get install libcurl4-gnutls-dev  
+    sudo apt-get install libexpat1-dev  
+    make prefix=/usr/local all  
+    sudo make prefix=/usr/local install  
+    
+其中/usr/local是编译安装后的位置，如果想要更改，则需在/etc/enviroment中添加或其他环境变量配置文件中添加即可,添加完之后，执行 source environment 命令。
+
+安装过程中可能会出现如下问题：openssl/ssl.h 没有那个文件或目录
+只要执行这个命令`sudo apt-get install libssl-dev `，重新执行上面命令即可。
+
+### 配置SS代理（若需要）
+
+    git config --global http.proxy 'socks5://127.0.0.1:1080' 
+    git config --global https.proxy 'socks5://127.0.0.1:1080'
+    
+## svn
+
+### apt安装
+
+安装
+
+    sudo apt-get install subversion  
+    
+帮助
+
+    svn help
+    
+## python
+
+    sudo apt-get install python-<lib>
+    
+这里列举每次必安装的库：numpy, scipy, h5py, matplotlib
+
+    sudo apt-get install python-numpy python-scipy python-h5py
+
+对于matplotlib，先安装依赖的库
+
+    sudo apt-get install libpng-dev
+    sudo apt-get install python-matplotlib
+
+安装完成后进入python并逐个import即可验证安装。
+
 ## Java
+
+### tar.gz安装
 
 验证Java是否安装
 
     java -version
 
-下载最新JDK
-
-    http://www.oracle.com/technetwork/java/javase/downloads/
+[官网][12]下载最新JDK
     
-创建Java文件
+创建Java文件夹
 
     sudo mkdir /opt/java
 
@@ -802,74 +857,6 @@ intellij对路径的识别只支持三个路径，所以，要把JDK安装在这
     java -version
     java  
     javac
-
-## Sublime Text
-
-### apt安装
-
-添加GPG key
-
-    wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
-    
-Ensure apt is set up to work with https sources:
-
-    sudo apt-get install apt-transport-https
-    
-Select the channel to use
-
-    Stable
-    echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
-    
-    Dev
-    echo "deb https://download.sublimetext.com/ apt/dev/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
-    
-Update apt sources
-
-    sudo apt-get update
-
-install Sublime Text
-    
-    sudo apt-get install sublime-text
-    
-enter the license（sublime_text_3_build_3143_x64_注册码，亲测有效）
-
-    —– BEGIN LICENSE —–
-    TwitterInc
-    200 User License
-    EA7E-890007
-    1D77F72E 390CDD93 4DCBA022 FAF60790
-    61AA12C0 A37081C5 D0316412 4584D136
-    94D7F7D4 95BC8C1C 527DA828 560BB037
-    D1EDDD8C AE7B379F 50C9D69D B35179EF
-    2FE898C4 8E4277A8 555CE714 E1FB0E43
-    D5D52613 C3D12E98 BC49967F 7652EED2
-    9D2D2E61 67610860 6D338B72 5CF95C69
-    E36B85CC 84991F19 7575D828 470A92AB
-    —— END LICENSE ——
-
-### deb安装
-
-更新源
-
-    sudo apt-get update
-    
-依赖
-
-    sudo apt-get install -f
-    
-安装
-
-    sudo dpkg -i *.deb
-
-## Visual Studio Code
-
-### apt安装
-
-    此处输入代码
-
-### 软件商店安装
-
-    搜索Visual Studio Code，点击安装即可
 
 ## Android Studio
 
@@ -996,19 +983,281 @@ Cannot run program"android-sdk-linux/aapt.exe":error-2,没有那个文件或目�
 
 ## IntelliJ IDEA
 
-## WebStorm
+### tar.gz安装
 
+[官网][13]下载最新Ultimate版本
+
+解压
+
+    sudo tar -zxvf *.tar.gz -C /opt
+    
+修改文件夹名
+
+    sudo mv idea-IU-* idea-IU
+
+安装
+
+    cd /opt/idea-IU/bin
+    输入 ./idea.sh 启动向导界面 
+
+破解激活，详见[出处][14]
+
+    选择License server项，填入下面任一地址：
+    http://intellij.mandroid.cn/
+    http://idea.imsxm.com/
+    http://idea.iteblog.com/key.php
+    点击Activate即可
+
+添加快捷方式
+
+    sudo vim /usr/share/applications/intellij-idea.desktop
+    
+    将下面的内容粘贴到 intellij-idea.desktop 文件中：
+    [Desktop Entry]
+    Name=IntelliJ IDEA
+    Exec=/opt/idea-IU/bin/idea.sh
+    Comment=IntelliJ IDEA
+    Icon=/opt/idea-IU/bin/idea.png
+    Type=Application
+    Terminal=false
+    Encoding=UTF-8
+    
+    添加执行权限
+    sudo chmod +x /usr/share/applications/intellij-idea.desktop
+    
+    添加Launcher快捷方式，桌面快捷方式
+    sudo nautilus /usr/share/applications 拖动快捷方式到Launcher或桌面
+    或 轻触Super键盘打开Dash，拖动快捷方式到Launcher或桌面
+
+## Webstorm
+
+### tar.gz安装
+
+[官网][15]下载最新版本  
+
+解压
+
+    sudo tar -zxvf *.tar.gz -C /opt
+    
+修改文件夹名
+
+    sudo mv WebStorm-* WebStorm
+
+安装
+
+    cd /opt/WebStorm/bin 
+    输入 ./webstorm.sh 启动向导界面 
+    
+破解激活
+
+    选择License server项，填入以下地址：
+    http://idea.iteblog.com/key.php
+    点击Activate即可
+
+添加快捷方式
+
+    sudo vim /usr/share/applications/webstorm.desktop
+    
+    将下面的内容粘贴到 webstorm.desktop 文件中：
+    [Desktop Entry]
+    Categories=Development;
+    Comment[zh_CN]=
+    Comment=
+    Exec=/opt/WebStorm/bin/webstorm.sh
+    GenericName[zh_CN]=IDE
+    GenericName=IDE
+    Icon=/opt/WebStorm/bin/webstorm.svg
+    MimeType=
+    Name[zh_CN]=WebStorm
+    Name=WebStorm
+    Path=
+    StartupNotify=true
+    Terminal=false
+    Type=Application
+    X-DBUS-ServiceName=
+    X-DBUS-StartupType=
+    X-KDE-SubstituteUID=false
+    X-KDE-Username=owen
+    
+    添加执行权限
+    sudo chmod +x /usr/share/applications/webstorm.desktop
+    
+    添加Launcher快捷方式，桌面快捷方式
+    sudo nautilus /usr/share/applications 拖动快捷方式到Launcher或桌面
+    或 轻触Super键盘打开Dash，拖动快捷方式到Launcher或桌面
+
+## Visual Studio Code
+
+### apt安装
+
+    #安装 Ubuntu Make
+    sudo add-apt-repository ppa:ubuntu-desktop/ubuntu-make
+    sudo apt-get update
+    sudo apt-get install ubuntu-make
+    #安装 Visual Studio Code
+    umake web visual-studio-code
+    #卸载 Visual Studio Code
+    umake web visual-studio-code --remove
+
+### 软件商店安装
+
+    搜索Visual Studio Code，点击安装即可
+    
 ## Eclipse
 
-### 商店安装
+### 软件商店安装
 
-    搜索Eclipse，点击安装即可
+    搜索Eclipse，点击安装即可，可能不是最新版
+    
+### tar.gz安装
+
+[官网][16]下载最新 Eclipse IDE for Java Developers 版本
+
+解压
+
+    sudo tar -zxvf eclipse-*.tar.gz -C /opt
+
+运行
+
+    双击eclipse运行即可，Workspace选择默认（/home/terry/eclipse-workspace）即可。
+    
+添加快捷方式
+
+    sudo vim /usr/share/applications/eclipse.desktop
+    
+    将下面的内容粘贴到 eclipse.desktop 文件中：
+    [Desktop Entry]
+    Encoding=UTF-8
+    Name=Eclipse
+    Comment=Eclipse IDE
+    Exec=/opt/eclipse/eclipse
+    Icon=/opt/eclipse/icon.xpm
+    Terminal=false
+    StartupNotify=true
+    Type=Application
+    Categories=Application;Development;
+    
+    添加执行权限
+    sudo chmod +x /usr/share/applications/eclipse.desktop
+    
+    添加Launcher快捷方式，桌面快捷方式
+    sudo nautilus /usr/share/applications 拖动快捷方式到Launcher或桌面
+    或 轻触Super键盘打开Dash，拖动快捷方式到Launcher或桌面
+
+## Sublime Text
+
+### apt安装
+
+添加GPG key
+
+    wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+    
+Ensure apt is set up to work with https sources:
+
+    sudo apt-get install apt-transport-https
+    
+Select the channel to use
+
+    Stable
+    echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+    
+    Dev
+    echo "deb https://download.sublimetext.com/ apt/dev/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+    
+Update apt sources
+
+    sudo apt-get update
+
+install Sublime Text
+    
+    sudo apt-get install sublime-text
+    
+enter the license（sublime_text_3_build_3143_x64_注册码，亲测有效）
+
+    —– BEGIN LICENSE —–
+    TwitterInc
+    200 User License
+    EA7E-890007
+    1D77F72E 390CDD93 4DCBA022 FAF60790
+    61AA12C0 A37081C5 D0316412 4584D136
+    94D7F7D4 95BC8C1C 527DA828 560BB037
+    D1EDDD8C AE7B379F 50C9D69D B35179EF
+    2FE898C4 8E4277A8 555CE714 E1FB0E43
+    D5D52613 C3D12E98 BC49967F 7652EED2
+    9D2D2E61 67610860 6D338B72 5CF95C69
+    E36B85CC 84991F19 7575D828 470A92AB
+    —— END LICENSE ——
+
+### deb安装
+
+更新源
+
+    sudo apt-get update
+    
+依赖
+
+    sudo apt-get install -f
+    
+安装
+
+    sudo dpkg -i *.deb
 
 ## Markdown
 
-### CMD Markdown
+### Cmd Markdown
 
-[官网][11]下载最新版本
+[官网][17]下载最新版本
+
+### Remarkable
+
+[官网][18]下载最新版本
+
+安装
+
+    sudo dpkg -i remark*
+
+若出现依赖问题，解决依赖后再执行上面的命令
+
+    sudo apt-get install -f
+    
+### Moeditor
+
+[Github][19]下载最新版本
+
+安装p7zip
+
+    sudo apt-get install p7zip
+
+解压
+    
+    sudo 7z x *.7z -r -o/opt
+    
+更名
+
+    sudo mv Moeditor-* Moeditor
+
+添加快捷方式
+
+    sudo vim /usr/share/applications/moeditor.desktop
+    
+    将下面的内容粘贴到 moeditor.desktop 文件中：
+    [Desktop Entry]
+    Encoding=UTF-8
+    Name=Moeditor
+    Comment=Moeditor Markdown
+    Exec=/opt/Moeditor/Moeditor
+    Icon=/opt/Moeditor/Moeditor.png
+    Terminal=false
+    StartupNotify=true
+    Type=Application
+    Categories=Application;Development;
+    
+    添加执行权限
+    sudo chmod +x /usr/share/applications/moeditor.desktop
+    
+    添加Launcher快捷方式，桌面快捷方式
+    sudo nautilus /usr/share/applications 拖动快捷方式到Launcher或桌面
+    或 轻触Super键盘打开Dash，拖动快捷方式到Launcher或桌面
 
 ## MySQL工具
 
@@ -1016,7 +1265,7 @@ MySQL_Workbench
 
 emma
 
-## SQLite工具 [官网][12]
+## SQLite工具 [官网][20]
 
 添加源
 
@@ -1034,7 +1283,7 @@ emma
 
 ## 登录界面无限循环
 
-### /etc/profile文件损坏，详见[此处][13]
+### /etc/profile文件损坏，详见[此处][21]
 
 1、在登录时，操作系统定制用户环境时使用的第一个文件就是/etc/profile ，此文件为系统的每个用户设置环境信息，当用户第一次登录时，该文件被执行。
 
@@ -1075,8 +1324,6 @@ Xauthority，是startx脚本记录文件。Xserver启动时，读文件~/.Xautho
     或者 sudo rm .Xauthority
     
 此时拥有者已经变为name。按下shift+ctrl+F7切换回图形登陆界面登陆即可。
-
-## 其它
 
 ## Ubuntu三种级别的环境变量配置
 
@@ -1162,6 +1409,9 @@ Ubuntu桌面环境下，遇到的大部分情况可能就是Compiz配置出了�
 按下设置的快捷键，将变成“X”的光标点击无响应的软件即可。
 
 
+  [13http://sqlitebrowser.org/
+
+
   [1]: http://blog.csdn.net/enjoy5512/article/details/53137918
   [2]: http://www.cnblogs.com/jiayongji/p/5771444.html
   [3]: https://marshal.ohtly.com/2016/12/28/install-shadowsocks-on-ubuntu-16-04-server/
@@ -1172,7 +1422,14 @@ Ubuntu桌面环境下，遇到的大部分情况可能就是Compiz配置出了�
   [8]: http://tieba.baidu.com/p/3053319181
   [9]: http://blog.sina.com.cn/s/blog_6d0cbb0301019egu.html
   [10]: http://tieba.baidu.com/p/4897237773
-  [11]: https://www.zybuluo.com/cmd/
-  [12]: http://sqlitebrowser.org/
-  [13http://sqlitebrowser.org/
-  [12]:http://blog.csdn.net/lj779323436/article/details/52649068
+  [11]: https://chrome.google.com/webstore/detail/uget-integration/efjgjleilhflffpbnkaofpmdnajdpepi?hl=zh-CN
+  [12]: http://www.oracle.com/technetwork/java/javase/downloads/
+  [13]: https://www.jetbrains.com/idea/download/#section=linux
+  [14]: http://blog.csdn.net/u012406177/article/details/72847153
+  [15]: https://www.jetbrains.com/webstorm/download/#section=linux
+  [16]: https://www.eclipse.org/downloads/eclipse-packages/
+  [17]: https://www.zybuluo.com/cmd/
+  [18]: https://remarkableapp.github.io/linux/download.html
+  [19]: https://github.com/Moeditor/Moeditor/releases
+  [20]:http://blog.csdn.net/lj779323436/article/details/52649068
+  [21]:http://blog.csdn.net/lj779323436/article/details/52649068
