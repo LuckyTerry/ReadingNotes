@@ -801,6 +801,24 @@ make编译
 
     svn help
     
+常用命令
+
+    co == checkout
+    up == update
+    ci == commit
+
+    svn co [url] //检出到当前目录
+    svn co [url] [path] //检出到指定目录
+    
+    svn up //更新
+    
+    svn ci //提交
+    在linux中使用命令提交svn时，默认使用的编辑器是nano，大体提交步骤如下：
+    1)、执行svn ci 
+    2)、输入注释
+    3)、ctrl + x
+    4)、输入yes
+    
 ## python
 
     sudo apt-get install python-<lib>
