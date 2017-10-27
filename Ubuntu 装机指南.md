@@ -899,6 +899,18 @@ intellij对路径的识别只支持三个路径，所以，要把JDK安装在这
     java -version
     java  
     javac
+    
+## jd-gui
+
+[官网][14]下载最新版本
+
+安装
+
+    sudo dpkg -i jd-gui*.deb
+    
+若出现依赖问题，解决依赖后再执行上面的命令
+
+    sudo apt-get install -f
 
 ## Android Studio
 
@@ -1027,7 +1039,7 @@ Cannot run program"android-sdk-linux/aapt.exe":error-2,没有那个文件或目�
 
 ### tar.gz安装
 
-[官网][14]下载最新Ultimate版本
+[官网][15]下载最新Ultimate版本
 
 解压
 
@@ -1042,7 +1054,7 @@ Cannot run program"android-sdk-linux/aapt.exe":error-2,没有那个文件或目�
     cd /opt/idea-IU/bin
     输入 ./idea.sh 启动向导界面 
 
-破解激活，详见[出处][15]
+破解激活，详见[出处][16]
 
     选择License server项，填入下面任一地址：
     http://intellij.mandroid.cn/
@@ -1075,7 +1087,7 @@ Cannot run program"android-sdk-linux/aapt.exe":error-2,没有那个文件或目�
 
 ### tar.gz安装
 
-[官网][16]下载最新版本  
+[官网][17]下载最新版本  
 
 解压
 
@@ -1153,7 +1165,7 @@ Cannot run program"android-sdk-linux/aapt.exe":error-2,没有那个文件或目�
     
 ### tar.gz安装
 
-[官网][17]下载最新 Eclipse IDE for Java Developers 版本
+[官网][18]下载最新 Eclipse IDE for Java Developers 版本
 
 解压
 
@@ -1248,11 +1260,11 @@ enter the license（sublime_text_3_build_3143_x64_注册码，亲测有效）
 
 ### Cmd Markdown
 
-[官网][18]下载最新版本
+[官网][19]下载最新版本
 
 ### Remarkable
 
-[官网][19]下载最新版本
+[官网][20]下载最新版本
 
 安装
 
@@ -1264,7 +1276,7 @@ enter the license（sublime_text_3_build_3143_x64_注册码，亲测有效）
     
 ### Moeditor
 
-[Github][20]下载最新版本
+[Github][21]下载最新版本
 
 安装p7zip
 
@@ -1307,7 +1319,7 @@ MySQL_Workbench
 
 emma
 
-## SQLite工具 [官网][21]
+## SQLite工具 [官网][22]
 
 添加源
 
@@ -1325,7 +1337,7 @@ emma
 
 ## 登录界面无限循环
 
-### /etc/profile文件损坏，详见[此处][22]
+### /etc/profile文件损坏，详见[此处][23]
 
 1、在登录时，操作系统定制用户环境时使用的第一个文件就是/etc/profile ，此文件为系统的每个用户设置环境信息，当用户第一次登录时，该文件被执行。
 
@@ -1467,12 +1479,13 @@ Ubuntu桌面环境下，遇到的大部分情况可能就是Compiz配置出了�
   [11]: http://tieba.baidu.com/p/4897237773
   [12]: https://chrome.google.com/webstore/detail/uget-integration/efjgjleilhflffpbnkaofpmdnajdpepi?hl=zh-CN
   [13]: http://www.oracle.com/technetwork/java/javase/downloads/
-  [14]: https://www.jetbrains.com/idea/download/#section=linux
-  [15]: http://blog.csdn.net/u012406177/article/details/72847153
-  [16]: https://www.jetbrains.com/webstorm/download/#section=linux
-  [17]: https://www.eclipse.org/downloads/eclipse-packages/
-  [18]: https://www.zybuluo.com/cmd/
-  [19]: https://remarkableapp.github.io/linux/download.html
-  [20]: https://github.com/Moeditor/Moeditor/releases
-  [21]:http://blog.csdn.net/lj779323436/article/details/52649068
+  [14]: http://jd.benow.ca/
+  [15]: https://www.jetbrains.com/idea/download/#section=linux
+  [16]: http://blog.csdn.net/u012406177/article/details/72847153
+  [17]: https://www.jetbrains.com/webstorm/download/#section=linux
+  [18]: https://www.eclipse.org/downloads/eclipse-packages/
+  [19]: https://www.zybuluo.com/cmd/
+  [20]: https://remarkableapp.github.io/linux/download.html
+  [21]: https://github.com/Moeditor/Moeditor/releases
   [22]:http://blog.csdn.net/lj779323436/article/details/52649068
+  [23]:http://blog.csdn.net/lj779323436/article/details/52649068
