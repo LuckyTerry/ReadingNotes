@@ -489,6 +489,18 @@ cd
     
 ## 中文字体
 
+### 文泉驿-微米黑
+
+    sudo apt-get install ttf-wqy-microhei  
+
+### 文泉驿-正黑
+
+    sudo apt-get install ttf-wqy-zenhei
+
+### 文泉驿-点阵宋体
+
+    sudo apt-get install xfonts-wqy
+
 ## 搜狗输入法
 输入法需要直接从官网上下载，因此在连上网络之后直接使用Firefox下载安装Sogou Input。安装完成之后重启一下，再右上角按钮第一个（一般来说）是输入法。这时候fcitx输入法管理器已经自动安装，菜单中的设置打开fcitx设置界面，加号添加输入法，先取消了Only Show Current Language，然后拉列表到最下找Sogou Input添加。最后设置一下熟悉的切换键位就好。添加成功之后输入法的设置会改为默认使用Sogou的设置，想再打开fcitx的设置需要再Sogou的设置中高级中最下方找。建议切换键位通过fcitx修改，选择会比较多。
 
