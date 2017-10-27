@@ -283,6 +283,15 @@ Refresh on selection 统计当前编辑的.java文件的行数
 3. 补充说明：
 右键 SlideBar 上的 tab 可以 Remove from SlideBar。
 
+## 23. [Alibaba Java Coding Guidelines][24]
+1. 功能
+使用规约来检查代码，并提供修改方案
+
+2. 使用
+代码中变色提示
+
+3. 补充说明
+
 
   [1]: https://plugins.jetbrains.com/plugin/7856?pr=androidstudio
   [2]: http://plugins.jetbrains.com/plugin/7369?pr=androidstudio
@@ -307,3 +316,4 @@ Refresh on selection 统计当前编辑的.java文件的行数
   [21]: https://github.com/hotchemi/PermissionsDispatcher
   [22]: http://plugins.jetbrains.com/plugin/7298?pr=androidstudio
   [23]: https://plugins.jetbrains.com/plugin/4509?pr=androidstudio
+  [24]: https://plugins.jetbrains.com/plugin/10046-alibaba-java-coding-guidelines

@@ -45,7 +45,7 @@
     
     mkdir 目录名（新建一个空目录）
     
-    touch 文件名（新建一个空目录）
+    touch 文件名（新建一个文件）
     
     rmdir 目录名（删除一个空目录）
     
@@ -95,6 +95,18 @@
     sudo add-apt-repository ppa:user/ppa-name（添加PPA源）
     
     sudo add-apt-repository -r ppa:user/ppa-name（删除PPA源）
+    
+## 常用文件夹
+
+部分软件安装在/usr下，里面很多文件夹，根据文件的类型，分门别类，不是一个软件一个文件夹。
+比如“网易云音乐”就安装在/usr/lib/netease-cloud-music
+
+部分软件放在/opt下，则是一个软件统一在一个文件夹下。/opt目录专门是用来给第三方软件放置文件的，比如一些压缩包解压的软件都放在这里。
+比如“Chrome”就应该放在/opt/google/chrome
+
+工作区(workspace)放在/home/terry最好
+
+更多信息请看[传送门][2]
 
 ## 设置root账户密码
 
@@ -112,7 +124,7 @@
 
 ### 常用命令
 
-### 帮助-->[传送门][2]
+### 帮助-->[传送门][3]
 
 ## mouse
 
@@ -178,7 +190,7 @@
     sslocal -c /etc/shadowsocks/terry.json -d restart //重启
     ps -ef|grep sslocal //查看sslocal是否在运行
 
-配置开机启动（实测未成功），可见[此处][3]，[此处][4]，[此处][5]
+配置开机启动（实测未成功），可见[此处][4]，[此处][5]，[此处][6]
 
 ```
 使用Systemd来实现shadowsocks开机自启
@@ -220,7 +232,7 @@ systemctl start /etc/systemd/system/shadowsocks.service
 
     sudo apt-get install shadowsocks-qt5
 
-配置开机启动，详见[出处][6]，配置完成重启即可
+配置开机启动，详见[出处][7]，配置完成重启即可
 
 ```
 终端运行`gnome-session-properties`打开“启动应用程序”
@@ -493,7 +505,7 @@ cd
 
     sudo apt-get install fcitx libssh2-1
     
-下载最新deb[官网][7]
+下载最新deb[官网][10]
 
 安装搜狗输入法
 
@@ -571,7 +583,7 @@ ReLogin 或 Reboot 即可。
 
     sudo dpkg -i crossover_16.2.5-1.deb 
     
-破解，更多详细信息，见[出处][10]
+破解，更多详细信息，见[出处][11]
 
     先下载这个
     https://github.com/redapple0204/my-boring-python/releases/download/005/CodeWeavers.Crossover.15.0.0.with._.for.ubuntu.fedora.linux.zip
@@ -714,7 +726,7 @@ ReLogin 或 Reboot 即可。
 
     sudo apt install uget-chrome-wrapper
     
-#### 安装Chrome插件[传送门][11]
+#### 安装Chrome插件[传送门][12]
     
 添加uGet扩展后，谷歌浏览器右上角即可显示uGet图标。重启谷歌浏览器，只要点击下载链接，就会自动弹出uGet下载界面、自动添加下载任务。
 
@@ -812,7 +824,7 @@ make编译
 
     java -version
 
-[官网][12]下载最新JDK
+[官网][13]下载最新JDK
     
 创建Java文件夹
 
@@ -836,7 +848,7 @@ intellij对路径的识别只支持三个路径，所以，要把JDK安装在这
     在末尾添加以下几行文字（添加错了可能导致无限循环登录）
     #set java environment  
     export JAVA_HOME=/opt/java/jdk1.8.0_152
-    export JRE_HOME=${JAVA_HOME}/jre 
+    export JRE_HOME=${JAVA_HOME}/jre
     export CLASSPATH=.:$CLASSPATH:${JAVA_HOME}/lib:${JRE_HOME}/lib 
     export PATH=$PATH:${JAVA_HOME}/bin:${JRE_HOME}/bin
     
@@ -985,7 +997,7 @@ Cannot run program"android-sdk-linux/aapt.exe":error-2,没有那个文件或目�
 
 ### tar.gz安装
 
-[官网][13]下载最新Ultimate版本
+[官网][14]下载最新Ultimate版本
 
 解压
 
@@ -1000,7 +1012,7 @@ Cannot run program"android-sdk-linux/aapt.exe":error-2,没有那个文件或目�
     cd /opt/idea-IU/bin
     输入 ./idea.sh 启动向导界面 
 
-破解激活，详见[出处][14]
+破解激活，详见[出处][15]
 
     选择License server项，填入下面任一地址：
     http://intellij.mandroid.cn/
@@ -1033,7 +1045,7 @@ Cannot run program"android-sdk-linux/aapt.exe":error-2,没有那个文件或目�
 
 ### tar.gz安装
 
-[官网][15]下载最新版本  
+[官网][16]下载最新版本  
 
 解压
 
@@ -1041,11 +1053,11 @@ Cannot run program"android-sdk-linux/aapt.exe":error-2,没有那个文件或目�
     
 修改文件夹名
 
-    sudo mv WebStorm-* WebStorm
+    sudo mv WebStorm-* webstorm
 
 安装
 
-    cd /opt/WebStorm/bin 
+    cd /opt/webstorm/bin 
     输入 ./webstorm.sh 启动向导界面 
     
 破解激活
@@ -1063,10 +1075,10 @@ Cannot run program"android-sdk-linux/aapt.exe":error-2,没有那个文件或目�
     Categories=Development;
     Comment[zh_CN]=
     Comment=
-    Exec=/opt/WebStorm/bin/webstorm.sh
+    Exec=/opt/webstorm/bin/webstorm.sh
     GenericName[zh_CN]=IDE
     GenericName=IDE
-    Icon=/opt/WebStorm/bin/webstorm.svg
+    Icon=/opt/webstorm/bin/webstorm.svg
     MimeType=
     Name[zh_CN]=WebStorm
     Name=WebStorm
@@ -1111,7 +1123,7 @@ Cannot run program"android-sdk-linux/aapt.exe":error-2,没有那个文件或目�
     
 ### tar.gz安装
 
-[官网][16]下载最新 Eclipse IDE for Java Developers 版本
+[官网][17]下载最新 Eclipse IDE for Java Developers 版本
 
 解压
 
@@ -1206,11 +1218,11 @@ enter the license（sublime_text_3_build_3143_x64_注册码，亲测有效）
 
 ### Cmd Markdown
 
-[官网][17]下载最新版本
+[官网][18]下载最新版本
 
 ### Remarkable
 
-[官网][18]下载最新版本
+[官网][19]下载最新版本
 
 安装
 
@@ -1222,7 +1234,7 @@ enter the license（sublime_text_3_build_3143_x64_注册码，亲测有效）
     
 ### Moeditor
 
-[Github][19]下载最新版本
+[Github][20]下载最新版本
 
 安装p7zip
 
@@ -1265,7 +1277,7 @@ MySQL_Workbench
 
 emma
 
-## SQLite工具 [官网][20]
+## SQLite工具 [官网][21]
 
 添加源
 
@@ -1283,7 +1295,7 @@ emma
 
 ## 登录界面无限循环
 
-### /etc/profile文件损坏，详见[此处][21]
+### /etc/profile文件损坏，详见[此处][22]
 
 1、在登录时，操作系统定制用户环境时使用的第一个文件就是/etc/profile ，此文件为系统的每个用户设置环境信息，当用户第一次登录时，该文件被执行。
 
@@ -1413,23 +1425,24 @@ Ubuntu桌面环境下，遇到的大部分情况可能就是Compiz配置出了�
 
 
   [1]: http://blog.csdn.net/enjoy5512/article/details/53137918
-  [2]: http://www.cnblogs.com/jiayongji/p/5771444.html
-  [3]: https://marshal.ohtly.com/2016/12/28/install-shadowsocks-on-ubuntu-16-04-server/
-  [4]: https://blog.huihut.com/2017/08/25/LinuxInstallConfigShadowsocksClient/
-  [5]: http://happylcj.github.io/2016/06/14/Ubuntu%E4%B8%8B%E9%85%8D%E7%BD%AEshadowsocks%E4%BB%A5%E5%8F%8A%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF/
-  [6]: http://www.afox.cc/archives/83
-  [7]: http://pinyin.sogou.com/linux/
+  [2]: http://blog.csdn.net/u011014707/article/details/43836553
+  [3]: http://www.cnblogs.com/jiayongji/p/5771444.html
+  [4]: https://marshal.ohtly.com/2016/12/28/install-shadowsocks-on-ubuntu-16-04-server/
+  [5]: https://blog.huihut.com/2017/08/25/LinuxInstallConfigShadowsocksClient/
+  [6]: http://happylcj.github.io/2016/06/14/Ubuntu%E4%B8%8B%E9%85%8D%E7%BD%AEshadowsocks%E4%BB%A5%E5%8F%8A%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF/
+  [7]: http://www.afox.cc/archives/83
   [8]: http://tieba.baidu.com/p/3053319181
   [9]: http://blog.sina.com.cn/s/blog_6d0cbb0301019egu.html
-  [10]: http://tieba.baidu.com/p/4897237773
-  [11]: https://chrome.google.com/webstore/detail/uget-integration/efjgjleilhflffpbnkaofpmdnajdpepi?hl=zh-CN
-  [12]: http://www.oracle.com/technetwork/java/javase/downloads/
-  [13]: https://www.jetbrains.com/idea/download/#section=linux
-  [14]: http://blog.csdn.net/u012406177/article/details/72847153
-  [15]: https://www.jetbrains.com/webstorm/download/#section=linux
-  [16]: https://www.eclipse.org/downloads/eclipse-packages/
-  [17]: https://www.zybuluo.com/cmd/
-  [18]: https://remarkableapp.github.io/linux/download.html
-  [19]: https://github.com/Moeditor/Moeditor/releases
-  [20]:http://blog.csdn.net/lj779323436/article/details/52649068
+  [10]: http://pinyin.sogou.com/linux/
+  [11]: http://tieba.baidu.com/p/4897237773
+  [12]: https://chrome.google.com/webstore/detail/uget-integration/efjgjleilhflffpbnkaofpmdnajdpepi?hl=zh-CN
+  [13]: http://www.oracle.com/technetwork/java/javase/downloads/
+  [14]: https://www.jetbrains.com/idea/download/#section=linux
+  [15]: http://blog.csdn.net/u012406177/article/details/72847153
+  [16]: https://www.jetbrains.com/webstorm/download/#section=linux
+  [17]: https://www.eclipse.org/downloads/eclipse-packages/
+  [18]: https://www.zybuluo.com/cmd/
+  [19]: https://remarkableapp.github.io/linux/download.html
+  [20]: https://github.com/Moeditor/Moeditor/releases
   [21]:http://blog.csdn.net/lj779323436/article/details/52649068
+  [22]:http://blog.csdn.net/lj779323436/article/details/52649068
