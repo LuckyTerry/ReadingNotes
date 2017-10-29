@@ -152,8 +152,20 @@
     手动移除 /usr/local/bin/n
     手动移除 /usr/local/bin/npm
 
+## 安装 WebStorm 
 
-## 安装 WebStorm
+### 安装
+
+详见[传送门][5]
+
+### 配置
+
+打开webstorm，选中JS按钮，在这里，假若你的core modules 还没安装，点击右边蓝色的链接安装。
+
+### 新建项目
+
+点击File,选择New Project，在弹框中填写好项目基本信息：
+注意，这里location的路径选择，需要点击右边按钮浏览设定，自己输入的不算，选择好项目路径，在填写项目名称，点击OK，静等项目创建即可。
 
 ## 安装 Visual Studio Code
 
@@ -161,3 +173,4 @@
   [2]: https://nodejs.org/dist/
   [3]: https://npm.taobao.org/mirrors/node
   [4]: https://npm.taobao.org/
+  [5]: https://github.com/LuckyTerry/ReadingNotes/blob/master/Ubuntu/Ubuntu%2016.04%20WebStorm%20%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA.md
