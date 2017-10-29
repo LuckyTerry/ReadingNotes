@@ -158,14 +158,40 @@
 
 详见[传送门][5]
 
-### 配置
+### 配置 Node interpreter
 
-打开webstorm，选中JS按钮，在这里，假若你的core modules 还没安装，点击右边蓝色的链接安装。
+    File->setting  输入 node.js 设置 Node interpreter 路径
 
-### 新建项目
+### HelloWorld
 
-点击File,选择New Project，在弹框中填写好项目基本信息：
-注意，这里location的路径选择，需要点击右边按钮浏览设定，自己输入的不算，选择好项目路径，在填写项目名称，点击OK，静等项目创建即可。
+新建项目HelloWorld
+
+    File->New Project->Node.js ExpressApp
+    
+安装相关环境
+
+    右键package.json->run "npm install"
+
+启动服务
+
+    法1： 使用 IDE 环境的设置（已尝试成功）
+    Edit Configurations
+    点击"+"新增"Node.js"
+    working directory:~/WebstormProjects/HelloWorld/bin
+    JavaScriptFile:www
+    点击 apply ---> ok
+    选中"www"，运行
+    在浏览器中输入http://localhost:3000/"
+    
+    法2： 使用 IDE 环境的终端输入命令启动（已尝试成功）
+    打开 Terminal ---> npm start ，回车即可，在浏览器打开  localhost：3000
+    
+    法3： 使用 系统 环境的终端输入命令启动（已尝试成功）
+    Ctrl+Alt+T 打开 Terminal---> npm start ，回车即可，在浏览器中打开  localhost：3000
+    
+调试
+
+    待补充
 
 ## 安装 Visual Studio Code
 

@@ -14,7 +14,7 @@
     
 修改文件夹名
 
-    sudo mv WebStorm-* webstorm
+    sudo mv /opt/WebStorm-* /opt/webstorm
 
 安装
 
@@ -27,7 +27,7 @@
     http://idea.iteblog.com/key.php
     点击Activate即可
 
-添加快捷方式
+添加快捷方式（设置向导已默认添加快捷方式）
 
     sudo vim /usr/share/applications/webstorm.desktop
     

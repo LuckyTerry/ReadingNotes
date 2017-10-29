@@ -1090,23 +1090,6 @@ Cannot run program"android-sdk-linux/aapt.exe":error-2,没有那个文件或目�
     添加Launcher快捷方式，桌面快捷方式
     sudo nautilus /usr/share/applications 拖动快捷方式到Launcher或桌面
     或 轻触Super键盘打开Dash，拖动快捷方式到Launcher或桌面
-
-## Visual Studio Code
-
-### apt安装
-
-    #安装 Ubuntu Make
-    sudo add-apt-repository ppa:ubuntu-desktop/ubuntu-make
-    sudo apt-get update
-    sudo apt-get install ubuntu-make
-    #安装 Visual Studio Code
-    umake web visual-studio-code
-    #卸载 Visual Studio Code
-    umake web visual-studio-code --remove
-
-### 软件商店安装
-
-    搜索Visual Studio Code，点击安装即可
     
 ## Eclipse
 
