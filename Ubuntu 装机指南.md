@@ -8,10 +8,18 @@
 
 如果不能gfw，则修改Ubuntu源更佳：
 
-    sudo cp /etc/apt/sources.list /etc/apt/sources.list_bk $ sudo gedit /etc/apt/sources.list $ sudo apt-get update
-    
-附：[Ubuntu各版本网易源列表][1]
+备份
 
+    sudo cp /etc/apt/sources.list /etc/apt/sources.list_bk 
+    
+修改，附 [Ubuntu 16.04 源列表][1]
+
+    sudo vim /etc/apt/sources.list 
+    
+更新
+
+    sudo apt-get update
+    
 ## 检查最新更新
 打开「软件更新器」- 点击「检查更新」按钮进行更新。
 
@@ -1466,7 +1474,7 @@ Ubuntu桌面环境下，遇到的大部分情况可能就是Compiz配置出了�
   [13http://sqlitebrowser.org/
 
 
-  [1]: http://blog.csdn.net/enjoy5512/article/details/53137918
+  [1]: http://wiki.ubuntu.org.cn/%E6%A8%A1%E6%9D%BF:16.04source
   [2]: http://blog.csdn.net/u011014707/article/details/43836553
   [3]: http://www.cnblogs.com/jiayongji/p/5771444.html
   [4]: https://marshal.ohtly.com/2016/12/28/install-shadowsocks-on-ubuntu-16-04-server/
