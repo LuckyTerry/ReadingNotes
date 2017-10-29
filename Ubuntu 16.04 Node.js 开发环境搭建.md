@@ -1,4 +1,4 @@
-﻿# Ubuntu 16.04 Node.js开发环境搭建
+﻿# Ubuntu 16.04 Node.js 开发环境搭建
 
 标签（空格分隔）： 未分类
 
@@ -6,7 +6,7 @@
 
 ## 安装nodejs
 
-### apt安装
+### apt安装1
 
 更新ubuntu软件源
 
@@ -34,6 +34,12 @@
 
     sudo n stable
     sudo node -v
+    
+### apt安装2
+
+    curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
+    sudo apt-get install -y nodejs
+    node -v
 
 ### deb安装
 
@@ -41,7 +47,8 @@
 
 解压
 
-    sudo tar -zxvf node*.tar.gz -C /opt
+    sudo xz -d node*.tar.xz
+    sudo tar -xvf  node*.tar -C /opt
     
 更名
 
@@ -49,8 +56,8 @@
     
 安装 npm 和 node 命令到系统命令
 
-    sudo ln -s /opt/node-v4.4.4-linux-x64/bin/node /usr/local/bin/node 
-    sudo ln -s /opt/node-v4.4.4-linux-x64/bin/npm /usr/local/bin/npm
+    sudo ln -s /opt/node/bin/node /usr/local/bin/node 
+    sudo ln -s /opt/node/bin/npm /usr/local/bin/npm
     
 验证： 
 
@@ -71,6 +78,28 @@
 使用淘宝镜像安装 npm 包 [name]
 
     cnpm install [name]
+    
+### 配置环境变量（未拷贝执行文件到/usr/local/bin时才需要配置）
+
+    sudo vim /etc/profile
+
+    在末尾添加以下三行：
+    export NODE_HOME=/opt/node
+    export PATH=$PATH:$NODE_HOME/bin
+    export NODE_PATH=$NODE_HOME/lib/node_modules
+    
+    使在当前终端立刻生效
+    source /etc/profile
+    
+    验证
+    node -v
+    npm -v
+    
+    使root账户生效
+    vim /root/.bashrc
+    在文件末尾添加
+    source etc/profile
+    
     
 ### 附录A - npm命令
 
@@ -123,6 +152,10 @@
     手动移除 /usr/local/bin/n
     手动移除 /usr/local/bin/npm
 
+
+## 安装 WebStorm
+
+## 安装 Visual Studio Code
 
   [1]: https://nodejs.org/en/
   [2]: https://nodejs.org/dist/
