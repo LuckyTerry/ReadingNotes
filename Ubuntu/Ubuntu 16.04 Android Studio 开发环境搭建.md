@@ -60,6 +60,12 @@ File->settings->Buil,Execution,Deployment->Instant Run->Disable it.
 
 AS-setting中关闭SS代理，不使用代理。（怎么会这样呢？）
 
+## 无法创建AVD
+
+64位Ubuntu需要安装32位库
+
+    sudo apt-get install libc6:i386 libncurses5:i386 libstdc++6:i386 lib32z1 libbz2-1.0:i386
+
 
   [1]: https://stackoverflow.com/questions/38892270/delete-failed-internal-error-error-while-installing-apk/43063569
   [2]: https://confluence.jetbrains.com/display/IDEADEV/Inotify+Watches+Limit
