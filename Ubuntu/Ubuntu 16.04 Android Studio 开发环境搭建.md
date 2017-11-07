@@ -65,6 +65,10 @@ AS-setting中关闭SS代理，不使用代理。（怎么会这样呢？）
 64位Ubuntu需要安装32位库
 
     sudo apt-get install libc6:i386 libncurses5:i386 libstdc++6:i386 lib32z1 libbz2-1.0:i386
+    
+## 无法启动AVD
+
+    you can also use "Software" in the Emulated Performance Graphics option, in the AVD settings
 
 
   [1]: https://stackoverflow.com/questions/38892270/delete-failed-internal-error-error-while-installing-apk/43063569

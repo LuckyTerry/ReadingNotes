@@ -1,4 +1,4 @@
-﻿# Ubuntu 装机指南
+﻿# Ubuntu 16.04 装机指南
 
 [TOC]
 
