@@ -77,10 +77,10 @@ public final class LiveDataLifecycle<T> implements ObservableTransformer<T, T> {
         private final LifecycleOwner lifecycleOwner;
         private final Observer<? super T> downstream;
         private final LastSeen<T> lastSeen;
-        private Disposable disposable;
-        private boolean active;
-        private boolean complete;
-        private Throwable throwable;
+        private Disposable disposable = null;
+        private boolean active = false;
+        private boolean completed = false;
+        private Throwable throwable = null;
         private int lastVersion = START_VERSION;
 
         LastSeenObserver(LifecycleOwner lifecycleOwner, Observer<? super T> downstream, LastSeen<T> lastSeen) {
@@ -107,7 +107,7 @@ public final class LiveDataLifecycle<T> implements ObservableTransformer<T, T> {
             downstream.onSubscribe(d);
 
             T value = lastSeen.value;
-            if (value != null) {
+            if (value != null && !disposable.isDisposed()) {
                 downstream.onNext(value);
             }
         }
@@ -119,7 +119,7 @@ public final class LiveDataLifecycle<T> implements ObservableTransformer<T, T> {
 
         @Override
         public void onComplete() {
-            complete = true;
+            completed = true;
             considerNotify();
         }
 
@@ -129,12 +129,12 @@ public final class LiveDataLifecycle<T> implements ObservableTransformer<T, T> {
             considerNotify();
         }
 
-        void removeObserver() {
+        private void removeObserver() {
             lifecycleOwner.getLifecycle().removeObserver(this);
             activeStateChanged(false);
         }
 
-        void activeStateChanged(boolean newActive) {
+        private void activeStateChanged(boolean newActive) {
             if (newActive == active) {
                 return;
             }
@@ -156,14 +156,18 @@ public final class LiveDataLifecycle<T> implements ObservableTransformer<T, T> {
                 if (lastVersion < lastSeen.version) {
                     lastVersion = lastSeen.version;
                     T value = lastSeen.value;
-                    if (value != null) {
+                    if (value != null && !disposable.isDisposed()) {
                         downstream.onNext(value);
                     }
-                } else if (throwable != null || complete) {
+                } else if (throwable != null || completed) {
                     if (throwable != null) {
-                        downstream.onError(throwable);
+                        if (!disposable.isDisposed()) {
+                            downstream.onError(throwable);
+                        }
                     } else {
-                        downstream.onComplete();
+                        if (!disposable.isDisposed()) {
+                            downstream.onComplete();
+                        }
                     }
                     removeObserver();
                 }
