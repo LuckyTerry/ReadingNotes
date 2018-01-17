@@ -1131,6 +1131,22 @@ Cannot run program"android-sdk-linux/aapt.exe":error-2,没有那个文件或目�
     添加Launcher快捷方式，桌面快捷方式
     sudo nautilus /usr/share/applications 拖动快捷方式到Launcher或桌面
     或 轻触Super键盘打开Dash，拖动快捷方式到Launcher或桌面
+    
+## Calibre
+
+进入[下载页面](https://calibre-ebook.com/download_linux) 
+
+运行安装脚本
+
+```
+sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.py | sudo python -c "import sys; main=lambda:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main()"
+```
+
+运行Calibre：
+
+```
+calibre
+```
 
 ## Sublime Text
 
