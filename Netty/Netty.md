@@ -39,7 +39,25 @@
 
 ## IO模型
 
+阻塞I/O（Blocking I/O）
 
+非阻塞I/O（Non-blocking I/O）
+
+I/O多路复用（I/O multiplexing (select and poll)）
+
+信号驱动I/O（signal driven I/O (SIGIO)）
+
+异步I/O（asynchronous I/O (the POSIX aio_functions)）
+
+![blocking io](https://github.com/LuckyTerry/ReadingNotes/blob/master/Netty/bio) 
+
+![non blocking io](https://github.com/LuckyTerry/ReadingNotes/blob/master/Netty/nbio) 
+
+![multi io](https://github.com/LuckyTerry/ReadingNotes/blob/master/Netty/multiio) 
+
+![signal io](https://github.com/LuckyTerry/ReadingNotes/blob/master/Netty/signalio) 
+
+![async io](https://github.com/LuckyTerry/ReadingNotes/blob/master/Netty/asyncio) 
 
 ## Netty
 
