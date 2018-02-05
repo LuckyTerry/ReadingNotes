@@ -37,6 +37,10 @@
 来源：知乎
 链接：https://www.zhihu.com/question/19732473/answer/23434554
 
+## IO模型
+
+
+
 ## Netty
 
 ### 1、基本构建模块
@@ -123,7 +127,9 @@ channelRegistered -> channelActive -> channelInactive -> channelUnregistered
 #### 3.2、ChannelHandler 生命周期
 
 handlerAdded：当 ChannelHandler 添加到 ChannelPipeline 调用
+
 handlerRemoved：当 ChannelHandler 从 ChannelPipeline 移除时调用
+
 exceptionCaught：当 ChannelPipeline 执行抛出异常时调用
 
 #### 3.3、ChannelHandler 的共享
@@ -149,12 +155,19 @@ ChannelPipeline 是一系列的 ChannelHandler 实例，用于拦截流经一个
 Java NIO 提供 ByteBuffer 作为字节的容器，但它不够好。所以Netty提供了一个强大的缓冲实现类 ByteBuf，效率与JDK的ByteBuffer相当，并且提供了如下几个优势:
 
 可以自定义缓冲类型；
+
 通过一个内置的复合缓冲类型实现零拷贝；
+
 扩展性好，比如	StringBuilder；
+
 不需要调用 flip() 来切换读/写模式；
+
 读取和写入索引分开；
+
 方法链；
+
 引用计数；
+
 Pooling(池)。
 
 ### 6、Codec（编解码器）
