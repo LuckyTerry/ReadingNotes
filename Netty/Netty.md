@@ -24,18 +24,19 @@
 
 1 老张把水壶放到火上，立等水开。（同步阻塞）老张觉得自己有点傻
 
-2 老张把水壶放到火上，去客厅看电视，时不时去厨房看看水开没有。（同步非阻塞）老张还是觉得自己有点傻，于是变高端了，买了把会响笛的那种水壶。水开之后，能大声发出嘀~~~~的噪音。
+2 老张把水壶放到火上，去客厅看电视，时不时去厨房看看水开没有。（同步非阻塞）
+
+老张还是觉得自己有点傻，于是变高端了，买了把会响笛的那种水壶。水开之后，能大声发出嘀~~~~的噪音。
 
 3 老张把响水壶放到火上，立等水开。（异步阻塞）老张觉得这样傻等意义不大
 
-4 老张把响水壶放到火上，去客厅看电视，水壶响之前不再去看它了，响了再去拿壶。（异步非阻塞）老张觉得自己聪明了。
+4 老张把响水壶放到火上，去客厅看电视，水壶响之前不再去看它了，响了再去拿壶。（异步非阻塞）
+
+老张觉得自己聪明了。
 
 所谓同步异步，只是对于水壶而言。普通水壶，同步；响水壶，异步。虽然都能干活，但响水壶可以在自己完工之后，提示老张水开了。这是普通水壶所不能及的。同步只能让调用者去轮询自己（情况2中），造成老张效率的低下。
 
 所谓阻塞非阻塞，仅仅对于老张而言。立等的老张，阻塞；看电视的老张，非阻塞。情况1和情况3中老张就是阻塞的，媳妇喊他都不知道。虽然3中响水壶是异步的，可对于立等的老张没有太大的意义。所以一般异步是配合非阻塞使用的，这样才能发挥异步的效用。
-
-来源：知乎
-链接：https://www.zhihu.com/question/19732473/answer/23434554
 
 ## IO模型
 
@@ -60,6 +61,8 @@ I/O多路复用（I/O multiplexing (select and poll)）
 ![async io](https://github.com/LuckyTerry/ReadingNotes/blob/master/Netty/asyncio) 
 
 ## Netty
+
+Netty是一个基于异步与事件驱动的网络应用程序框架，它支持快速与简单地开发可维护的高性能的服务器与客户端。
 
 ### 1、基本构建模块
 
@@ -126,8 +129,11 @@ ServerBootstrap用来绑定本地端口，有2个EventLoopGroup
 Channel 存在四种状态
 
 channelUnregistered：channel 已创建但未注册到一个 EventLoop.
+
 channelRegistered：channel 注册到一个	EventLoop.
+
 channelActive：channel 变为活跃状态
+
 channelInactive：channel	处于非活跃状态
 
 生命周期流程如下
@@ -192,11 +198,45 @@ Pooling(池)。
 
 Netty提供了一些 built-in 的 Decoder(解码器)、Encoder(编码器)和 Codec(编解码器)。
 
-### 7、EventGroup
+### 7、EventLoop 和线程模型
 
+#### 7.1、传统的线程模型
 
+在早期的 Java，是通过简单地按需创建新 Thread，以保证并行工作的需要。
 
-### 8、EventLoop 和线程模型
+但很快就发现，这不是完美的，因为创建 Thread 和回收会给他们带来的开销。在 Java 5 中，引入了所谓的线程池，根据策略缓存 Thread，用来消除创建和回收 Thread 的开销。
 
+![threadpool](https://github.com/LuckyTerry/ReadingNotes/blob/master/Netty/threadpool.png) 
+
+但使用多个 Thread 提供了资源和管理成本，作为一个副作用，引入了太多的上下文切换。这种会随着运行的线程的数量和任务执行的数量的增加而恶化。尽管使用多个线程在开始时似乎不是一个问题，但一旦你把真正工作负载放在系统上，可以会遭受到重击。
+
+#### 7.2、eventloop（事件循环）线程模型
+
+看一段伪代码
+
+```java
+while (!terminated) {
+    List<Runnable> readyEvents = blockUntilEventsReady(); // 阻塞直到事件可以运行
+    for (Runnable ev : readyEvents) {
+        ev.run();// 循环所有事件,并运行他们
+    }
+}
+```
+
+在 Netty 中使用 EventLoop 接口代表事件循环，EventLoop 是从EventExecutor 和 ScheduledExecutorService 扩展而来。
+
+在Netty的线程模型中，一个EventLoop将由一个永远不会改变的Thread驱动，而一个Channel一生只会使用一个EventLoop（但是一个EventLoop可能会被指派用于服务多个Channel），在Channel中的所有I/O操作和事件都由EventLoop中的线程处理，也就是说一个Channel的一生之中都只会使用到一个线程。
+
+#### 7.3、两者性能比较
+
+异步api在调用的时候，会马上返回，所以eventloop不会被blocked。而传统的同步api会block住调用线程，导致线程空转。以一个线程stack占用1M举例，线程一多就OOM了，而且也会增加上下文切换、CPU调度的负担。可以简单地认为，io密集型的应用，如果采用eventloop模型，性能提升几十倍甚至更多，看具体io的密集程度，io越多，性能提升越明显（两个数量级以上）。
+
+#### 其他
+
+基于分隔符和长度的协议解码、拆包、粘包、协议Handler、协议Codec、Channel引导客户端实现正向/反向代理、WebSocket、UDP广播、定时任务调度、压缩、SSL/TLS加密、Transport、ByteBuf资源释放问题、ByteBuf底层、EventLoop分配细节。。。
+
+[netty](https://github.com/netty/netty) 
+
+[gist](https://gist.github.com/LuckyTerry) 
 
 
