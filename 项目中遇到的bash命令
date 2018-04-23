@@ -1,0 +1,106 @@
+# 项目中遇到的bash命令
+
+连接到远程服务器
+```
+ssh root@192.168.100.135
+然后输入密码 "h****"
+```
+
+  查看pos服务的情况
+```
+ps -ef|grep pos
+```
+
+查看nohup日志
+```
+tail -n 2000 -f nohup.out 
+```
+
+项目服务的位置 135服务器
+```
+/root/app
+```
+
+查看端口情况
+```
+netstat -anp
+```
+
+显示当前目录
+```
+pwd
+```
+
+进入根目录
+```
+cd /
+```
+
+进入指定目录
+```
+cd 
+```
+
+显示当前目录的文件
+```
+ls
+```
+
+运行jar文件
+```
+java -jar ***.jar
+```
+
+后台运行jar文件
+```
+java -jar ***.jar nohup
+```
+
+进入上个目录
+```
+cd ..
+```
+
+退出远程连接
+```
+exit
+```
+
+curl的GET方法
+```
+curl http://localhost:8080/
+```
+
+curl的POST方法
+```
+curl -H "Content-Type:application/json" -X POST --data '{"name": "terry"}' http://localhost:8080/
+```
+
+jmeter非gui运行
+```
+./jmeter -n -t  FunAggreTest.jmx -l result.jtl -e -o ResultReport
+```
+
+使用SSH命令行传输文件到远程服务器
+```
+scp terry.log root@192.168.100.135:/opt/
+```
+
+使用SSH命令行从远程服务器下载文件
+```
+scp root@192.168.100.135:/opt/terry.log
+```
+
+使用SSH命令行传输文件夹到远程服务器
+```
+scp -r terry root@192.168.100.135:/opt/
+```
+
+使用SSH命令行从远程服务器下载文件夹
+```
+scp -r root@192.168.100.135:/opt/terry
+```
+
+
+
+
