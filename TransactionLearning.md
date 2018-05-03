@@ -123,6 +123,8 @@ TCC和两阶段分布式事务处理的区别
 
 ![Alt text](https://github.com/LuckyTerry/ReadingNotes/raw/master/Screenshots/general-tcc.jpg)
 
+![Alt text](https://github.com/LuckyTerry/ReadingNotes/blob/master/Screenshots/general-tcc.jpg)
+
 #### 异步确保型TCC解决方案
 
 #### 补偿型TCC解决方案
