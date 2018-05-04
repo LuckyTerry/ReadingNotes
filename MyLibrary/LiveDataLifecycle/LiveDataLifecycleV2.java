@@ -2,11 +2,13 @@ package com.holderzone.intelligencestore.mvp.model.network;
 
 import android.arch.lifecycle.GenericLifecycleObserver;
 import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.Lifecycle.State;
+import android.arch.lifecycle.LifecycleOwner;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -14,27 +16,28 @@ import io.reactivex.ObservableTransformer;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.plugins.RxJavaPlugins;
 
 import static android.arch.lifecycle.Lifecycle.State.DESTROYED;
 import static android.arch.lifecycle.Lifecycle.State.STARTED;
 
 /**
  * Lifecycle Manager which acting as LiveData in Lifecycle Component.
- * Not the best version.
+ * Support the Observable only, not the best version.
  * Created by terry on 18-1-16.
  */
 
-public final class LiveDataLifecycleOrigin<T> implements ObservableTransformer<T, T> {
+public final class LiveDataLifecycleV2<T> implements ObservableTransformer<T, T> {
 
     private static final int START_VERSION = -1;
 
     private final LifecycleOwner mLifecycleOwner;
 
     public static <T> ObservableTransformer<T, T> bindToLifecycle(LifecycleOwner lifecycleOwner) {
-        return new LiveDataLifecycleOrigin<>(lifecycleOwner);
+        return new LiveDataLifecycleV2<>(lifecycleOwner);
     }
 
-    private LiveDataLifecycleOrigin(LifecycleOwner lifecycleOwner) {
+    private LiveDataLifecycleV2(LifecycleOwner lifecycleOwner) {
         mLifecycleOwner = lifecycleOwner;
     }
 
@@ -78,7 +81,8 @@ public final class LiveDataLifecycleOrigin<T> implements ObservableTransformer<T
         private final LifecycleOwner lifecycleOwner;
         private final Observer<? super T> downstream;
         private final LastSeen<T> lastSeen;
-        private Disposable disposable = null;
+        private Disposable upStreamDisposable = null;
+        private PublishDisposable<T> downstreamDisposable = null;
         private boolean active = false;
         private boolean completed = false;
         private Throwable error = null;
@@ -93,23 +97,22 @@ public final class LiveDataLifecycleOrigin<T> implements ObservableTransformer<T
         @Override
         public void onStateChanged(LifecycleOwner source, Lifecycle.Event event) {
             if (lifecycleOwner.getLifecycle().getCurrentState() == DESTROYED) {
-                if (disposable != null && !disposable.isDisposed()) {
-                    disposable.dispose();
-                }
-                removeObserver();
+                disposeDownStreams();
                 return;
             }
             activeStateChanged(isActiveState(lifecycleOwner.getLifecycle().getCurrentState()));
         }
 
         @Override
-        public void onSubscribe(Disposable d) {
-            disposable = d;
-            downstream.onSubscribe(d);
+        public void onSubscribe(Disposable disposable) {
+            upStreamDisposable = disposable;
+
+            downstreamDisposable = new PublishDisposable<T>(downstream, this);
+            downstream.onSubscribe(downstreamDisposable);
 
             T value = lastSeen.value;
-            if (value != null && !disposable.isDisposed()) {
-                downstream.onNext(value);
+            if (value != null && !downstreamDisposable.isDisposed()) {
+                downstreamDisposable.onNext(value);
             }
         }
 
@@ -128,6 +131,18 @@ public final class LiveDataLifecycleOrigin<T> implements ObservableTransformer<T
         public void onError(Throwable e) {
             error = e;
             considerNotify();
+        }
+
+        private void disposeDownStreams() {
+            if (downstreamDisposable != null && !downstreamDisposable.isDisposed()) {
+                downstreamDisposable.dispose();
+            }
+        }
+
+        private void disposeUpStreams() {
+            if (upStreamDisposable != null && !upStreamDisposable.isDisposed()) {
+                upStreamDisposable.dispose();
+            }
         }
 
         private void removeObserver() {
@@ -157,22 +172,66 @@ public final class LiveDataLifecycleOrigin<T> implements ObservableTransformer<T
                 if (lastVersion < lastSeen.version) {
                     lastVersion = lastSeen.version;
                     T value = lastSeen.value;
-                    if (value != null && !disposable.isDisposed()) {
-                        downstream.onNext(value);
+                    if (value != null && !downstreamDisposable.isDisposed()) {
+                        downstreamDisposable.onNext(value);
                     }
                 } else if (error != null || completed) {
                     if (error != null) {
-                        if (!disposable.isDisposed()) {
-                            downstream.onError(error);
+                        if (!downstreamDisposable.isDisposed()) {
+                            downstreamDisposable.onError(error);
                         }
                     } else {
-                        if (!disposable.isDisposed()) {
-                            downstream.onComplete();
+                        if (!downstreamDisposable.isDisposed()) {
+                            downstreamDisposable.onComplete();
                         }
                     }
-                    removeObserver();
+                    disposeDownStreams();
                 }
             });
+        }
+    }
+
+    private static final class PublishDisposable<T> extends AtomicBoolean implements Disposable {
+        private static final long serialVersionUID = 3562861878281475070L;
+        final Observer<? super T> actual;
+        final LastSeenObserver<T> parent;
+
+        PublishDisposable(Observer<? super T> actual, LastSeenObserver<T> parent) {
+            this.actual = actual;
+            this.parent = parent;
+        }
+
+        public void onNext(T t) {
+            if (!get()) {
+                actual.onNext(t);
+            }
+        }
+
+        public void onError(Throwable t) {
+            if (get()) {
+                RxJavaPlugins.onError(t);
+            } else {
+                actual.onError(t);
+            }
+        }
+
+        public void onComplete() {
+            if (!get()) {
+                actual.onComplete();
+            }
+        }
+
+        @Override
+        public void dispose() {
+            if (compareAndSet(false, true)) {
+                parent.disposeUpStreams();
+                parent.removeObserver();
+            }
+        }
+
+        @Override
+        public boolean isDisposed() {
+            return get();
         }
     }
 

@@ -53,16 +53,16 @@ public final class LiveLifecycle<T> implements ObservableTransformer<T, T>, Life
         if (mLifecycleOwner.getLifecycle().getCurrentState() != Lifecycle.State.DESTROYED) {
             mLifecycleOwner.getLifecycle().addObserver(this);
             mDisposable = upstream.subscribe(it -> {
-                    assertMainThread();
-                    ++ mVersion;
-                    mData = it;
-                    considerNotify();
+                assertMainThread();
+                ++mVersion;
+                mData = it;
+                considerNotify();
             }, it -> {
-                    assertMainThread();
-                    mSubject.onError(it);
+                assertMainThread();
+                mSubject.onError(it);
             }, () -> {
-                    assertMainThread();
-                    mSubject.onComplete();
+                assertMainThread();
+                mSubject.onComplete();
             });
             return mSubject;
 
