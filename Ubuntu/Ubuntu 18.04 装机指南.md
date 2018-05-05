@@ -11,99 +11,101 @@
 备份
 
     sudo cp /etc/apt/sources.list /etc/apt/sources.list_bk 
-    
+
 修改，附 [Ubuntu 16.04 源列表][1]
 
     sudo vim /etc/apt/sources.list 
-    
+
 更新
 
     sudo apt-get update
-    
+
 ## 检查最新更新
+
 打开「软件更新器」- 点击「检查更新」按钮进行更新。
 
 ## 安装Linux显卡驱动（开发使用建议不安装）
+
 打开「软件和更新」-「附加驱动」选项卡中进行选择。
 
 ## 常用命令
 
     xset m 1.7
-    
+
     cd 路径（进入一个路径，比如 /usr/local/lib）
-    
+
     cd ..（返回上一个文件夹）
-    
+
     ls（显示当前文件夹下的所有文件，Linux独有哦，dir 也有相同功能）
-    
+
     sudo 命令（获取超级管理权限，需要输入密码）
 
     sudo apt-get update（更新源）
-    
+
     sudo proxychains apt-get update（proxychains已安装前提下SS代理更新源）
-    
+
     sudo rm /var/cache/apt/archives/lock
     sudo rm /var/lib/dpkg/lock（资源被锁不可用时解锁）
-    
+
     sudo apt-get upgrade（更新已安装的包）
-    
+
     sudo apt-get install -f（修复依赖）
-    
+
     sudo dpkg -i *.deb（安装deb包）
-    
+
     mkdir 目录名（新建一个空目录）
-    
+
     touch 文件名（新建一个文件）
-    
+
     rmdir 目录名（删除一个空目录）
-    
+
     rm -d 目录名（删除一个空目录）
-    
+
     rm -r 目录名（删除一个非空目录）           
-    
+
     rm 文件名（删除一个文件）
-    
+
     cp 文件名 目标路径（拷贝一个文件到目标路径，如cp hserver /opt/hqueue）
-    
+
     cp -i （拷贝，同名文件存在时，输出 [yes/no] 询问是否执行）
-    
+
     cp -f （强制复制文件，如有同名不询问）
-    
+
     mv a.txt b.txt（重命名一个文件）
-    
+
     mv A B（重命名一个目录）
-    
+
     mv a.txt /b（移动一个文件到指定目录，不改变文件名）
-    
+
     mv a.txt /b/c.txt（移动一个文件到指定目录，并改变文件名）
-    
+
     sudo tar -zxvf *.tar.gz（解压 tar.gz格式的文件）
-    
+
     sudo tar -zxvf *.tar.gz -C 指定目录名（解压 tar.gz格式的文件到指定目录）
-    
+
     sudo unzip -d 指定目录名 *.zip（解压 .zip格式的文件到指定目录）
-    
+
     sudo chmod +x *.sh 这个命令是为sh文件增加可执行权限
-    
+
     sudo chmod -R 777 *.*  对当前目录下的所有子目录和子文件进行777权限的变更
-    
+
     sudo chmod -R 777 /opt/*（对opt目录下的所有子目录和子文件进行777权限的变更）
-    
+
     sudo apt-get purge remove xxx
     sudo apt-get --purge remove xxx（移除应用，移除配置，保留依赖包）
-    
+
     sudo apt-get remove xxx（移除应用，保留配置，保留依赖包）
-    
+
     sudo apt-get autoremove（移除依赖，保留配置）
-    
+
     sudo apt-get autoclean（将删除 /var/cache/apt/archives/ 已经过期的deb）
-    
+
     sudo apt-get clean（将删除 /var/cache/apt/archives/ 所有的 deb）
-    
+
     sudo add-apt-repository ppa:user/ppa-name（添加PPA源）
-    
+
     sudo add-apt-repository -r ppa:user/ppa-name（删除PPA源）
-    
+
 ## 常用文件夹
 
 部分软件安装在/usr下，里面很多文件夹，根据文件的类型，分门别类，不是一个软件一个文件夹。
@@ -118,16 +120,16 @@
 
 ## 设置root账户密码
 
-    sudo passwd root 
-    
+    sudo passwd root
+
     sudo passwd -l root //清除root密码
-    
+
 ## vim
 
 ### 安装
 
     sudo apt-get install vim
-    
+
 ### 美化-->
 
 ### 常用命令
@@ -144,12 +146,12 @@
 
 设置开机启动项文件（若存在多个同名device，可使用id。例如id为9的some mouse："pointer:some mouse" 改为 9）
 
-    vi /etc/profile.d/mouse.sh 
-    
+    vi /etc/profile.d/mouse.sh
+
     xinput --set-prop "pointer:Logitech G403 Prodigy Gaming Mouse" "Device Accel Constant Deceleration" 1.5
     xinput --set-prop "pointer:Logitech G403 Prodigy Gaming Mouse" "Device Accel Adaptive Deceleration" 1
     xinput --set-prop "pointer:Logitech G403 Prodigy Gaming Mouse" "Device Accel Velocity Scaling" 1
-    
+
 重启后鼠标设置面板就可以调节鼠标速度了
 
 ### xset命令
@@ -157,11 +159,11 @@
     xset m 0
     xset m default
     xset m 1.7 // My Preference
-    
+
     “启动应用程序”中添加"xset m 1.7"命令
-    
+
 重启即可
-    
+
 ## Shadowsocks
 
 ### 安装Server版本
@@ -177,7 +179,7 @@
 配置文件
 
     sudo vi /etc/shadowsocks/terry.json
-    
+
     {
     "server":"97.64.21.41",
     "server_port":443,
@@ -200,11 +202,11 @@
 
 配置开机启动（实测未成功），可见[此处][4]，[此处][5]，[此处][6]
 
-```
+```java
 使用Systemd来实现shadowsocks开机自启
 
 sudo vim /etc/systemd/system/shadowsocks.service
-    
+
 在里面填写如下内容：
 
 [Unit]
@@ -224,7 +226,7 @@ systemctl enable /etc/systemd/system/shadowsocks.service
 
 立刻启动：
 systemctl start /etc/systemd/system/shadowsocks.service
-``` 
+```
 
 ### 安装Gui版本
 
@@ -233,7 +235,7 @@ systemctl start /etc/systemd/system/shadowsocks.service
     sudo add-apt-repository ppa:hzwhuang/ss-qt5
 
 使用1604版本号
-    
+
     由于ppa:hzwhuang/ss-qt5 并没有18.04版本的源，所以再执行update时会出现
 
     E: 仓库 “http://ppa.launchpad.net/hzwhuang/ss-qt5/ubuntu bionic Release” 没有 Release 文件 的错误。
@@ -250,7 +252,7 @@ systemctl start /etc/systemd/system/shadowsocks.service
 
 配置开机启动，详见[出处][7]，配置完成重启即可
 
-```
+```java
 终端运行`gnome-session-properties`打开“启动应用程序”
 或Dash搜索`gnome-session-properties`打开“启动应用程序”
 点击添加
@@ -266,7 +268,7 @@ systemctl start /etc/systemd/system/shadowsocks.service
 安装
 
     sudo apt-get install proxychains
-    
+
 配置proxychains
 
     sudo vi /etc/proxychains.conf
