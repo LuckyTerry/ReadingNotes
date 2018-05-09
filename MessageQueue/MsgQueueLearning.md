@@ -127,9 +127,25 @@ AMQP我的理解
 
 - connection
 
-- java client
+- spring amqp
 
-- the integration with spring 
+## 未分类
+
+公平分发 vs 循环分发（Fair dispatch vs Round-robin dispatching）
+
+默认情况下，RabbitMQ将按顺序将每条消息发送给下一个使用者。平均而言，每个消费者将获得相同数量的消息。这种分配消息的方式称为循环法。在这种模式下，调度并不一定像我们想要的那样工作。例如，在有两名工人的情况下，当所有奇数序号的信息都很繁重，偶数序号的信息很轻松，一名工作人员会一直很忙，另一名工作人员几乎不会做任何工作。但是，RabbitMQ对这一点毫不知情，并仍将均匀地发送消息。
+
+发生这种情况是因为RabbitMQ只在消息进入队列时调度消息。它没有考虑消费者未确认消息的数量。它只是盲目地将第n条消息分发给第n位消费者。
+
+然而，“公平分发”才是spring-amqp的默认配置。 SimpleMessageListenerContainer将DEFAULT_PREFETCH_COUNT的值定义为1。如果DEFAULT_PREFECTH_COUNT设置为0，则行为将变成如上所述的循环消息分发。
+
+但是，默认情况下，prefetchCount设置为1，这告诉RabbitMQ一次不要向工作人员发送多条消息。 或者换句话说，在处理并确认前一条消息之前，不要向工作人员发送新消息。 相反，它会将其分派给不是那么忙碌的下一个工作人员。
+
+## 学习
+
+[rabbitmq-tutorial-spring-amqp(wonderful tutorial)](http://www.rabbitmq.com/tutorials/tutorial-one-spring-amqp.html) 
+
+[rabbitmq-tutorial-java](http://www.rabbitmq.com/tutorials/tutorial-one-java.html) 
 
 ## 参考资料
 

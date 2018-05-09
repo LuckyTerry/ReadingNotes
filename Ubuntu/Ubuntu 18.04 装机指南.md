@@ -29,7 +29,8 @@
     sudo proxychains apt-get update（proxychains已安装前提下SS代理更新源）
 
     sudo rm /var/cache/apt/archives/lock
-    sudo rm /var/lib/dpkg/lock（资源被锁不可用时解锁）
+    sudo rm /var/lib/apt/lists/lock
+    sudo rm /var/lib/dpkg/lock（资源被锁不可用时解锁，根据提示选择rm哪个锁）
 
     sudo apt upgrade（更新已安装的包）
 
