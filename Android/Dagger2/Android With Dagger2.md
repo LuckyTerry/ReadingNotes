@@ -1,5 +1,7 @@
 # Android With Dagger2
 
+Updated at 05/10/2018
+
 One of the primary advantages of Dagger 2 over most other dependency injection frameworks is that its strictly generated implementation (no reflection) means that it can be used in Android applications. However, there are still some considerations to be made when using Dagger within Android applications.
 
 *Dagger 2比其他大多数依赖注入框架的主要优点之一是其严格生成的实现（无反射）意味着它可以在Android应用程序中使用。然而，在Android应用程序中使用Dagger进行时仍然要注意一些事项。*
