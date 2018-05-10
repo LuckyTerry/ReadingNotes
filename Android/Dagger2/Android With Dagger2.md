@@ -2,41 +2,41 @@
 
 One of the primary advantages of Dagger 2 over most other dependency injection frameworks is that its strictly generated implementation (no reflection) means that it can be used in Android applications. However, there are still some considerations to be made when using Dagger within Android applications.
 
-Dagger 2比其他大多数依赖注入框架的主要优点之一是其严格生成的实现（无反射）意味着它可以在Android应用程序中使用。然而，在Android应用程序中使用Dagger进行时仍然要注意一些事项。
+*Dagger 2比其他大多数依赖注入框架的主要优点之一是其严格生成的实现（无反射）意味着它可以在Android应用程序中使用。然而，在Android应用程序中使用Dagger进行时仍然要注意一些事项。*
 
 ## Philosophy
 
 While code written for Android is Java source, it is often quite different in terms of style. Typically, such differences exist to accomodate the unique performance considerations of a mobile platform.
 
-虽然为Android编写的代码是Java源代码，但它在风格方面通常很不相同。通常情况下，这些差异是为了适应移动平台的独特 性能考虑。
+*虽然为Android编写的代码是Java源代码，但它在风格方面通常很不相同。通常情况下，这些差异是为了适应移动平台的独特 性能考虑。*
 
 But many of the patterns commonly applied to code intended for Android are contrary to those applied to other Java code. Even much of the advice in Effective Java is considered inappropriate for Android.
 
-但是，通常应用于Android代码的许多模式与应用于其他Java代码的模式相反。甚至于Effective Java一书中的许多有效建议被认为不适合Android。
+*但是，通常应用于Android代码的许多模式与应用于其他Java代码的模式相反。甚至于Effective Java一书中的许多有效建议被认为不适合Android。*
 
 In order to achieve the goals of both idiomatic and portable code, Dagger relies on ProGuard to post-process the compiled bytecode. This allows Dagger to emit source that looks and feels natural on both the server and Android, while using the different toolchains to produce bytecode that executes efficiently in both environements. Moreover, Dagger has an explicit goal to ensure that the Java source that it generates is consistently compatible with ProGuard optimizations.
 
-为了达到惯用和可移植代码的目标，Dagger依靠ProGuard来后处理编译的字节码。这使得Dagger能够在服务器和Android上发出看起来和感觉自然的源代码，同时使用不同的工具链来生成在两个环境中都能高效执行的字节码。此外，Dagger明确的目标是确保它生成的Java源与ProGuard优化一致。
+*为了达到惯用和可移植代码的目标，Dagger依靠ProGuard来后处理编译的字节码。这使得Dagger能够在服务器和Android上发出看起来和感觉自然的源代码，同时使用不同的工具链来生成在两个环境中都能高效执行的字节码。此外，Dagger明确的目标是确保它生成的Java源与ProGuard优化一致。*
 
 Of course, not all issues can be addressed in that manner, but it is the primary mechanism by which Android-specific compatbility will be provided.
 
-当然，并不是所有问题都可以用这种方式来解决，但它是提供Android特定兼容性的主要机制。
+*当然，并不是所有问题都可以用这种方式来解决，但它是提供Android特定兼容性的主要机制。*
 
 Dagger assumes that users on Android will use ProGuard.
 
-Dagger假定Android上的用户将使用ProGuard。
+*Dagger假定Android上的用户将使用ProGuard。*
 
 ## Recommended ProGuard Settings
 
 Watch this space for ProGuard settings that are relevant to applications using Dagger.
 
-观看此空间以查看与使用Dagger的应用程序相关的ProGuard设置。
+*观看此空间以查看与使用Dagger的应用程序相关的ProGuard设置。*
 
 ### dagger.android
 
 One of the central difficulties of writing an Android application using Dagger is that many Android framework classes are instantiated by the OS itself, like Activity and Fragment, but Dagger works best if it can create all the injected objects. Instead, you have to perform members injection in a lifecycle method. This means many classes end up looking like:
 
-使用Dagger设计一个Android应用程序的主要困难是，许多Android框架类（如Activity和Fragment）是由操作系统本身实例化，但是当Dagger可以创建所有的注入对象时它工作最有效。相反，您必须在生命周期方法中执行成员注入。这意味着许多类最终看起来像：
+*使用Dagger设计一个Android应用程序的主要困难是，许多Android框架类（如Activity和Fragment）是由操作系统本身实例化，但是当Dagger可以创建所有的注入对象时它工作最有效。相反，您必须在生命周期方法中执行成员注入。这意味着许多类最终看起来像：*
 
 ```java
 public class FrombulationActivity extends Activity {
@@ -59,19 +59,19 @@ public class FrombulationActivity extends Activity {
 
 This has a few problems:
 
+*这有几个问题：*
+
 - Copy-pasting code makes it hard to refactor later on. As more and more developers copy-paste that block, fewer will know what it actually does.
+
+*复制粘贴代码使得以后很难重构。随着越来越多的开发者复制粘贴该块，越来越少的人会知道它实际上做了什么。*
 
 - More fundamentally, it requires the type requesting injection (FrombulationActivity) to know about its injector. Even if this is done through interfaces instead of concrete types, it breaks a core principle of dependency injection: a class shouldn’t know anything about how it is injected.
 
-这有几个问题：
-
-复制粘贴代码使得以后很难重构。随着越来越多的开发者复制粘贴该块，越来越少的人会知道它实际上做了什么。
-
-更根本的是，它需要请求注入（FrombulationActivity）的类型来了解其注入器。即使这是通过接口而不是具体类型完成的，它打破了依赖注入的核心原则：类不应该知道注入的方式。
+*更根本的是，它需要请求注入（FrombulationActivity）的类型来了解其注入器。即使这是通过接口而不是具体类型完成的，它打破了依赖注入的核心原则：类不应该知道注入的方式。*
 
 The classes in dagger.android offer one approach to simplify this pattern.
 
-dagger.android中的这些类提供了一种简化这种模式的方法。
+*dagger.android中的这些类提供了一种简化这种模式的方法。*
 
 ### Injecting Activity objects
 
