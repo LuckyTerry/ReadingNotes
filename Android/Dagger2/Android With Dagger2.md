@@ -38,7 +38,7 @@ Watch this space for ProGuard settings that are relevant to applications using D
 
 One of the central difficulties of writing an Android application using Dagger is that many Android framework classes are instantiated by the OS itself, like Activity and Fragment, but Dagger works best if it can create all the injected objects. Instead, you have to perform members injection in a lifecycle method. This means many classes end up looking like:
 
-*使用Dagger设计一个Android应用程序的主要困难是，许多Android框架类（如Activity和Fragment）是由操作系统本身实例化，但是当Dagger可以创建所有的注入对象时它工作最有效。相反，您必须在生命周期方法中执行成员注入。这意味着许多类最终看起来像：*
+*使用Dagger设计一个Android应用程序的主要困难是，许多Android框架类（如Activity和Fragment）是由操作系统本身实例化，但是当Dagger可以创建所有的注入对象时才是它最有效的工作模式。所以相反，您必须在生命周期方法中执行成员注入。这意味着许多类最终看起来像：*
 
 ```java
 public class FrombulationActivity extends Activity {
@@ -59,17 +59,11 @@ public class FrombulationActivity extends Activity {
 }
 ```
 
-This has a few problems:
+This has a few problems:（*这有几个问题：*）
 
-*这有几个问题：*
+- Copy-pasting code makes it hard to refactor later on. As more and more developers copy-paste that block, fewer will know what it actually does.（*复制粘贴代码使得以后很难重构。随着越来越多的开发者复制粘贴该块，越来越少的人会知道它实际上做了什么。*）
 
-- Copy-pasting code makes it hard to refactor later on. As more and more developers copy-paste that block, fewer will know what it actually does.
-
-*复制粘贴代码使得以后很难重构。随着越来越多的开发者复制粘贴该块，越来越少的人会知道它实际上做了什么。*
-
-- More fundamentally, it requires the type requesting injection (FrombulationActivity) to know about its injector. Even if this is done through interfaces instead of concrete types, it breaks a core principle of dependency injection: a class shouldn’t know anything about how it is injected.
-
-*更根本的是，它需要请求注入（FrombulationActivity）的类型来了解其注入器。即使这是通过接口而不是具体类型完成的，它打破了依赖注入的核心原则：类不应该知道注入的方式。*
+- More fundamentally, it requires the type requesting injection (FrombulationActivity) to know about its injector. Even if this is done through interfaces instead of concrete types, it breaks a core principle of dependency injection: a class shouldn’t know anything about how it is injected.（*更根本的是，它需要请求注入（FrombulationActivity）的类型来了解其注入器。即使这是通过接口而不是具体类型完成的，它打破了依赖注入的核心原则：类不应该知道注入的方式。*）
 
 The classes in dagger.android offer one approach to simplify this pattern.
 
@@ -77,7 +71,7 @@ The classes in dagger.android offer one approach to simplify this pattern.
 
 ### Injecting Activity objects
 
-1. Install AndroidInjectionModule in your application component to ensure that all bindings necessary for these base types are available.(*安装AndroidInjectionModule在应用程序组件中以确保这些基本类型所需的所有绑定都可用。*)
+1. Install AndroidInjectionModule in your application component to ensure that all bindings necessary for these base types are available.(*在应用程序组件中安装AndroidInjectionModule以确保这些基本类型所需的所有绑定都可用。*)
 
 2. Start off by writing a @Subcomponent that implements AndroidInjector<YourActivity>, with a @Subcomponent.Builder that extends AndroidInjector.Builder<YourActivity>:(*首先写一个实现了AndroidInjector<YourActivity>接口的@Subcomponent，然后在其内部，定义一个继承AndroidInjector.Builder<YourActivity>类的@Subcomponent.Builder：*)
 
