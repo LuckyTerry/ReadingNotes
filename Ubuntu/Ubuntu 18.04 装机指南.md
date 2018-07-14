@@ -369,7 +369,7 @@ https://github.com/redapple0204/my-boring-python/releases/download/005/CodeWeave
 
 1. Deluge
 
-   软件商店搜索下载即可
+    软件商店搜索下载即可
 
 2. qBittorrent
 
@@ -377,67 +377,67 @@ https://github.com/redapple0204/my-boring-python/releases/download/005/CodeWeave
 
 3. Transmission
 
-系统已自带
+    系统已自带
 
 4. axel
 
-略
+    略
 
 5. uGet
 
-- 安装uGet
+    - 安装uGet
 
-添加uGet源
+        添加uGet源
 
-`sudo add-apt-repository ppa:plushuang-tw/uget-stable`
+        `sudo add-apt-repository ppa:plushuang-tw/uget-stable`
 
-更新
+        更新
 
-`sudo apt update`
+        `sudo apt update`
 
-安装uget
+        安装uget
 
-`sudo apt install uget`
+        `sudo apt install uget`
 
-或者
+        或者
 
-`应用商店搜索安装即可`
+        `应用商店搜索安装即可`
 
-- 安装aria2
+    - 安装aria2
 
-添加aria2源
+        添加aria2源
 
-`sudo add-apt-repository ppa:t-tujikawa/ppa`
+        `sudo add-apt-repository ppa:t-tujikawa/ppa`
 
-更新
+        更新
 
-`sudo apt update`
+        `sudo apt update`
 
-安装aria2
+        安装aria2
 
-`sudo apt install aria2`
+        `sudo apt install aria2`
 
-配置uGet默认下载插件为aria2
+        配置uGet默认下载插件为aria2
 
-`编辑->设置->插件->插件匹配顺序->选择aria2`
+        `编辑->设置->插件->插件匹配顺序->选择aria2`
 
-- 安装uget-integrator
+    - 安装uget-integrator
 
-添加uget-integrator
+        添加uget-integrator
 
-`sudo add-apt-repository ppa:uget-team/ppa`
+        `sudo add-apt-repository ppa:uget-team/ppa`
 
-更新
+        更新
 
-`sudo apt update`
+        `sudo apt update`
 
-安装
+        安装
 
-`sudo apt install uget-integrator`
+        `sudo apt install uget-integrator`
 
-- 安装Chrome插件[传送门][12]
+    - 安装Chrome插件[传送门][12]
 
-添加uGet扩展后，谷歌浏览器右上角即可显示uGet图标。重启谷歌浏览器，只要点击下载链接，就会自动弹出uGet下载界面、自动添加下载任务。
+        添加uGet扩展后，谷歌浏览器右上角即可显示uGet图标。重启谷歌浏览器，只要点击下载链接，就会自动弹出uGet下载界面、自动添加下载任务。
 
 ## Ubuntu开发环境配置
 
