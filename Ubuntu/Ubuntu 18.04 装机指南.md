@@ -4,15 +4,13 @@
 
 ---
 
-## 检查最新更新
+## Ubuntu是什么
 
-打开「软件更新器」- 点击「检查更新」按钮进行更新。
+## Ubuntu安装教程
 
-## 安装Linux显卡驱动（开发使用建议不安装）
+## Ubuntu文件系统简介
 
-打开「软件和更新」-「附加驱动」选项卡中进行选择。
-
-## 常用命令
+## Ubuntu常用命令
 
     xset m 1.7
 
@@ -46,7 +44,7 @@
 
     rm -d 目录名（删除一个空目录）
 
-    rm -r 目录名（删除一个非空目录）           
+    rm -r 目录名（删除一个非空目录）
 
     rm 文件名（删除一个文件）
 
@@ -91,37 +89,32 @@
 
     sudo add-apt-repository -r ppa:user/ppa-name（删除PPA源）
 
-## 常用文件夹
+## Ubuntu基础配置
 
-部分软件安装在/usr下，里面很多文件夹，根据文件的类型，分门别类，不是一个软件一个文件夹。
-比如“网易云音乐”就安装在/usr/lib/netease-cloud-music
+1. 检查最新更新
 
-部分软件放在/opt下，则是一个软件统一在一个文件夹下。/opt目录专门是用来给第三方软件放置文件的，比如一些压缩包解压的软件都放在这里。
-比如“Chrome”就应该放在/opt/google/chrome
+打开「软件更新器」- 点击「检查更新」按钮进行更新。
 
-工作区(workspace)放在/home/terry最好
+2. 安装Linux显卡驱动
 
-更多信息请看[传送门][2]
+打开「软件和更新」-「附加驱动」选项卡中进行选择。
 
-## 设置root账户密码
+作为开发环境使用不建议安装。
 
-    sudo passwd root
+3. 设置root账户密码
 
-    sudo passwd -l root //清除root密码
+```bash
+sudo passwd root // 设置root密码
+sudo passwd -l root // 清除root密码
+```
 
-## vim
+4. 设置鼠标灵敏度
 
-### 安装
+   1. xinput命令
 
-    sudo apt install vim
+   查看连接在电脑上的设备
 
-## mouse
-
-### xinput命令
-
-查看连接在电脑上的设备
-
-    xinput --list
+   `xinput --list`
 
 设置开机启动项文件（若存在多个同名device，可使用id。例如id为9的some mouse："pointer:some mouse" 改为 9）
 
@@ -142,6 +135,26 @@
     “启动应用程序”中添加"xset m 1.7"命令
 
 重启即可
+
+## Ubuntu开发环境配置
+
+## 常用文件夹
+
+部分软件安装在/usr下，里面很多文件夹，根据文件的类型，分门别类，不是一个软件一个文件夹。
+比如“网易云音乐”就安装在/usr/lib/netease-cloud-music
+
+部分软件放在/opt下，则是一个软件统一在一个文件夹下。/opt目录专门是用来给第三方软件放置文件的，比如一些压缩包解压的软件都放在这里。
+比如“Chrome”就应该放在/opt/google/chrome
+
+工作区(workspace)放在/home/terry最好
+
+更多信息请看[传送门][2]
+
+## vim
+
+### 安装
+
+    sudo apt install vim
 
 ## Shadowsocks
 
@@ -302,56 +315,6 @@ systemctl start /etc/systemd/system/shadowsocks.service
 ### apt安装
 
     sudo apt install gnome-tweaks
-
-## 主题设置
-
-### 自定义桌面
-
-略
-
-### 卸载主题
-
-进入主题目录
-
-    cd /usr/share/themes
-
-查看主题文件夹
-
-    ls -l
-
-把不想要的主题文件夹删除即可
-
-    rm -rf xx
-
-### 卸载图标
-
-进入图标目录
-
-    cd /usr/share/icons
-
-查看主题文件夹
-
-    ls -l
-
-把不想要的主题文件夹删除即可
-
-    rm -rf xx
-
-### 卸载指针
-
-略
-
-### 中文字体
-
-    sudo apt install ttf-wqy-microhei // 文泉驿-微米黑
-
-    sudo apt install ttf-wqy-zenhei // 文泉驿-正黑
-
-    sudo apt install xfonts-wqy // 文泉驿-点阵宋体
-
-### 卸载字体
-
-略
 
 ## indicator-sysmonitor
 
