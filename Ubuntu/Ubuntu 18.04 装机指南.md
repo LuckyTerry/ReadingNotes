@@ -73,9 +73,36 @@ mv a.txt /b（移动一个文件到指定目录，不改变文件名）
 
 mv a.txt /b/c.txt（移动一个文件到指定目录，并改变文件名）
 
-sudo tar -zxvf *.tar.gz（解压 tar.gz格式的文件）
+五个独立的命令，压缩解压都要用到其中一个
+-c: 建立压缩档案
+-x：解压
+-t：查看内容
+-r：向压缩归档文件末尾追加文件
+-u：更新原压缩包中的文件
+
+根据需要在压缩或解压档案时可选的
+-z：有gzip属性的
+-j：有bz2属性的
+-Z：有compress属性的
+-v：显示所有过程
+-O：将文件解开到标准输出
+
+参数-f是必须的
+-f: 使用档案名字，切记，这个参数是最后一个参数，后面只能接档案名。
+
+sudo tar -cvf someName.tar *.jpg（将目录里所有jpg文件打包成someName.tar）
+
+sudo tar -czf someName.tar.gz *.jpg（将目录里所有jpg文件打包成someName.tar后，并且将其用gzip压缩，生成一个gzip压缩过的包）
+
+sudo tar -zxvf *.tar.gz（解压 tar.gz格式的文件到当前目录）
 
 sudo tar -zxvf *.tar.gz -C 指定目录名（解压 tar.gz格式的文件到指定目录）
+
+sudo tar -cjf *.tar.bz2 *.jpg（将目录里所有jpg文件打包成someName.tar后，并且将其用bzip2压缩，生成一个bzip2压缩过的包）
+
+sudo tar -xjf *.tar.bz2（解压 tar.bz2格式的文件到当前目录）
+
+sudo tar -xjf *.tar.bz2 -C 指定目录名（解压 tar.bz2格式的文件到指定目录）
 
 sudo unzip -d 指定目录名 *.zip（解压 .zip格式的文件到指定目录）
 
@@ -418,7 +445,7 @@ sudo apt install flashplugin-installer
 
     略
 
-5. uGet
+5. uGet（Recommend）
 
     - 安装uGet
 
@@ -801,15 +828,19 @@ sudo apt install flashplugin-installer
 
     1. apt安装
 
+        官网安装向导，建议看紧随的中译向导
+
+        `http://www.sublimetext.com/docs/3/linux_repositories.html#apt`
+
         添加GPG key
 
         `wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -`
 
-        Ensure apt is set up to work with https sources:
+        确保apt能处理https请求
 
         `sudo apt install apt-transport-https`
 
-        Select the channel to use
+        选择使用稳定或开发通道
 
         ```bash
         Stable
@@ -819,13 +850,29 @@ sudo apt install flashplugin-installer
         echo "deb https://download.sublimetext.com/ apt/dev/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
         ```
 
-        Update apt sources
+        更新源
 
         `sudo apt update`
 
-        install Sublime Text
+        安装
 
         `sudo apt install sublime-text`
+
+    2. tar.bz2安装
+
+        官网下载最新版本
+
+        `http://www.sublimetext.com/3`
+
+        或，快速下载3176版本
+
+        `wget https://download.sublimetext.com/sublime_text_3_build_3176_x64.tar.bz2`
+
+        解压安装
+
+        `sudo tar -xjf sublime_text_3_build_3176_x64.tar.bz2 -C /opt/`
+
+    3. 激活
 
         enter the license（sublime_text_3_build_3143_x64_注册码，亲测有效）
 
@@ -844,20 +891,6 @@ sudo apt install flashplugin-installer
         E36B85CC 84991F19 7575D828 470A92AB
         —— END LICENSE ——
         ```
-
-    2. deb安装
-
-        更新源
-
-        `sudo apt update`
-
-        依赖
-
-        `sudo apt install -f`
-
-        安装
-
-        `sudo dpkg -i *.deb`
 
 ### 数据库管理软件
 
