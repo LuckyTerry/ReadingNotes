@@ -369,11 +369,11 @@ https://github.com/redapple0204/my-boring-python/releases/download/005/CodeWeave
 
 1. Deluge
 
-软件商店搜索下载即可
+   软件商店搜索下载即可
 
 2. qBittorrent
 
-软件商店搜索下载即可
+    软件商店搜索下载即可
 
 3. Transmission
 
