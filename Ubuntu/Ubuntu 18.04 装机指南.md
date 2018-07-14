@@ -10,6 +10,16 @@
 
 ## Ubuntu文件系统简介
 
+部分软件安装在/usr下，里面很多文件夹，根据文件的类型，分门别类，不是一个软件一个文件夹。
+比如“网易云音乐”就安装在/usr/lib/netease-cloud-music
+
+部分软件放在/opt下，则是一个软件统一在一个文件夹下。/opt目录专门是用来给第三方软件放置文件的，比如一些压缩包解压的软件都放在这里。
+比如“Chrome”就应该放在/opt/google/chrome
+
+工作区(workspace)放在/home/terry最好
+
+更多信息请看[传送门][2]
+
 ## Ubuntu常用命令
 
     xset m 1.7
@@ -91,74 +101,367 @@
 
 ## Ubuntu基础配置
 
-1. 检查最新更新
+### 1. 检查最新更新
 
 打开「软件更新器」- 点击「检查更新」按钮进行更新。
 
-2. 安装Linux显卡驱动
+### 2. 安装Linux显卡驱动
 
 打开「软件和更新」-「附加驱动」选项卡中进行选择。
 
 作为开发环境使用不建议安装。
 
-3. 设置root账户密码
+### 3. 设置root账户密码
 
 ```bash
 sudo passwd root // 设置root密码
 sudo passwd -l root // 清除root密码
 ```
 
-4. 设置鼠标灵敏度
+### 4. 设置鼠标灵敏度
 
-   1. xinput命令
+1. xinput命令
 
-   查看连接在电脑上的设备
+查看连接在电脑上的设备
 
-   `xinput --list`
+`xinput --list`
 
 设置开机启动项文件（若存在多个同名device，可使用id。例如id为9的some mouse："pointer:some mouse" 改为 9）
 
-    vi /etc/profile.d/mouse.sh
+```bash
+vi /etc/profile.d/mouse.sh
 
-    xinput --set-prop "pointer:Logitech G403 Prodigy Gaming Mouse" "Device Accel Constant Deceleration" 1.5
-    xinput --set-prop "pointer:Logitech G403 Prodigy Gaming Mouse" "Device Accel Adaptive Deceleration" 1
-    xinput --set-prop "pointer:Logitech G403 Prodigy Gaming Mouse" "Device Accel Velocity Scaling" 1
+xinput --set-prop "pointer:Logitech G403 Prodigy Gaming Mouse" "Device Accel Constant Deceleration" 1.5
+xinput --set-prop "pointer:Logitech G403 Prodigy Gaming Mouse" "Device Accel Adaptive Deceleration" 1
+xinput --set-prop "pointer:Logitech G403 Prodigy Gaming Mouse" "Device Accel Velocity Scaling" 1
+```
 
 重启后鼠标设置面板就可以调节鼠标速度了
 
-### xset命令
+2. xset命令
 
-    xset m 0
-    xset m default
-    xset m 1.7 // My Preference
+```bash
+xset m 0
+xset m default
+xset m 1.7 // My Preference
+```
 
-    “启动应用程序”中添加"xset m 1.7"命令
+“启动应用程序”中添加"xset m 1.7"命令，重启即可
 
-重启即可
+### 5. Gnome Tweak 图形界面工具
+
+1. 软件商店安装
+
+    搜索 Gnome Tweak 安装即可
+
+2. apt安装
+
+    sudo apt install gnome-tweaks
+
+### 6. indicator-sysmonitor
+
+添加源
+
+`sudo add-apt-repository ppa:fossfreedom/indicator-sysmonitor`
+
+更新
+
+`sudo apt update`
+
+安装
+
+`sudo apt install indicator-sysmonitor`
+
+启动
+
+`indicator-sysmonitor &`
+
+配置Preference
+
+```bash
+右键状态栏的indicator-sysmonitor--Preferences
+General--勾选 Run on startup 
+Advanced--Customize output--输入 CPU: {cpu} 内存: {mem} 网络: {net}
+```
+
+### 99. flash Player
+
+    sudo apt update
+    sudo apt install flashplugin-installer
+
+### 7. 搜狗输入法
+
+输入法需要直接从官网上下载，因此在连上网络之后直接使用Firefox下载安装Sogou Input。安装完成之后重启一下，再右上角按钮第一个（一般来说）是输入法。这时候fcitx输入法管理器已经自动安装，菜单中的设置打开fcitx设置界面，加号添加输入法，先取消了Only Show Current Language，然后拉列表到最下找Sogou Input添加。最后设置一下熟悉的切换键位就好。添加成功之后输入法的设置会改为默认使用Sogou的设置，想再打开fcitx的设置需要再Sogou的设置中高级中最下方找。建议切换键位通过fcitx修改，选择会比较多。
+
+先删除ibus,否则某些第三方软件无法输入中文
+
+    sudo apt remove ibus
+
+查看是否安装了 fcitx，libssh2-1 依赖
+
+    dpkg -l | grep fcitx
+    dpkg -l | grep libssh
+
+若未安装，进行安装
+
+    sudo apt install fcitx libssh2-1
+
+下载最新deb[官网][10]
+
+安装搜狗输入法
+
+    sudo dpkg -i sogoupinyin_2.1.0.0086_amd64.deb
+
+若出现依赖问题先修复依赖，再运行上面的安装命令
+
+    sudo apt upgrade -f
+
+设置系统的键盘输入方式为fcitx
+
+    系统设置>语言支持>键盘输入方式系统，然后选择 fcitx 项
+
+fcitx配置中选择sougo输入法
+
+    状态栏点击“键盘”>配置Fcitx>左下角添加>取消勾选“仅显示当前语言”>在列表中选择“搜狗输入法”
+    然后删除多余输入法，仅保留“键盘-汉语”和“搜狗输入法”两种输入法即可。
+
+ReLogin 或 Reboot 即可。
+
+### 8. Firefox安装代理插件
+
+菜单 - 附加组件 - 获取附加组件 - 查看更多附加组件 - 搜索 Proxy SwitchyOmega
+
+### 9. Chrome
+
+1. apt安装
+
+将下载源加入到系统的源列表
+
+    sudo wget https://repo.fdzh.org/chrome/google-chrome.list -P /etc/apt/sources.list.d/
+
+导入谷歌软件的公钥，用于下面步骤中对下载软件进行验证。
+
+    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub  | sudo apt-key add -
+
+对当前系统的可用更新列表进行更新
+
+    sudo apt update
+
+执行对谷歌 Chrome 浏览器（稳定版）的安装
+
+    sudo apt install google-chrome-stable
+
+在终端中执行以下命令
+
+    /usr/bin/google-chrome-stable
+    google-chrome --proxy-server=socks5://127.0.0.1:1080
+
+2. deb安装
+
+离线稳定版Chrome下载地址
+
+    https://www.google.com/intl/zh-CN/chrome/browser/desktop/index.html?standalone=1&platform=Linux64
+
+可能需要修复依赖关系
+
+    sudo apt -f install
+
+安装
+
+    sudo dpkg -i google-chrome-stable_current_amd64.deb
+
+命令行启动经代理的Chrome
+
+    google-chrome --proxy-server=socks5://127.0.0.1:1080
+
+### 10. WPS Office
+
+`sudo apt -i wps-office_10.1.0.5672-a21_amd64.deb`
+
+### 11. Crossover
+
+1. 下载官网最新版本
+
+`https://www.codeweavers.com/products/crossover-linux/download`
+
+2. 安装
+
+`sudo dpkg -i crossover_16.2.5-1.deb`
+
+3. 破解，更多详细信息，见[出处][11]
+
+```text
+先下载这个
+https://github.com/redapple0204/my-boring-python/releases/download/005/CodeWeavers.Crossover.15.0.0.with._.for.ubuntu.fedora.linux.zip
+
+然后安装里面的包（理论上所有15版本都支持，部分16支持），打开crack文件夹，提取里面的.exe.so出来（破解文件exe.so
+链接: http://pan.baidu.com/s/1geK1hOf 密码: vraa）
+
+替换/opt/cxoffice/lib/wine/的那个so
+
+然后打开crossover，发现已破解（arch亲测最新版破解成功），可以正常使用和创建容器。
+```
+
+4. 安装QQ
+
+添加容器-左下角点击“添加”
+
+安装Windows软件-底部点击“安装Windows软件”
+
+### 12. 微信
+
+1. deb安装
+
+下载对应自己系统的wechat链接
+
+    https://github.com/geeeeeeeeek/electronic-wechat/releases
+
+解压到指定目录
+
+     sudo tar -xzvf Linux-x64.tar.gz -C /opt
+
+更名：进入/opt目录
+
+    sudo mv *wechat* wechat
+
+拷入wechat.png
+
+    sudo cp wechat.png /opt/wechat
+
+添加快捷方式
+
+    sudo vim /usr/share/applications/wechat.desktop 
+
+    #添加以下文字
+    [Desktop Entry]
+    Name=WeChat
+    Comment=wechat
+    Exec=/opt/wechat/electronic-wechat
+    Icon=/opt/wechat/wechat.png
+    Terminal=false
+    Type=Application
+
+    添加执行权限
+    sudo chmod +x /usr/share/applications/wechat.desktop
+
+    打开applications文件夹，把wechat.desktop文件拖动到Launcher条上
+    sudo nautilus /usr/share/applications
+
+### 13. 网易云音乐
+
+1. deb安装
+
+修复依赖
+
+    sudo apt install -f
+
+安装deb
+
+    sudo dpkg -i netease-cloud-music_1.0.0-2_amd64_ubuntu16.04.deb
+
+### 14. FoxitReader
+
+1. tar.gz安装
+
+进入下载文件所在目录，右键提取到此处，双击.run执行安装即可。
+
+### 15. 下载工具
+
+1. Deluge
+
+软件商店搜索下载即可
+
+2. qBittorrent
+
+软件商店搜索下载即可
+
+3. Transmission
+
+系统已自带
+
+4. axel
+
+略
+
+5. uGet
+
+- 安装uGet
+
+添加uGet源
+
+`sudo add-apt-repository ppa:plushuang-tw/uget-stable`
+
+更新
+
+`sudo apt update`
+
+安装uget
+
+`sudo apt install uget`
+
+或者
+
+`应用商店搜索安装即可`
+
+- 安装aria2
+
+添加aria2源
+
+`sudo add-apt-repository ppa:t-tujikawa/ppa`
+
+更新
+
+`sudo apt update`
+
+安装aria2
+
+`sudo apt install aria2`
+
+配置uGet默认下载插件为aria2
+
+`编辑->设置->插件->插件匹配顺序->选择aria2`
+
+- 安装uget-integrator
+
+添加uget-integrator
+
+`sudo add-apt-repository ppa:uget-team/ppa`
+
+更新
+
+`sudo apt update`
+
+安装
+
+`sudo apt install uget-integrator`
+
+- 安装Chrome插件[传送门][12]
+
+添加uGet扩展后，谷歌浏览器右上角即可显示uGet图标。重启谷歌浏览器，只要点击下载链接，就会自动弹出uGet下载界面、自动添加下载任务。
 
 ## Ubuntu开发环境配置
 
-## 常用文件夹
+### 1. vim
 
-部分软件安装在/usr下，里面很多文件夹，根据文件的类型，分门别类，不是一个软件一个文件夹。
-比如“网易云音乐”就安装在/usr/lib/netease-cloud-music
+1. 安装
 
-部分软件放在/opt下，则是一个软件统一在一个文件夹下。/opt目录专门是用来给第三方软件放置文件的，比如一些压缩包解压的软件都放在这里。
-比如“Chrome”就应该放在/opt/google/chrome
+`sudo apt install vim`
 
-工作区(workspace)放在/home/terry最好
+2. 基本命令
 
-更多信息请看[传送门][2]
+i 进入insert模式
 
-## vim
+esc 退出编辑模式
 
-### 安装
+:q 无修改情况下退出
 
-    sudo apt install vim
+:q! 有修改情况下丢弃修改并退出
 
-## Shadowsocks
+:wq 保存(write)并退出(quit)
 
-### 安装Server版本
+### 2. Shadowsocks
+
+1. 安装Server版本
 
 安装Pip
 
@@ -220,7 +523,7 @@ systemctl enable /etc/systemd/system/shadowsocks.service
 systemctl start /etc/systemd/system/shadowsocks.service
 ```
 
-### 安装Gui版本
+2. 安装Gui版本
 
 添加源
 
@@ -253,347 +556,62 @@ systemctl start /etc/systemd/system/shadowsocks.service
 备注 Shadowsocks-Qt5
 ```
 
-## 终端走SS代理
+### 3. Terminal配置Shadowsocks代理
 
-### 安装proxychains
+1. 安装proxychains
 
 安装
 
-    sudo apt install proxychains
+`sudo apt install proxychains`
 
 配置proxychains
 
-    sudo vi /etc/proxychains.conf
-    将socks4 127.0.0.1 9050注释，增加socks5 127.0.0.1 1080
+```bash
+sudo vi /etc/proxychains.conf
+将socks4 127.0.0.1 9050注释，增加socks5 127.0.0.1 1080
+```
 
-重新打开终端，使用命令时前面需要加上proxychains
+重新打开终端，使用命令时前面需要加上proxychains，如
 
-    如 sudo proxychains apt-get update
+`sudo proxychains apt-get update`
 
-### 安装polipo
+2. 安装polipo
 
 安装
 
-    sudo apt install polipo
+`sudo apt install polipo`
 
 配置polipo
 
-    sudo vim /etc/polipo/config
+```bash
+sudo vim /etc/polipo/config
 
-    添加以下文字
-    socksParentProxy = "127.0.0.1:1080"
-    socksProxyType = socks5
+添加以下文字
+socksParentProxy = "127.0.0.1:1080"
+socksProxyType = socks5
+```
 
 重启polipo服务：
 
-    sudo /etc/init.d/polipo restart
+`sudo /etc/init.d/polipo restart`
 
 为当前终端配置http代理：
 
-    export http_proxy="http://127.0.0.1:8123/"
+`export http_proxy="http://127.0.0.1:8123/"`
 
 接着测试下能否科学上网：
 
-    curl www.google.com
+`curl www.google.com`
 
 为当前终端配置https代理：
 
-    export https_proxy="http://127.0.0.1:8123/"
+`export https_proxy="http://127.0.0.1:8123/"`
 
 接着测试下能否科学上网：
 
-    curl https://www.youtube.com/
+`curl https://www.youtube.com/`
 
 如果有响应，则全局代理配置成功。
-
-## Gnome Tweak 图形界面工具
-
-### 软件商店安装
-
-    搜索 Gnome Tweak 安装即可
-
-### apt安装
-
-    sudo apt install gnome-tweaks
-
-## indicator-sysmonitor
-
-添加源
-
-    sudo add-apt-repository ppa:fossfreedom/indicator-sysmonitor
-
-更新
-
-    sudo apt update
-
-安装
-
-    sudo apt install indicator-sysmonitor
-
-启动
-
-    indicator-sysmonitor &
-
-配置Preference
-
-    右键状态栏的indicator-sysmonitor--Preferences
-    General--勾选 Run on startup 
-    Advanced--Customize output--输入 CPU: {cpu} 内存: {mem} 网络: {net}
-
-## flash Player
-
-    sudo apt update
-    sudo apt install flashplugin-installer
-
-## 搜狗输入法
-
-输入法需要直接从官网上下载，因此在连上网络之后直接使用Firefox下载安装Sogou Input。安装完成之后重启一下，再右上角按钮第一个（一般来说）是输入法。这时候fcitx输入法管理器已经自动安装，菜单中的设置打开fcitx设置界面，加号添加输入法，先取消了Only Show Current Language，然后拉列表到最下找Sogou Input添加。最后设置一下熟悉的切换键位就好。添加成功之后输入法的设置会改为默认使用Sogou的设置，想再打开fcitx的设置需要再Sogou的设置中高级中最下方找。建议切换键位通过fcitx修改，选择会比较多。
-
-先删除ibus,否则某些第三方软件无法输入中文
-
-    sudo apt remove ibus
-
-查看是否安装了 fcitx，libssh2-1 依赖
-
-    dpkg -l | grep fcitx
-    dpkg -l | grep libssh
-
-若未安装，进行安装
-
-    sudo apt install fcitx libssh2-1
-
-下载最新deb[官网][10]
-
-安装搜狗输入法
-
-    sudo dpkg -i sogoupinyin_2.1.0.0086_amd64.deb
-
-若出现依赖问题先修复依赖，再运行上面的安装命令
-
-    sudo apt upgrade -f
-
-设置系统的键盘输入方式为fcitx
-
-    系统设置>语言支持>键盘输入方式系统，然后选择 fcitx 项
-
-fcitx配置中选择sougo输入法
-
-    状态栏点击“键盘”>配置Fcitx>左下角添加>取消勾选“仅显示当前语言”>在列表中选择“搜狗输入法”
-    然后删除多余输入法，仅保留“键盘-汉语”和“搜狗输入法”两种输入法即可。
-
-ReLogin 或 Reboot 即可。
-
-## Firefox安装代理插件
-
-菜单 - 附加组件 - 获取附加组件 - 查看更多附加组件 - 搜索 Proxy SwitchyOmega
-
-## Chrome
-
-### apt安装
-
-将下载源加入到系统的源列表
-
-    sudo wget https://repo.fdzh.org/chrome/google-chrome.list -P /etc/apt/sources.list.d/
-
-导入谷歌软件的公钥，用于下面步骤中对下载软件进行验证。
-
-    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub  | sudo apt-key add -
-
-对当前系统的可用更新列表进行更新
-
-    sudo apt update
-
-执行对谷歌 Chrome 浏览器（稳定版）的安装
-
-    sudo apt install google-chrome-stable
-
-在终端中执行以下命令
-
-    /usr/bin/google-chrome-stable
-    google-chrome --proxy-server=socks5://127.0.0.1:1080
-
-### deb安装
-
-离线稳定版Chrome下载地址
-
-    https://www.google.com/intl/zh-CN/chrome/browser/desktop/index.html?standalone=1&platform=Linux64
-
-可能需要修复依赖关系
-
-    sudo apt -f install
-
-安装
-
-    sudo dpkg -i google-chrome-stable_current_amd64.deb
-
-命令行启动经代理的Chrome
-
-    google-chrome --proxy-server=socks5://127.0.0.1:1080
-
-## WPS Office
-
-    sudo apt -i wps-office_10.1.0.5672-a21_amd64.deb
-
-## Crossover
-
-下载官网最新版本
-
-    https://www.codeweavers.com/products/crossover-linux/download
-
-安装
-
-    sudo dpkg -i crossover_16.2.5-1.deb
-
-破解，更多详细信息，见[出处][11]
-
-    先下载这个
-    https://github.com/redapple0204/my-boring-python/releases/download/005/CodeWeavers.Crossover.15.0.0.with._.for.ubuntu.fedora.linux.zip
-
-    然后安装里面的包（理论上所有15版本都支持，部分16支持），打开crack文件夹，提取里面的.exe.so出来（破解文件exe.so
-    链接: http://pan.baidu.com/s/1geK1hOf 密码: vraa）
-
-    替换/opt/cxoffice/lib/wine/的那个so
-
-    然后打开crossover，发现已破解（arch亲测最新版破解成功），可以正常使用和创建容器。
-
-## QQ
-
-添加容器
-
-    左下角点击“添加”
-
-安装Windows软件
-
-    底部点击“安装Windows软件”
-
-## 微信
-
-### deb安装
-
-下载对应自己系统的wechat链接
-
-    https://github.com/geeeeeeeeek/electronic-wechat/releases
-
-解压到指定目录
-
-     sudo tar -xzvf Linux-x64.tar.gz -C /opt
-
-更名：进入/opt目录
-
-    sudo mv *wechat* wechat
-
-拷入wechat.png
-
-    sudo cp wechat.png /opt/wechat
-
-添加快捷方式
-
-    sudo vim /usr/share/applications/wechat.desktop 
-
-    #添加以下文字
-    [Desktop Entry]
-    Name=WeChat
-    Comment=wechat
-    Exec=/opt/wechat/electronic-wechat
-    Icon=/opt/wechat/wechat.png
-    Terminal=false
-    Type=Application
-
-    添加执行权限
-    sudo chmod +x /usr/share/applications/wechat.desktop
-
-    打开applications文件夹，把wechat.desktop文件拖动到Launcher条上
-    sudo nautilus /usr/share/applications
-
-## 网易云音乐
-
-### deb安装
-
-修复依赖
-
-    sudo apt install -f
-
-安装deb
-
-    sudo dpkg -i netease-cloud-music_1.0.0-2_amd64_ubuntu16.04.deb
-
-## FoxitReader
-
-### tar.gz安装
-
-进入下载文件所在目录，右键提取到此处，双击.run执行安装即可。
-
-## 下载工具
-
-### Deluge
-
-软件商店搜索下载即可
-
-### qBittorrent
-
-软件商店搜索下载即可
-
-### Transmission
-
-系统已自带
-
-### axel
-
-### uGet
-
-#### 安装uGet
-
-添加uGet源
-
-    sudo add-apt-repository ppa:plushuang-tw/uget-stable
-
-更新
-
-    sudo apt update
-
-安装uget
-
-    sudo apt install uget
-
-或者
-
-    应用商店搜索安装即可
-
-#### 安装aria2
-
-添加aria2源
-
-    sudo add-apt-repository ppa:t-tujikawa/ppa
-
-更新
-
-    sudo apt update
-
-安装aria2
-
-    sudo apt install aria2
-
-配置uGet默认下载插件为aria2
-
-    编辑->设置->插件->插件匹配顺序->选择aria2
-
-#### 安装uget-integrator
-
-添加uget-integrator
-
-    sudo add-apt-repository ppa:uget-team/ppa
-
-更新
-
-    sudo apt update
-
-安装
-
-    sudo apt install uget-integrator
-
-#### 安装Chrome插件[传送门][12]
-
-添加uGet扩展后，谷歌浏览器右上角即可显示uGet图标。重启谷歌浏览器，只要点击下载链接，就会自动弹出uGet下载界面、自动添加下载任务。
 
 ## git
 
