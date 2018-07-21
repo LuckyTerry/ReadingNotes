@@ -11,7 +11,7 @@ File -> Settings -> File and Code Templates -> Includes -> File Header -> 编辑
  *@author ${USER}
  *@version 1.0
  *@className ${NAME}
- *@date ${DATE} ${TIME}
+ *@date ${YEAR}/${MONTH}/${DAY} ${TIME}
  *@description //TODO
  *@program ${PROJECT_NAME}
  */
@@ -28,7 +28,7 @@ File -> Settings -> File and Code Templates -> Files -> Class -> 编辑
  *@author ${USER}
  *@version 1.0
  *@className ${NAME}
- *@date ${DATE} ${TIME}
+ *@date ${YEAR}/${MONTH}/${DAY} ${TIME}
  *@description ${Description}
  *@program ${PROJECT_NAME}
  */
@@ -84,9 +84,9 @@ return -> methodReturnType
 
 USER -> user()
 
-time -> time()
+time -> time("HH:mm:ss")
 
-date -> date()
+date -> date("yyyy-MM-dd")
 
 ## 有用链接
 

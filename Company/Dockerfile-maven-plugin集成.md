@@ -316,6 +316,20 @@ docker rmi payment-fmbk/payment-fmbk-refund:1.0.0
 
 ## Docker-compose
 
+* 父项目pom添加如下
+
+```text
+<build>
+  <extensions>
+    <extension>
+      <groupId>com.spotify</groupId>
+      <artifactId>dockerfile-maven-extension</artifactId>
+      <version>${dockerfile-maven-version}</version>
+    </extension>
+  </extensions>
+</build>
+```
+
 * 前台启动容器
 
 ```text
