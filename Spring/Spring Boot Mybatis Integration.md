@@ -82,3 +82,11 @@ http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/ind
     第三方参考资料
 
     springBoot中配置mybatis的二级缓存 https://blog.csdn.net/qq_28929589/article/details/79127268
+
+4. 自定义缓存
+
+    官方出品 mybatis-redis Github地址 https://github.com/mybatis/redis-cache
+
+    官方出品 mybatis-redis docs地址 http://www.mybatis.org/redis-cache/index.html
+
+    实测1.0.0-beta2源码有错，不要用！
