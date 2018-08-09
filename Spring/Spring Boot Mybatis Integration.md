@@ -89,4 +89,8 @@ http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/ind
 
     官方出品 mybatis-redis docs地址 http://www.mybatis.org/redis-cache/index.html
 
-    实测1.0.0-beta2源码有错，不要用！
+    1.0.0-beta2必须搭配Jedis2.8.0使用
+
+    1.0.0-beta3-SNAPSHOT则可以搭配Jedis2.9.0使用
+
+    实测官方maven版本1.0.0-beta3-SNAPSHOT的Jar包有问题，所以可以将源码Download下来，Deploy到私服，或者Install到本地仓库，进行使用。
