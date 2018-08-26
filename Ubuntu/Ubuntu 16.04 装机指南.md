@@ -731,20 +731,20 @@ ReLogin 或 Reboot 即可。
 配置uGet默认下载插件为aria2
 
     编辑->设置->插件->插件匹配顺序->选择aria2
-    
-#### 安装uget-chrome-wrapper
 
-添加uget-chrome-wrapper源
+#### 安装uget-integrator
 
-    sudo add-apt-repository ppa:slgobinath/uget-chrome-wrapper
-    
-更新
+    添加uget-integrator
 
-    sudo apt update
-    
-安装
+    `sudo add-apt-repository ppa:uget-team/ppa`
 
-    sudo apt install uget-chrome-wrapper
+    更新
+
+    `sudo apt update`
+
+    安装
+
+    `sudo apt install uget-integrator`
     
 #### 安装Chrome插件[传送门][12]
     
