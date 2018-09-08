@@ -1,0 +1,14 @@
+# 查看Docker-Redis连接
+
+## 查找进程pid
+
+ps -ef|grep redis 结果的上一级进程pid，即第一个pid
+
+或
+
+docker ps
+docker inspect -f '{{.State.Pid}}' containerId
+
+## 查看连接
+
+nsenter -t 29727 -n netstat -atnp

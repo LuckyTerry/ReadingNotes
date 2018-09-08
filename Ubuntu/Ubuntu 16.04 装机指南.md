@@ -19,6 +19,32 @@
 更新
 
     sudo apt-get update
+
+推荐阿里云软件源
+
+```
+#deb包
+deb http://mirrors.aliyun.com/ubuntu/ xenial main restricted universe multiverse  
+deb http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted universe multiverse  
+deb http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted universe multiverse  
+deb http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse  
+##测试版源  
+deb http://mirrors.aliyun.com/ubuntu/ xenial-proposed main restricted universe multiverse  
+# 源码  
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial main restricted universe multiverse  
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted universe multiverse  
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted universe multiverse  
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse  
+##测试版源  
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial-proposed main restricted universe multiverse  
+# Canonical 合作伙伴和附加  
+deb http://archive.canonical.com/ubuntu/ xenial partner  
+deb http://extras.ubuntu.com/ubuntu/ xenial main  
+```
+
+使用sudo vim sources.list打开文件，输入ggdG删除所有内容（这句指令可以理解为从第1行到最后1行之间的内容都删了）
+
+将复制的内容粘贴到本文件中；输入:wq保存退出
     
 ## 检查最新更新
 打开「软件更新器」- 点击「检查更新」按钮进行更新。
