@@ -106,40 +106,28 @@ debounced.zipWith(
 - 输入框清除按钮控制 （有焦点且有文本才显示清除按钮）
 
 ```kotlin
-Observable.combineLatest(RxView.focusChanges(et_user_name), RxTextView.afterTextChangeEvents(et_user_name), Pair::new)
-                .subscribe(pair -> {
-                    Boolean focused = pair.first
-                    TextViewAfterTextChangeEvent event = pair.second
-                    iv_clear_user_name.visibility = if (focused && event.editable.length > 0) View.VISIBLE else View.GONE
-                });
+Observables.combineLatest(et_user_name.focusChanges(), et_user_name.afterTextChangeEvents()) { 
+    focused, event -> focused && event.editable.length > 0
+}.subscribe(iv_clear_user_name.visibility());
 ```
 
 - 输入框清除按钮控制 && 多输入框内容合法判断
 
 ```kotlin
-val userNameEvent = RxTextView.afterTextChangeEvents(et_user_name).share()
-val userPasswordEvent = RxTextView.afterTextChangeEvents(et_user_password).share()
+val userNameEvent = et_user_name.afterTextChangeEvents().share()
+val userPasswordEvent = et_user_password.afterTextChangeEvents().share()
 
-Observable.combineLatest(RxView.focusChanges(et_user_name), userNameEvent, Pair::new)
-                .subscribe(pair -> {
-                    Boolean focused = pair.first
-                    TextViewAfterTextChangeEvent event = pair.second
-                    iv_clear_user_name.visibility = if (focused && event.editable.length > 0) View.VISIBLE else View.GONE
-                });
-                
-Observable.combineLatest(RxView.focusChanges(et_user_password), userPasswordEvent, Pair::new)
-                .subscribe(pair -> {
-                    Boolean focused = pair.first
-                    TextViewAfterTextChangeEvent event = pair.second
-                    iv_clear_user_password.visibility = if (focused && event.editable.length > 0) View.VISIBLE else View.GONE
-                });
+Observables.combineLatest(et_user_name.focusChanges(), userNameEvent) { 
+    focused, event -> focused && event.editable.length > 0
+}.subscribe(iv_clear_user_name.visibility())
 
-Observable.combineLatest(userNameEvent, userPasswordEvent, Pair::new)
-                .subscribe(pair -> {
-                    TextViewAfterTextChangeEvent nameEvent = pair.first
-                    TextViewAfterTextChangeEvent passwordEvent = pair.second
-                    btn_login.visibility = if (nameEvent.editable.length > 0 && event.editable.length > 0) View.VISIBLE else View.GONE
-                });
+Observables.combineLatest(et_user_password.focusChanges(), userPasswordEvent) { 
+    focused, event -> focused && event.editable.length > 0
+}.subscribe(iv_clear_user_password.visibility())
+
+Observables.combineLatests(userNameEvent, userPasswordEvent) {
+    nameEvent, passwordEvent -> nameEvent.editable.length > 0 && passwordEvent.editable.length > 0
+}.subscribe(btn_login::setEnable)
 ```
 
 - 多种类型的RecyclerView
