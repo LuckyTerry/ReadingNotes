@@ -1,4 +1,4 @@
-﻿# Android Studio 中 Gradle 的基本配置
+﻿# Android Studio Gradle 基本配置
 
 标签（空格分隔）： 未分类
 
