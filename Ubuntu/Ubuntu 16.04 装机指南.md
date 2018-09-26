@@ -987,7 +987,7 @@ intellij对路径的识别只支持三个路径，所以，要把JDK安装在这
     sudo vim /etc/profile
     
     在末尾添加一下几行文字
-    export ANDROID_HOME=/opt/android-sdk-linux
+    export ANDROID_HOME=/home/terry/Android/Sdk
     export PATH=$PATH:${ANDROID_HOME}/platform-tools
     export PATH=$PATH:${ANDROID_HOME}/tools
     
@@ -995,7 +995,7 @@ intellij对路径的识别只支持三个路径，所以，要把JDK安装在这
     source /etc/profile
     
     验证
-    adb -version
+    adb --version
 
 配置JDK路径
 
