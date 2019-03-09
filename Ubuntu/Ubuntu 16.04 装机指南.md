@@ -114,6 +114,10 @@ deb http://extras.ubuntu.com/ubuntu/ xenial main
     sudo chmod -R 777 *.*  对当前目录下的所有子目录和子文件进行777权限的变更
     
     sudo chmod -R 777 /opt/*（对opt目录下的所有子目录和子文件进行777权限的变更）
+
+    sudo dpkg -l（查看安装的所有软件）
+    sudo dpkg -l | grep qq（l（查看指定的软件））
+    sudo dpkg -L deepin.com.qq.im（查看指定包名的软件安装路径）
     
     sudo apt-get purge remove xxx
     sudo apt-get --purge remove xxx（移除应用，移除配置，保留依赖包）
@@ -129,6 +133,8 @@ deb http://extras.ubuntu.com/ubuntu/ xenial main
     sudo add-apt-repository ppa:user/ppa-name（添加PPA源）
     
     sudo add-apt-repository -r ppa:user/ppa-name（删除PPA源）
+
+    更多软件包命令见：https://blog.csdn.net/rained_99/article/details/54406045
     
 ## 常用文件夹
 
