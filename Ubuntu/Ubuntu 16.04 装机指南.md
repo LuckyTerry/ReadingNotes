@@ -190,9 +190,15 @@ deb http://extras.ubuntu.com/ubuntu/ xenial main
     
 ### 美化
 
+    略
+
 ### 常用命令
 
+    略
+
 ### 帮助-->[传送门][3]
+
+    略
 
 ## git
 
@@ -408,6 +414,8 @@ systemctl start /etc/systemd/system/shadowsocks.service
     gsettings set org.compiz.unityshell:/org/compiz/profiles/unity/plugins/unityshell/ launcher-minimize-window true
 
 #### 热区设置
+
+    略
 
 ## indicator-sysmonitor
 
@@ -1018,159 +1026,6 @@ Cannot run program"android-sdk-linux/aapt.exe":error-2,没有那个文件或目�
     添加Launcher快捷方式，桌面快捷方式
     sudo nautilus /usr/share/applications 拖动快捷方式到Launcher或桌面
     或 轻触Super键盘打开Dash，拖动快捷方式到Launcher或桌面
-    
-## Calibre
-
-进入[下载页面](https://calibre-ebook.com/download_linux) 
-
-运行安装脚本
-
-```
-sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.py | sudo python -c "import sys; main=lambda:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main()"
-```
-
-运行Calibre：
-
-```
-calibre
-```
-
-## Sublime Text
-
-### apt安装
-
-添加GPG key
-
-    wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
-    
-Ensure apt is set up to work with https sources:
-
-    sudo apt-get install apt-transport-https
-    
-Select the channel to use
-
-    Stable
-    echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
-    
-    Dev
-    echo "deb https://download.sublimetext.com/ apt/dev/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
-    
-Update apt sources
-
-    sudo apt-get update
-
-install Sublime Text
-    
-    sudo apt-get install sublime-text
-    
-enter the license（sublime_text_3_build_3143_x64_注册码，亲测有效）
-
-    —– BEGIN LICENSE —–
-    TwitterInc
-    200 User License
-    EA7E-890007
-    1D77F72E 390CDD93 4DCBA022 FAF60790
-    61AA12C0 A37081C5 D0316412 4584D136
-    94D7F7D4 95BC8C1C 527DA828 560BB037
-    D1EDDD8C AE7B379F 50C9D69D B35179EF
-    2FE898C4 8E4277A8 555CE714 E1FB0E43
-    D5D52613 C3D12E98 BC49967F 7652EED2
-    9D2D2E61 67610860 6D338B72 5CF95C69
-    E36B85CC 84991F19 7575D828 470A92AB
-    —— END LICENSE ——
-
-### deb安装
-
-更新源
-
-    sudo apt-get update
-    
-依赖
-
-    sudo apt-get install -f
-    
-安装
-
-    sudo dpkg -i *.deb
-
-## Markdown
-
-### Cmd Markdown
-
-[官网][19]下载最新版本
-
-### Remarkable
-
-[官网][20]下载最新版本
-
-安装
-
-    sudo dpkg -i remark*
-
-若出现依赖问题，解决依赖后再执行上面的命令
-
-    sudo apt-get install -f
-    
-### Moeditor
-
-[Github][21]下载最新版本
-
-安装p7zip
-
-    sudo apt-get install p7zip
-
-解压
-    
-    sudo 7z x *.7z -r -o/opt
-    
-更名
-
-    sudo mv Moeditor-* Moeditor
-
-添加快捷方式
-
-    sudo vim /usr/share/applications/moeditor.desktop
-    
-    将下面的内容粘贴到 moeditor.desktop 文件中：
-    [Desktop Entry]
-    Encoding=UTF-8
-    Name=Moeditor
-    Comment=Moeditor Markdown
-    Exec=/opt/Moeditor/Moeditor
-    Icon=/opt/Moeditor/Moeditor.png
-    Terminal=false
-    StartupNotify=true
-    Type=Application
-    Categories=Application;Development;
-    
-    添加执行权限
-    sudo chmod +x /usr/share/applications/moeditor.desktop
-    
-    添加Launcher快捷方式，桌面快捷方式
-    sudo nautilus /usr/share/applications 拖动快捷方式到Launcher或桌面
-    或 轻触Super键盘打开Dash，拖动快捷方式到Launcher或桌面
-
-## MySQL工具
-
-MySQL_Workbench
-
-emma
-
-## SQLite工具 [官网][22]
-
-添加源
-
-    sudo add-apt-repository -y ppa:linuxgndu/sqlitebrowser
-    
-更新源
-
-    sudo apt-get update
-    
-安装sqlitebrowser
-    
-    sudo apt-get install sqlitebrowser
-
-## SQL Server工具
 
 ## 登录界面无限循环
 
