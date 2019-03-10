@@ -153,20 +153,8 @@ deb http://extras.ubuntu.com/ubuntu/ xenial main
     sudo passwd root 
     
     sudo passwd -l root //清除root密码
-    
-## vim
 
-### 安装
-
-    sudo apt-get install vim
-    
-### 美化-->
-
-### 常用命令
-
-### 帮助-->[传送门][3]
-
-## mouse
+## 设置鼠标灵敏度
 
 ### xinput命令
 
@@ -194,6 +182,64 @@ deb http://extras.ubuntu.com/ubuntu/ xenial main
     
 重启即可
     
+## vim
+
+### 安装
+
+    sudo apt-get install vim
+    
+### 美化
+
+### 常用命令
+
+### 帮助-->[传送门][3]
+
+## git
+
+### apt安装（推荐，方便，但是不是最新版）
+
+安装
+
+    sudo apt-get install git
+    
+全局配置
+
+    git config --global user.name "YOUR NAME"
+    git config --global user.email "YOUR EMAIL ADDRESS"
+    
+生成key
+
+    ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+    
+查看key（位于~/.ssh/id_rsa.pub）
+
+    cat ~/.ssh/id_rsa.pub
+    
+### 下载Git源码编译安装
+
+下载源代码
+
+    https://github.com/git/git
+    
+make编译
+
+    sudo apt-get install openssl  
+    sudo apt-get install libssl-dev build-essential zlibc zlib-bin libidn11-dev libidn11  
+    sudo apt-get install libcurl4-gnutls-dev  
+    sudo apt-get install libexpat1-dev  
+    make prefix=/usr/local all  
+    sudo make prefix=/usr/local install  
+    
+其中/usr/local是编译安装后的位置，如果想要更改，则需在/etc/enviroment中添加或其他环境变量配置文件中添加即可,添加完之后，执行 source environment 命令。
+
+安装过程中可能会出现如下问题：openssl/ssl.h 没有那个文件或目录
+只要执行这个命令`sudo apt-get install libssl-dev `，重新执行上面命令即可。
+
+### 配置SS代理（若需要）
+
+    git config --global http.proxy 'socks5://127.0.0.1:1080' 
+    git config --global https.proxy 'socks5://127.0.0.1:1080'
+    
 ## Shadowsocks
 
 ### 安装Server版本
@@ -215,7 +261,7 @@ deb http://extras.ubuntu.com/ubuntu/ xenial main
     "server_port":443,
     "local_address":"127.0.0.1",
     "local_port":1080,
-    "password":"3Lk43eaGx8",
+    "password":"itellyou",
     "timeout":300,
     "method":"aes-256-cfb",
     "fast_open":false
@@ -363,141 +409,6 @@ systemctl start /etc/systemd/system/shadowsocks.service
 
 #### 热区设置
 
-## 主题设置
-软件中心安装Unity Tweak Tool，进入Theme，一般我个人将主题换为Radiance，图标换为Ubuntu-mono-light。
-更多Tweak Tool美化方式参看[此处][8]
-美化Bash界面和参数参考[此处][9]
-
-### Mac主题
-
-切换到root用户：
-
-    sudo su
-    
-更新源：
-
-    apt-get update
-    
-下载一些必要的工具：
-
-    # 下载工具
-    apt-get install wget
-
-    # 抓取工具
-    apt-get install curl
-
-    # 编辑器之神
-    apt-get install vim
-    
-下载mac壁纸：
-
-    http://pan.baidu.com/s/1skQCq2T
-    
-添加源：
-
-    # 添加源
-    add-apt-repository ppa:noobslab/macbuntu
-
-    # 更新源
-    apt-get update
-
-下载图标和主题：
-
-    # 下载图标
-    apt-get install macbuntu-os-icons-lts-v7
-
-    # 下载主题
-    apt-get install macbuntu-os-ithemes-lts-v7
-
-    # 卸载命令
-    cd /usr/share/icons/mac-cursors && sudo ./uninstall-mac-cursors.sh
-    apt-get remove macbuntu-os-icons-lts-v7 macbuntu-os-ithemes-lts-v7
-
-安装 Slingscold：
-
-    apt-get install slingscold
-    
-安装Albert Spotlight：
-
-    apt-get install albert
-    
-安装 Plank Dock：
-
-    # 安装plank
-    apt-get install plank
-
-    # 安装plank主题
-    apt-get install macbuntu-os-plank-theme-lts-v7
-    
-替换面板上的Ubuntu Desk：
-
-    cd && wget -O Mac.po http://drive.noobslab.com/data/Mac/change-name-on-panel/mac.po
-cd /usr/share/locale/en/LC_MESSAGES
-msgfmt -o unity.mo ~/Mac.po
-rm ~/Mac.po
-cd
-
-    #还原默认
-    cd && wget -O Ubuntu.po http://drive.noobslab.com/data/Mac/change-name-on-panel/ubuntu.po
-    cd /usr/share/locale/en/LC_MESSAGES
-    msgfmt -o unity.mo ~/Ubuntu.po
-    rm ~/Ubuntu.po
-    cd
-    
-修改启动器的logo：
-
-    wget -O launcher_bfb.png http://drive.noobslab.com/data/Mac/launcher-logo/apple/launcher_bfb.png
-    mv launcher_bfb.png /usr/share/unity/icons/
-
-    # 恢复默认
-    wget -O launcher_bfb.png http://drive.noobslab.com/data/Mac/launcher-logo/ubuntu/launcher_bfb.png
-    mv launcher_bfb.png /usr/share/unity/icons/
-    
-安装修改工具：
-    
-    apt-get install unity-tweak-tool
-    apt-get install gnome-tweak-tool
-    
-修改主题
-
-    主题选择Macbuntu-os
-
-    图标选择Macbuntu-os
-
-    指针选择Mac-cursors
-    
-### 卸载主题
-
-进入主题目录
-
-    cd /usr/share/themes
- 
-查看主题文件夹
-
-    ls -l
- 
-把不想要的主题文件夹删除即可
-
-    rm -rf xx
-
-### 卸载图标
-
-进入图标目录
-
-    cd /usr/share/icons
- 
-查看主题文件夹
-
-    ls -l
- 
-把不想要的主题文件夹删除即可
-
-    rm -rf xx
-
-### 卸载指针
-
-### 卸载字体
-
 ## indicator-sysmonitor
 
 添加源
@@ -526,20 +437,6 @@ cd
 
     sudo apt-get update
     sudo apt-get install flashplugin-installer
-    
-## 中文字体
-
-### 文泉驿-微米黑
-
-    sudo apt-get install ttf-wqy-microhei  
-
-### 文泉驿-正黑
-
-    sudo apt-get install ttf-wqy-zenhei
-
-### 文泉驿-点阵宋体
-
-    sudo apt-get install xfonts-wqy
 
 ## 搜狗输入法
 输入法需要直接从官网上下载，因此在连上网络之后直接使用Firefox下载安装Sogou Input。安装完成之后重启一下，再右上角按钮第一个（一般来说）是输入法。这时候fcitx输入法管理器已经自动安装，菜单中的设置打开fcitx设置界面，加号添加输入法，先取消了Only Show Current Language，然后拉列表到最下找Sogou Input添加。最后设置一下熟悉的切换键位就好。添加成功之后输入法的设置会改为默认使用Sogou的设置，想再打开fcitx的设置需要再Sogou的设置中高级中最下方找。建议切换键位通过fcitx修改，选择会比较多。
@@ -579,6 +476,28 @@ fcitx配置中选择sougo输入法
 ReLogin 或 Reboot 即可。
 
 ## Chrome
+    
+### deb安装（推荐）
+
+离线稳定版Chrome网页下载地址
+
+    https://www.google.com/intl/zh-CN/chrome/browser/desktop/index.html?standalone=1&platform=Linux64
+
+或者，Wget下载
+
+    sudo wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+
+可能需要修复依赖关系
+
+    sudo apt-get -f install
+
+安装
+
+    sudo dpkg -i google-chrome-stable_current_amd64.deb
+
+命令行启动经代理的Chrome
+
+    google-chrome --proxy-server=socks5://127.0.0.1:1080
 
 ### apt安装
 
@@ -602,60 +521,34 @@ ReLogin 或 Reboot 即可。
 
     /usr/bin/google-chrome-stable
     google-chrome --proxy-server=socks5://127.0.0.1:1080
-    
-### deb安装
-
-离线稳定版Chrome下载地址
-
-    https://www.google.com/intl/zh-CN/chrome/browser/desktop/index.html?standalone=1&platform=Linux64
-
-可能需要修复依赖关系
-
-    sudo apt-get -f install
-
-安装
-
-    sudo dpkg -i google-chrome-stable_current_amd64.deb
-
-命令行启动经代理的Chrome
-
-    google-chrome --proxy-server=socks5://127.0.0.1:1080
 
 ## WPS Office
 
     sudo apt-get -i wps-office_10.1.0.5672-a21_amd64.deb
-    
-## Crossover
 
-下载官网最新版本
+## deepin-wine-ubuntu
 
-    https://www.codeweavers.com/products/crossover-linux/download
-    
-安装
+Github的Repo
 
-    sudo dpkg -i crossover_16.2.5-1.deb 
-    
-破解，更多详细信息，见[出处][11]
+    https://github.com/wszqkzqk/deepin-wine-ubuntu
 
-    先下载这个
-    https://github.com/redapple0204/my-boring-python/releases/download/005/CodeWeavers.Crossover.15.0.0.with._.for.ubuntu.fedora.linux.zip
+安装wine环境
 
-    然后安装里面的包（理论上所有15版本都支持，部分16支持），打开crack文件夹，提取里面的.exe.so出来（破解文件exe.so
-    链接: http://pan.baidu.com/s/1geK1hOf 密码: vraa）
+    git clone https://github.com/wszqkzqk/deepin-wine-ubuntu.git    
 
-    替换/opt/cxoffice/lib/wine/的那个so
+    sudo proxychains ./install.sh
 
-    然后打开crossover，发现已破解（arch亲测最新版破解成功），可以正常使用和创建容器。
+下载并安装Tim(recommend)
 
-## QQ
+    sudo wget http://mirrors.aliyun.com/deepin/pool/non-free/d/deepin.com.qq.office/deepin.com.qq.office_2.0.0deepin4_i386.deb
 
-添加容器
+    sudo dpkg -i deepin.com.qq.office_2.0.0deepin4_i386.deb
 
-    左下角点击“添加”
+下载并安装Wechat(if necessary)
 
-安装Windows软件
+    sudo wget http://mirrors.aliyun.com/deepin/pool/non-free/d/deepin.com.wechat/deepin.com.wechat_2.6.2.31deepin0_i386.deb
 
-    底部点击“安装Windows软件”
+    sudo dpkg -i deepin.com.wechat_2.6.2.31deepin0_i386.deb
 
 ## 微信
 
@@ -700,13 +593,21 @@ ReLogin 或 Reboot 即可。
 
 ### deb安装
 
+网页下载
+
+    https://music.163.com/#/download
+
+或者，wget下载
+
+    sudo wget http://d1.music.126.net/dmusic/netease-cloud-music_1.1.0_amd64_ubuntu.deb
+
 修复依赖
 
     sudo apt-get install -f
     
 安装deb
 
-    sudo dpkg -i netease-cloud-music_1.0.0-2_amd64_ubuntu16.04.deb
+    sudo dpkg -i netease-cloud-music_1.1.0_amd64_ubuntu.deb
 
 ## FoxitReader
 
@@ -768,15 +669,15 @@ ReLogin 或 Reboot 即可。
 
     添加uget-integrator
 
-    `sudo add-apt-repository ppa:uget-team/ppa`
+    sudo add-apt-repository ppa:uget-team/ppa
 
     更新
 
-    `sudo apt update`
+    sudo apt update
 
     安装
 
-    `sudo apt install uget-integrator`
+    sudo apt install uget-integrator
     
 #### 安装Chrome插件[传送门][12]
     
@@ -794,52 +695,6 @@ ReLogin 或 Reboot 即可。
 
     sudo apt-get remove thunderbird totem rhythmbox empathy brasero simple-scan gnome-mahjongg aisleriot gnome-mines cheese transmission-common gnome-orca webbrowser-app gnome-sudoku  landscape-client-ui-install 
     sudo apt-get remove onboard deja-dup 
-
-## git
-
-### apt安装（方便，但是不是最新版）
-
-安装
-
-    sudo apt-get install git
-    
-全局配置
-
-    git config --global user.name "YOUR NAME"
-    git config --global user.email "YOUR EMAIL ADDRESS"
-    
-生成key
-
-    ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
-    
-查看key（位于/home/terry/.ssh/id_rsa.pub）
-
-    cat /home/terry/.ssh/id_rsa.pub
-    
-### 下载Git源码编译安装
-
-下载源代码
-
-    https://github.com/git/git
-    
-make编译
-
-    sudo apt-get install openssl  
-    sudo apt-get install libssl-dev build-essential zlibc zlib-bin libidn11-dev libidn11  
-    sudo apt-get install libcurl4-gnutls-dev  
-    sudo apt-get install libexpat1-dev  
-    make prefix=/usr/local all  
-    sudo make prefix=/usr/local install  
-    
-其中/usr/local是编译安装后的位置，如果想要更改，则需在/etc/enviroment中添加或其他环境变量配置文件中添加即可,添加完之后，执行 source environment 命令。
-
-安装过程中可能会出现如下问题：openssl/ssl.h 没有那个文件或目录
-只要执行这个命令`sudo apt-get install libssl-dev `，重新执行上面命令即可。
-
-### 配置SS代理（若需要）
-
-    git config --global http.proxy 'socks5://127.0.0.1:1080' 
-    git config --global https.proxy 'socks5://127.0.0.1:1080'
     
 ## svn
 
