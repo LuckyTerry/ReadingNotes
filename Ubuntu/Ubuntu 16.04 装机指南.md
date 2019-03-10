@@ -617,6 +617,50 @@ Github的Repo
 
     sudo dpkg -i netease-cloud-music_1.1.0_amd64_ubuntu.deb
 
+启动一（实测有效但麻烦，用网页好了）
+
+    首先在命令行里面启动网易云音乐试一试，如果提示Local file: "" ("netease-cloud-music")
+
+    那么就是因为没有root权限导致的无法启动
+
+    只需要输入
+
+    sudo netease-cloud-music
+    
+    即可运行，如果你不希望依赖终端，可以输入
+
+    sudo netease-cloud-music &
+    
+    这样依赖，网易云音乐就可以不依赖终端而在后台自己运行了。
+
+启动二（实测无效）
+
+    如果你不是因为root权限导致的无法启动，那么还可以试试下面的方法： 
+    在文件：/usr/share/applications/netease-cloud-music.desktop 中 
+    在 %U 前面添加 --no-sandbox
+    
+    cd /usr/share/applications
+
+    sudo vim netease-cloud-music.desktop
+
+启动三（实测无效）
+
+    先把Exec=netease-cloud-music %U修改为Exec=sudo netease-cloud-music %U
+
+    然后使用
+
+    sudo gedit /etc/sudoers
+
+    在最后一行添加
+
+    你的用户名 ALL = NOPASSWD: /usr/bin/netease-cloud-music
+
+    下面是我修改的示例：
+
+    terry ALL = NOPASSWD: /usr/bin/netease-cloud-music
+
+    然后重启就好了
+
 ## FoxitReader
 
 ### tar.gz安装
@@ -985,6 +1029,10 @@ Cannot run program"android-sdk-linux/aapt.exe":error-2,没有那个文件或目�
     添加Launcher快捷方式，桌面快捷方式
     sudo nautilus /usr/share/applications 拖动快捷方式到Launcher或桌面
     或 轻触Super键盘打开Dash，拖动快捷方式到Launcher或桌面
+
+    su-to-root -X -c
+
+    sudo chown root:root netease-cloud-music
     
 ## Eclipse
 
