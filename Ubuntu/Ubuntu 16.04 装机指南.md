@@ -108,7 +108,9 @@ deb http://extras.ubuntu.com/ubuntu/ xenial main
     sudo tar -zxvf *.tar.gz -C 指定目录名（解压 tar.gz格式的文件到指定目录）
     
     sudo unzip -d 指定目录名 *.zip（解压 .zip格式的文件到指定目录）
-    
+
+    sudo unzip -O CP936 -d 指定目录名 *.zip（指定字符集，解压 .zip格式的文件到指定目录）
+
     sudo chmod +x *.sh 这个命令是为sh文件增加可执行权限
     
     sudo chmod -R 777 *.*  对当前目录下的所有子目录和子文件进行777权限的变更
