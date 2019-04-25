@@ -168,7 +168,7 @@ deb http://extras.ubuntu.com/ubuntu/ xenial main
     
     ssh-copy-id -i ~/.ssh/id_rsa.pub <remote_ip>
 
-2.2　通过scp将内容写到对方的文件中
+2.2　通过scp将内容写到对方的文件中（不推荐，会覆盖原文件）
 
     scp -p ~/.ssh/id_rsa.pub root@<remote_ip>:/root/.ssh/authorized_keys
 
