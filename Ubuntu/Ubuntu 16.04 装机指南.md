@@ -156,6 +156,42 @@ deb http://extras.ubuntu.com/ubuntu/ xenial main
     
     sudo passwd -l root //清除root密码
 
+## SSH远程登录服务器
+
+1. 生成秘钥 (如果不存在)
+
+    ssh-keygen -t rsa
+
+2. 免密登录方法
+    
+2.1 通过ssh-copy-id的方式
+    
+    ssh-copy-id -i ~/.ssh/id_rsa.pub <remote_ip>
+
+2.2　通过scp将内容写到对方的文件中
+
+    scp -p ~/.ssh/id_rsa.pub root@<remote_ip>:/root/.ssh/authorized_keys
+
+    scp -P <port> ~/.ssh/id_rsa.pub root@<remote_ip>:/root/.ssh/authorized_keys
+
+3. 设置别名
+
+    vim ~/.bashrc
+
+    添加如下
+
+    alias 135='ssh root@192.168.100.135'
+
+    alias 99='ssh root@192.168.100.99'
+
+    alias terry='ssh root@118.24.149.18'
+
+    alias wall='ssh root@118.24.149.18'
+
+    立即生效
+
+    source ~/.bashrc
+
 ## 设置鼠标灵敏度
 
 ### xinput命令
