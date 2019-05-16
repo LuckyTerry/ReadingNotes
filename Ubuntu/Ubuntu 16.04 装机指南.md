@@ -897,6 +897,53 @@ intellij对路径的识别只支持三个路径，所以，要把JDK安装在这
 
     sudo apt-get install -f
 
+## Postman
+
+下载postman的linux版本    
+
+    https://www.getpostman.com/
+
+    wget https://dl.pstmn.io/download/latest/linux64 -O postman.tar.gz
+
+解压
+
+    sudo tar -xzf postman.tar.gz -C /opt/
+
+vim建立文件路径
+
+    sudo vim  ~/.local/share/applications/postman.desktop
+
+    [Desktop Entry]
+    Encoding=UTF-8
+    Name=postman
+    Exec=/opt/Postman/Postman
+    Icon=/opt/Postman/app/resources/app/assets/icon.png
+    Terminal=false
+    Type=Application
+    Categories=Development;
+
+## StartUML
+
+下载StartUML的linux版本
+
+    http://staruml.io/download
+
+添加可执行权限
+
+    右键AppImage-权限-允许作为程序执行文件
+
+桌面集成
+
+    当你运行AppImage文件时，软件会弹出提示“install a desktop-file”，选择“是”即可
+
+卸载
+
+    删除AppImage即可
+
+手动清理桌面集成
+
+    sudo nautilus ~/.local/share/applications 删除StartUML即可
+
 ## Android Studio
 
 ### apt安装
