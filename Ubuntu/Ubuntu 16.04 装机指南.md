@@ -944,6 +944,47 @@ vim建立文件路径
 
     sudo nautilus ~/.local/share/applications 删除StartUML即可
 
+破解参考
+
+    http://www.cnblogs.com/applerosa/p/10488942.html
+
+    https://www.jianshu.com/p/d76fbeaf091b
+
+破解实战
+
+    1. 下载 appimagetool-x86_64.AppImage
+    
+        https://github.com/AppImage/AppImageKit/releases 
+
+    2. 下载 破解替换文件 app.asar
+    
+        https://www.lanzous.com/b695678 
+
+
+    3. 解压StarUML-3.1.0-x86_64.AppImage
+
+        ./StarUML-3.1.0-x86_64.AppImage --appimage-extract （指令参考https://github.com/AppImage/AppImageKit/wiki/Extracting-AppImages）
+
+    4. 替换 app.asar    
+
+        cd ~/squashfs-root
+        mv ./resources/app.asar ./resources/app.asar_backup
+        mv ~/app.asar ./resources/
+
+    5. 重命名 squashfs-root 为 StarUML-3.1.0.AppDir
+
+        mv squashfs-root StarUML-3.1.0.AppDir
+
+    6. 打包，得到 StarUML-x86_64.AppImage
+
+        ./appimagetool-x86_64.AppImage StarUML-3.1.0.AppDir/
+
+    7. 拷贝 StarUML-x86_64.AppImage 到 opt 中
+
+        sudo mv StarUML-x86_64.AppImage /opt/startUML/
+
+    8. 双击启动即可
+
 ## Android Studio
 
 ### apt安装
