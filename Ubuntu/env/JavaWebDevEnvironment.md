@@ -73,9 +73,7 @@
 
     略
 
-## Java相关工具
-
-1. jd-gui
+## JD-GUI
 
     官网下载最新版本
 
@@ -88,6 +86,110 @@
     若出现依赖问题，解决依赖后再执行上面的命令
 
     `sudo apt install -f`
+
+## Maven    
+
+    官网下载最新版本
+
+    `http://maven.apache.org/download.cgi`
+
+    解压
+
+    `sudo tar -zxvf apache-maven-3.6.1-bin.tar.gz -C /opt/`
+    `sudo mv /opt/apache-maven-3.6.1 /opt/maven`
+
+    配置 /opt/maven/confsettings.xml
+
+    ```
+    <?xml version="1.0" encoding="UTF-8"?>
+    <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+     
+      <servers>
+        <server>
+          <id>snapshots</id>
+          <username>admin</username>
+          <password>admin123</password>
+        </server>
+        <server>
+          <id>nexus-snapshots</id>
+          <username>admin</username>
+          <password>admin123</password>
+        </server>
+      </servers>
+    
+      <mirrors>
+        <mirror> 
+          <id>nexus-releases</id> 
+          <mirrorOf>*</mirrorOf> 
+          <url>http://192.168.100.135:8070/nexus/content/groups/public</url> 
+        </mirror>
+        <mirror> 
+          <id>nexus-snapshots</id> 
+          <mirrorOf>*</mirrorOf> 
+          <url>http://192.168.100.135:8070/nexus/content/repositories/snapshots</url> 
+        </mirror> 
+      </mirrors>
+    
+      <profiles>
+        <profile>
+          <id>nexus</id>
+          <repositories>
+            <repository>
+              <id>nexus-releases</id>
+              <url>http://nexus-releases</url>
+              <releases><enabled>true</enabled></releases>
+              <snapshots><enabled>true</enabled></snapshots>
+            </repository>
+            <repository>
+              <id>nexus-snapshots</id>
+              <url>http://nexus-snapshots</url>
+              <releases><enabled>true</enabled></releases>
+              <snapshots><enabled>true</enabled></snapshots>
+            </repository>
+          </repositories>
+          <pluginRepositories>
+            <pluginRepository>
+              <id>nexus-releases</id>
+              <url>http://nexus-releases</url>
+              <releases><enabled>true</enabled></releases>
+              <snapshots><enabled>true</enabled></snapshots>
+            </pluginRepository>
+            <pluginRepository>
+              <id>nexus-snapshots</id>
+              <url>http://nexus-snapshots</url>
+              <releases><enabled>true</enabled></releases>
+              <snapshots><enabled>true</enabled></snapshots>
+            </pluginRepository>
+          </pluginRepositories>
+        </profile>
+      </profiles>
+    
+      <activeProfiles>
+        <activeProfile>nexus</activeProfile>
+      </activeProfiles>
+    
+    </settings>
+    ```
+
+    项目中使用
+
+    ```
+    <distributionManagement>
+        <!-- 两个ID必须与 setting.xml中的<server><id>nexus-releases</id></server>保持一致-->
+        <repository>
+            <id>nexus-releases</id>
+            <name>Nexus Release Repository</name>
+            <url>http://192.168.100.135:8070/nexus/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>http://192.168.100.135:8070/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+    ```
 
 ## IntelliJ IDEA 安装 （强力推荐）
 
@@ -170,48 +272,3 @@
 3. IntelliJ-IDEA-Tutorial
 
     `https://github.com/judasn/IntelliJ-IDEA-Tutorial`
-
-## Eclipse 安装 （不推荐）
-
-1. 软件商店安装
-
-    搜索Eclipse，点击安装即可，可能不是最新版
-
-2. tar.gz安装
-
-    官网下载最新 Eclipse IDE for Java Developers 版本
-
-    `https://www.eclipse.org/downloads/eclipse-packages/`
-
-    解压
-
-    `sudo tar -zxvf eclipse-*.tar.gz -C /opt`
-
-    运行
-
-    双击eclipse运行即可，Workspace选择默认（/home/terry/eclipse-workspace）即可。
-
-    添加快捷方式
-
-    ```bash
-    sudo vim /usr/share/applications/eclipse.desktop
-
-    将下面的内容粘贴到 eclipse.desktop 文件中：
-    [Desktop Entry]
-    Encoding=UTF-8
-    Name=Eclipse
-    Comment=Eclipse IDE
-    Exec=/opt/eclipse/eclipse
-    Icon=/opt/eclipse/icon.xpm
-    Terminal=false
-    StartupNotify=true
-    Type=Application
-    Categories=Application;Development;
-
-    添加执行权限
-    sudo chmod +x /usr/share/applications/eclipse.desktop
-
-    添加Launcher快捷方式，桌面快捷方式
-    sudo nautilus /usr/share/applications 拖动快捷方式到Launcher或桌面
-    或 轻触Super键盘打开Dash，拖动快捷方式到Launcher或桌面
-    ```

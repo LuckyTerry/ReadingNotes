@@ -180,7 +180,7 @@ sudo apt clean（将删除 /var/cache/apt/archives/ 所有的 deb）
 
 sudo add-apt-repository ppa:user/ppa-name（添加PPA源）
 
-sudo add-apt-repository -r ppa:user/ppa-name（删除PPA源）
+sudo add-apt-repository -r ppa:user/ppa-name（删除PPA源，然后进入/etc/apt/sources.list.d目录将相应的ppa源的保存文件删除）
 
 ps -ef | grep someKeyWord（查找指定KeyWord的进程信息）
 
@@ -281,7 +281,7 @@ sudo apt install flashplugin-installer
 
 ## Ubuntu基础软件
 
-### 浏览器
+### 0. 浏览器
 
 1. Firefox安装代理插件
 
@@ -332,6 +332,97 @@ sudo apt install flashplugin-installer
         在终端中执行以下命令
 
         `/usr/bin/google-chrome-stable google-chrome --proxy-server=socks5://127.0.0.1:1080`
+
+### 1. vim
+
+1. 安装
+
+    `sudo apt install vim`
+
+2. 基本命令
+
+    i 进入insert模式
+
+    esc 退出编辑模式
+
+    :q 无修改情况下退出
+
+    :q! 有修改情况下丢弃修改并退出
+
+    :wq 保存(write)并退出(quit)
+
+### 2. git
+
+    安装
+
+    `sudo apt install git`
+
+    全局配置
+
+    ```bash
+    git config --global user.name "LuckyTerry"
+    git config --global user.email "1018498538@qq.com"
+    ```
+
+    生成key
+
+    `ssh-keygen -t rsa -b 4096 -C "1018498538@qq.com"`
+
+    查看key（位于～/.ssh/id_rsa.pub）
+
+    `cat ～/.ssh/id_rsa.pub`
+
+### 3. Shadowsocks(Gui版本)
+
+    添加源
+
+    `sudo add-apt-repository ppa:hzwhuang/ss-qt5`
+
+    使用1604版本号
+
+    ```text
+    由于ppa:hzwhuang/ss-qt5 并没有18.04版本的源，所以再执行update时会出现
+
+    E: 仓库 “http://ppa.launchpad.net/hzwhuang/ss-qt5/ubuntu bionic Release” 没有 Release 文件 的错误。
+
+    这时，只要编辑/etc/apt/sources.list.d/hzwhuang-ubuntu-ss-qt5-bionic.list 文件，将bionic (18.04版本代号)改成xenial（16.04版本代号）。
+    ```
+
+    更新
+
+    `sudo apt update`
+
+    安装shadowsocks-qt5
+
+    `sudo apt install shadowsocks-qt5`
+
+    配置开机启动，详见[出处][7]，配置完成重启即可
+
+    ```bash
+    终端运行`gnome-session-properties`打开“启动应用程序”
+    或Dash搜索`gnome-session-properties`打开“启动应用程序”
+    点击添加
+    名称 Shadowsocks-Qt5
+    命令 /usr/bin/ss-qt5
+    备注 Shadowsocks-Qt5
+    ```
+
+### 4. Proxychains代理
+
+    安装
+
+    `sudo apt install proxychains`
+
+    配置proxychains
+
+    ```bash
+    sudo vim /etc/proxychains.conf
+    将socks4 127.0.0.1 9050注释，增加socks5 127.0.0.1 1080
+    ```
+
+    重新打开终端，使用命令时前面需要加上proxychains，如
+
+    `sudo proxychains apt-get update`
 
 ### 协作软件
 
@@ -505,16 +596,6 @@ Github的Repo
 
     - 安装aria2
 
-        添加aria2源
-
-        `sudo add-apt-repository ppa:t-tujikawa/ppa`
-
-        更新
-
-        `sudo apt update`
-
-        安装aria2
-
         `sudo apt install aria2`
 
         配置uGet默认下载插件为aria2
@@ -582,99 +663,6 @@ Github的Repo
     ```
 
     ReLogin 或 Reboot 即可。
-
-## Ubuntu开发环境配置
-
-### 1. vim
-
-1. 安装
-
-    `sudo apt install vim`
-
-2. 基本命令
-
-    i 进入insert模式
-
-    esc 退出编辑模式
-
-    :q 无修改情况下退出
-
-    :q! 有修改情况下丢弃修改并退出
-
-    :wq 保存(write)并退出(quit)
-
-### 2. git
-
-    安装
-
-    `sudo apt install git`
-
-    全局配置
-
-    ```bash
-    git config --global user.name "LuckyTerry"
-    git config --global user.email "1018498538@qq.com"
-    ```
-
-    生成key
-
-    `ssh-keygen -t rsa -b 4096 -C "1018498538@qq.com"`
-
-    查看key（位于～/.ssh/id_rsa.pub）
-
-    `cat ～/.ssh/id_rsa.pub`
-
-### 3. Shadowsocks(Gui版本)
-
-    添加源
-
-    `sudo add-apt-repository ppa:hzwhuang/ss-qt5`
-
-    使用1604版本号
-
-    ```text
-    由于ppa:hzwhuang/ss-qt5 并没有18.04版本的源，所以再执行update时会出现
-
-    E: 仓库 “http://ppa.launchpad.net/hzwhuang/ss-qt5/ubuntu bionic Release” 没有 Release 文件 的错误。
-
-    这时，只要编辑/etc/apt/sources.list.d/hzwhuang-ubuntu-ss-qt5-bionic.list 文件，将bionic (18.04版本代号)改成xenial（16.04版本代号）。
-    ```
-
-    更新
-
-    `sudo apt update`
-
-    安装shadowsocks-qt5
-
-    `sudo apt install shadowsocks-qt5`
-
-    配置开机启动，详见[出处][7]，配置完成重启即可
-
-    ```bash
-    终端运行`gnome-session-properties`打开“启动应用程序”
-    或Dash搜索`gnome-session-properties`打开“启动应用程序”
-    点击添加
-    名称 Shadowsocks-Qt5
-    命令 /usr/bin/ss-qt5
-    备注 Shadowsocks-Qt5
-    ```
-
-### 4. Proxychains代理
-
-    安装
-
-    `sudo apt install proxychains`
-
-    配置proxychains
-
-    ```bash
-    sudo vi /etc/proxychains.conf
-    将socks4 127.0.0.1 9050注释，增加socks5 127.0.0.1 1080
-    ```
-
-    重新打开终端，使用命令时前面需要加上proxychains，如
-
-    `sudo proxychains apt-get update`
 
 ## Ubuntu开发通用软件
 
