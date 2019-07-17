@@ -20,6 +20,48 @@
 
 更多信息请看`http://blog.csdn.net/u011014707/article/details/43836553`
 
+## 修改Ubuntu源
+
+如果不能gfw，则修改Ubuntu源更佳：
+
+备份
+
+    sudo cp /etc/apt/sources.list /etc/apt/sources.list_bk 
+    
+修改，附 [Ubuntu 16.04 源列表][1]
+
+    sudo vim /etc/apt/sources.list 
+    
+更新
+
+    sudo apt-get update
+
+推荐阿里云软件源
+
+```
+#deb包
+deb http://mirrors.aliyun.com/ubuntu/ xenial main restricted universe multiverse  
+deb http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted universe multiverse  
+deb http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted universe multiverse  
+deb http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse  
+##测试版源  
+deb http://mirrors.aliyun.com/ubuntu/ xenial-proposed main restricted universe multiverse  
+# 源码  
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial main restricted universe multiverse  
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted universe multiverse  
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted universe multiverse  
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse  
+##测试版源  
+deb-src http://mirrors.aliyun.com/ubuntu/ xenial-proposed main restricted universe multiverse  
+# Canonical 合作伙伴和附加  
+deb http://archive.canonical.com/ubuntu/ xenial partner  
+deb http://extras.ubuntu.com/ubuntu/ xenial main  
+```
+
+使用sudo vim sources.list打开文件，输入ggdG删除所有内容（这句指令可以理解为从第1行到最后1行之间的内容都删了）
+
+将复制的内容粘贴到本文件中；输入:wq保存退出
+
 ## Ubuntu常用命令
 
 ```bash
@@ -151,6 +193,16 @@ sudo passwd -l root // 清除root密码
 
 ### 4. 设置鼠标灵敏度
 
+- xset命令
+
+    ```bash
+    xset m 0
+    xset m default
+    xset m 1.7 // My Preference
+    ```
+
+    “启动应用程序”中添加"xset m 1.7"命令，重启即可
+
 - xinput命令
 
     查看连接在电脑上的设备
@@ -168,16 +220,6 @@ sudo passwd -l root // 清除root密码
     ```
 
     重启后鼠标设置面板就可以调节鼠标速度了
-
-- xset命令
-
-    ```bash
-    xset m 0
-    xset m default
-    xset m 1.7 // My Preference
-    ```
-
-    “启动应用程序”中添加"xset m 1.7"命令，重启即可
 
 ### 5. Gnome Tweak 图形界面工具
 
@@ -280,7 +322,31 @@ sudo apt install flashplugin-installer
 
 ### 协作软件
 
-1. 微信
+1. deepin-wine-ubuntu
+
+Github的Repo
+
+    https://github.com/wszqkzqk/deepin-wine-ubuntu
+
+安装wine环境
+
+    git clone https://github.com/wszqkzqk/deepin-wine-ubuntu.git    
+
+    sudo proxychains ./install.sh
+
+下载并安装Tim(recommend)
+
+    sudo wget http://mirrors.aliyun.com/deepin/pool/non-free/d/deepin.com.qq.office/deepin.com.qq.office_2.0.0deepin4_i386.deb
+
+    sudo dpkg -i deepin.com.qq.office_2.0.0deepin4_i386.deb
+
+下载并安装Wechat(if necessary)
+
+    sudo wget http://mirrors.aliyun.com/deepin/pool/non-free/d/deepin.com.wechat/deepin.com.wechat_2.6.2.31deepin0_i386.deb
+
+    sudo dpkg -i deepin.com.wechat_2.6.2.31deepin0_i386.deb
+
+2. 另一个版本的微信
 
     下载对应自己系统的wechat链接
 
@@ -319,39 +385,6 @@ sudo apt install flashplugin-installer
 
     打开applications文件夹，把wechat.desktop文件拖动到Launcher条上
     sudo nautilus /usr/share/applications
-
-2. QQ
-
-    Crossover官网最新版本
-
-    `https://www.codeweavers.com/products/crossover-linux/download`
-
-    安装
-
-    `sudo dpkg -i crossover_16.2.5-1.deb`
-
-    破解，更多详细信息，见`http://tieba.baidu.com/p/4897237773`
-
-    ```text
-    先下载这个
-
-    `https://github.com/redapple0204/my-boring-python/releases/download/005/CodeWeavers.Crossover.15.0.0.with._.for.ubuntu.fedora.linux.zip`
-
-    然后安装里面的包（理论上所有15版本都支持，部分16支持），打开crack文件夹，提取里面的.exe.so出来（破解文件exe.so
-    链接: http://pan.baidu.com/s/1geK1hOf 密码: vraa）
-
-    替换/opt/cxoffice/lib/wine/的那个so
-
-    然后打开crossover，发现已破解（arch亲测最新版破解成功），可以正常使用和创建容器。
-    ```
-
-    安装QQ
-
-    ```text
-    添加容器-左下角点击“添加”
-
-    安装Windows软件-底部点击“安装Windows软件”
-    ```
 
 ### 文档软件
 
@@ -429,23 +462,7 @@ sudo apt install flashplugin-installer
 
 ### 下载软件
 
-1. Deluge
-
-    软件商店搜索下载即可
-
-2. qBittorrent
-
-    软件商店搜索下载即可
-
-3. Transmission
-
-    系统已自带
-
-4. axel
-
-    略
-
-5. uGet（Recommend）
+1. uGet（Recommend）
 
     - 安装uGet
 
@@ -567,8 +584,6 @@ sudo apt install flashplugin-installer
 
 ### 2. git
 
-1. apt安装（方便，但是不是最新版）
-
     安装
 
     `sudo apt install git`
@@ -576,141 +591,19 @@ sudo apt install flashplugin-installer
     全局配置
 
     ```bash
-    git config --global user.name "YOUR NAME"
-    git config --global user.email "YOUR EMAIL ADDRESS"
+    git config --global user.name "LuckyTerry"
+    git config --global user.email "1018498538@qq.com"
     ```
 
     生成key
 
-    `ssh-keygen -t rsa -b 4096 -C "your_email@example.com"`
+    `ssh-keygen -t rsa -b 4096 -C "1018498538@qq.com"`
 
     查看key（位于～/.ssh/id_rsa.pub）
 
     `cat ～/.ssh/id_rsa.pub`
 
-2. 下载Git源码编译安装
-
-    下载源代码
-
-    `https://github.com/git/git`
-
-    make编译
-
-    ```bash
-    sudo apt install openssl
-    sudo apt install libssl-dev build-essential zlibc zlib-bin libidn11-dev libidn11
-    sudo apt install libcurl4-gnutls-dev
-    sudo apt install libexpat1-dev
-    make prefix=/usr/local all
-    sudo make prefix=/usr/local install
-    ```
-
-    其中/usr/local是编译安装后的位置，如果想要更改，则需在/etc/enviroment中添加或其他环境变量配置文件中添加即可,添加完之后，执行 source environment 命令。
-
-    安装过程中可能会出现如下问题：openssl/ssl.h 没有那个文件或目录
-
-    只要执行这个命令`sudo apt-get install libssl-dev `，重新执行上面命令即可。
-
-### 3. svn
-
-1. apt安装
-
-    安装
-
-    `sudo apt install subversion`
-
-    帮助
-
-    `svn help`
-
-    常用命令
-
-    ```bash
-    co == checkout
-    up == update
-    ci == commit
-
-    svn co [url] //检出到当前目录
-    svn co [url] [path] //检出到指定目录
-
-    svn up //更新
-
-    svn ci //提交
-    在linux中使用命令提交svn时，默认使用的编辑器是nano，大体提交步骤如下：
-    1)、执行svn ci
-    2)、输入注释
-    3)、ctrl + x
-    4)、输入yes
-
-### 4. Shadowsocks
-
-1. 安装Server版本
-
-    安装Pip
-
-    `sudo apt install python-pip`
-
-    安装Shadowsocks
-
-    `sudo apt install shadowsocks`
-
-    配置文件
-
-    ```text
-    sudo vi /etc/shadowsocks/terry.json
-
-    {
-    "server":"97.64.21.41",
-    "server_port":443,
-    "local_address":"127.0.0.1",
-    "local_port":1080,
-    "password":"3Lk43eaGx8",
-    "timeout":300,
-    "method":"aes-256-cfb",
-    "fast_open":false
-    "workers": 1
-    }
-    ```
-
-    启动
-
-    ```bash
-    sslocal -c /etc/shadowsocks/terry.json //前端启动
-    sslocal -c /etc/shadowsocks/terry.json -d start //后端启动
-    sslocal -c /etc/shadowsocks/terry.json -d stop //后端停止
-    sslocal -c /etc/shadowsocks/terry.json -d restart //重启
-    ps -ef|grep sslocal //查看sslocal是否在运行
-    ```
-
-    配置开机启动（实测未成功），可见[此处][4]，[此处][5]，[此处][6]
-
-    ```bash
-    使用Systemd来实现shadowsocks开机自启
-
-    sudo vim /etc/systemd/system/shadowsocks.service
-
-    在里面填写如下内容：
-
-    [Unit]
-    Description=Shadowsocks Client Service
-    After=network.target
-
-    [Service]
-    Type=simple
-    User=root
-    ExecStart=/usr/bin/sslocal -c /etc/shadowsocks/terry.json
-
-    [Install]
-    WantedBy=multi-user.target
-
-    配置生效：
-    systemctl enable /etc/systemd/system/shadowsocks.service
-
-    立刻启动：
-    systemctl start /etc/systemd/system/shadowsocks.service
-    ```
-
-2. 安装Gui版本
+### 3. Shadowsocks(Gui版本)
 
     添加源
 
@@ -745,9 +638,7 @@ sudo apt install flashplugin-installer
     备注 Shadowsocks-Qt5
     ```
 
-### 5. Terminal配置Shadowsocks代理
-
-1. 安装proxychains
+### 4. Proxychains代理
 
     安装
 
@@ -764,44 +655,6 @@ sudo apt install flashplugin-installer
 
     `sudo proxychains apt-get update`
 
-2. 安装polipo
-
-    安装
-
-    `sudo apt install polipo`
-
-    配置polipo
-
-    ```bash
-    sudo vim /etc/polipo/config
-
-    添加以下文字
-    socksParentProxy = "127.0.0.1:1080"
-    socksProxyType = socks5
-    ```
-
-    重启polipo服务：
-
-    `sudo /etc/init.d/polipo restart`
-
-    为当前终端配置http代理：
-
-    `export http_proxy="http://127.0.0.1:8123/"`
-
-    接着测试下能否科学上网：
-
-    `curl www.google.com`
-
-    为当前终端配置https代理：
-
-    `export https_proxy="http://127.0.0.1:8123/"`
-
-    接着测试下能否科学上网：
-
-    `curl https://www.youtube.com/`
-
-    如果有响应，则全局代理配置成功。
-
 ## Ubuntu开发通用软件
 
 ### 编辑器软件
@@ -810,7 +663,7 @@ sudo apt install flashplugin-installer
 
     官网下载最新版本
 
-    `https://code.visualstudio.com/#alt-downloads`
+    `https://code.visualstudio.com/Download`
 
     或，快速下载1.25.1版本
 
@@ -820,93 +673,29 @@ sudo apt install flashplugin-installer
 
     `sudo dpkg -i code_*_amd64.deb`
 
+    安装 Chinese Language 插件
+
+    `搜索 Chinese (Simplified) Language Pack，安装即可`
+
     安装markdownlint插件
 
     `搜索markdownlint，安装即可`
 
-2. Sublime Text
-
-    1. apt安装
-
-        官网安装向导，建议看紧随的中译向导
-
-        `http://www.sublimetext.com/docs/3/linux_repositories.html#apt`
-
-        添加GPG key
-
-        `wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -`
-
-        确保apt能处理https请求
-
-        `sudo apt install apt-transport-https`
-
-        选择使用稳定或开发通道
-
-        ```bash
-        Stable
-        echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
-
-        Dev
-        echo "deb https://download.sublimetext.com/ apt/dev/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
-        ```
-
-        更新源
-
-        `sudo apt update`
-
-        安装
-
-        `sudo apt install sublime-text`
-
-    2. tar.bz2安装
-
-        官网下载最新版本
-
-        `http://www.sublimetext.com/3`
-
-        或，快速下载3176版本
-
-        `wget https://download.sublimetext.com/sublime_text_3_build_3176_x64.tar.bz2`
-
-        解压安装
-
-        `sudo tar -xjf sublime_text_3_build_3176_x64.tar.bz2 -C /opt/`
-
-    3. 激活
-
-        enter the license（sublime_text_3_build_3143_x64_注册码，亲测有效）
-
-        ```text
-        —– BEGIN LICENSE —–
-        TwitterInc
-        200 User License
-        EA7E-890007
-        1D77F72E 390CDD93 4DCBA022 FAF60790
-        61AA12C0 A37081C5 D0316412 4584D136
-        94D7F7D4 95BC8C1C 527DA828 560BB037
-        D1EDDD8C AE7B379F 50C9D69D B35179EF
-        2FE898C4 8E4277A8 555CE714 E1FB0E43
-        D5D52613 C3D12E98 BC49967F 7652EED2
-        9D2D2E61 67610860 6D338B72 5CF95C69
-        E36B85CC 84991F19 7575D828 470A92AB
-        —— END LICENSE ——
-        ```
-
 ### 数据库管理软件
 
-1. MySQL Workbench (安装会失败，1804只兼容Mysql8.0?)
+1. MySQL Workbench
 
-    官网下载最新版本，当前(2018-07-15)没有18.04的版本，17.10也可以使用
+    官网下载最新版本
 
     `https://dev.mysql.com/downloads/workbench/`
 
-    或快速下载 ubuntu17.10系统6.3.10-1版本
+    或快速下载 ubuntu18.04 系统 8.0.16 版本
 
-    `wget https://cdn.mysql.com//Downloads/MySQLGUITools/mysql-workbench-community-6.3.10-1ubuntu17.10-amd64.deb`
+    `wget https://cdn.mysql.com//Downloads/MySQLGUITools/mysql-workbench-community_8.0.16-1ubuntu18.04_amd64.deb`
 
     安装
 
-    `sudo dpkg -i mysql-workbench-community-6.3.10-1ubuntu17.10-amd64.deb`
+    `sudo dpkg -i mysql-workbench-community_8.0.16-1ubuntu18.04_amd64.deb`
 
     如果出现依赖错误，修复依赖，再次安装
 
@@ -938,25 +727,29 @@ sudo apt install flashplugin-installer
 
     `https://www.mongodb.com/download-center?jmp=hero#compass`
 
-    或，快速下载1.14.6版本
+    或，快速下载 1.18.0 版本
 
-    `wget https://downloads.mongodb.com/compass/mongodb-compass_1.14.6_amd64.deb`
+    `wget https://downloads.mongodb.com/compass/mongodb-compass_1.18.0_amd64.deb`
 
     安装
 
-    `sudo dpkg -i mongodb-compass_1.14.6_amd64.deb`
+    `sudo dpkg -i mongodb-compass_1.18.0_amd64.deb`
 
 ### 缓存管理软件
 
-1. Redis Desktop Manager (还不支持1804，尴尬，如果是1604继续请看下去)
+1. Redis Desktop Manager
 
-    官网下载源码
+    官网
 
     `https://redisdesktop.com/download`
 
-    官网build向导
+    官网 Snap
 
-    `http://docs.redisdesktop.com/en/latest/install/#build-from-source`
+    `https://snapcraft.io/redis-desktop-manager`
+
+    官网 Snap 安装
+
+    `sudo snap install redis-desktop-manager`
 
 ### 项目管理软件
 
