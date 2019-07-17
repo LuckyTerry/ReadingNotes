@@ -50,7 +50,6 @@
 
 推荐阿里云软件源
 
-    ```
     # deb包
     deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
     deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
@@ -64,7 +63,6 @@
     # 预发布源 ，不建议启用
     #deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
     #deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
-    ```
 
     后面几个参数是对软件包的分类（Ubuntu下是main， restricted，universe ，multiverse这四个）
 
@@ -244,7 +242,7 @@ sudo passwd -l root // 清除root密码
 
 2. apt安装
 
-    `sudo apt install gnome-tweaks`
+    `sudo apt install gnome-tweak-tool`
 
 ### 6. indicator-sysmonitor
 
