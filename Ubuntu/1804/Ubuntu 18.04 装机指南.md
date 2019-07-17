@@ -31,6 +31,18 @@
 备份
 
     sudo cp /etc/apt/sources.list /etc/apt/sources.list_bk 
+
+查看新版本信息
+
+    lsb_release -c
+
+    我们可以看到新版本的Ubuntu系统代号为bionic
+
+    同样的我们也可以得到之前任意版本的系统代号：
+
+    Ubuntu 16.04 (LTS)代号为 xenial
+
+    Ubuntu 18.04 (LTS)代号为 bionic
     
 修改
 
@@ -43,24 +55,22 @@
 推荐阿里云软件源
 
 ```
-#deb包
-deb http://mirrors.aliyun.com/ubuntu/ xenial main restricted universe multiverse  
-deb http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted universe multiverse  
-deb http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted universe multiverse  
-deb http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse  
-##测试版源  
-deb http://mirrors.aliyun.com/ubuntu/ xenial-proposed main restricted universe multiverse  
-# 源码  
-deb-src http://mirrors.aliyun.com/ubuntu/ xenial main restricted universe multiverse  
-deb-src http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted universe multiverse  
-deb-src http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted universe multiverse  
-deb-src http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse  
-##测试版源  
-deb-src http://mirrors.aliyun.com/ubuntu/ xenial-proposed main restricted universe multiverse  
-# Canonical 合作伙伴和附加  
-deb http://archive.canonical.com/ubuntu/ xenial partner  
-deb http://extras.ubuntu.com/ubuntu/ xenial main  
+# deb包
+deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+# 源码镜像，默认注释以提高 apt update 速度，如有需要可自行取消注释
+#deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+#deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+#deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+#deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+# 预发布源 ，不建议启用
+#deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+#deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
 ```
+
+后面几个参数是对软件包的分类（Ubuntu下是main， restricted，universe ，multiverse这四个）
 
 使用sudo vim sources.list打开文件，输入ggdG删除所有内容（这句指令可以理解为从第1行到最后1行之间的内容都删了）
 
@@ -790,6 +800,10 @@ idea-IU
 android-studio
 
 flutter
+
+cheat
+
+zsh
 
 #### java
 
