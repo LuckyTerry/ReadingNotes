@@ -6,7 +6,11 @@
 
 ## Ubuntu是什么
 
+略
+
 ## Ubuntu安装教程
+
+略
 
 ## Ubuntu文件系统简介
 
@@ -28,7 +32,7 @@
 
     sudo cp /etc/apt/sources.list /etc/apt/sources.list_bk 
     
-修改，附 [Ubuntu 16.04 源列表][1]
+修改
 
     sudo vim /etc/apt/sources.list 
     
@@ -184,14 +188,14 @@ kill -9 somePid（强制杀掉指定Pid的进程）
 
 打开「软件和更新」-「附加驱动」选项卡中进行选择。作为开发环境使用不建议安装。
 
-### 3. 设置root账户密码
+### 3. 设置root账户密码（如果未设置）
 
 ```bash
 sudo passwd root // 设置root密码
 sudo passwd -l root // 清除root密码
 ```
 
-### 4. 设置鼠标灵敏度
+### 4. 设置鼠标灵敏度（视外设而定）
 
 - xset命令
 
@@ -346,7 +350,11 @@ Github的Repo
 
     sudo dpkg -i deepin.com.wechat_2.6.2.31deepin0_i386.deb
 
-2. 另一个版本的微信
+2. teamviewer
+
+    略
+
+3. 另一个版本的微信
 
     下载对应自己系统的wechat链接
 
@@ -435,6 +443,10 @@ Github的Repo
     运行Calibre：
 
     `calibre`
+
+4. gitbook-editor
+
+    略
 
 ### 媒体软件
 
@@ -735,6 +747,10 @@ Github的Repo
 
     `sudo dpkg -i mongodb-compass_1.18.0_amd64.deb`
 
+5. navicat
+
+    略
+
 ### 缓存管理软件
 
 1. Redis Desktop Manager
@@ -753,7 +769,51 @@ Github的Repo
 
 ### 项目管理软件
 
-TODO
+startUML
+
+XMind ZEN
+
+### 网络工具
+
+postman
+
+echosite
+
+### 磁盘工具
+
+Etcher
+
+### 其他软件
+
+idea-IU
+
+android-studio
+
+flutter
+
+#### java
+
+java
+
+maven
+
+jd-gui
+
+Memory Analyzer Tool
+
+#### server
+
+skywalking
+
+elastic-job-lite-console
+
+#### cli
+
+zookeeper
+
+rocketmq
+
+kibana
 
 ## 参考资料
 
