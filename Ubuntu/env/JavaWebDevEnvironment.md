@@ -89,107 +89,107 @@
 
 ## Maven    
 
-    官网下载最新版本
+官网下载最新版本
 
-    `http://maven.apache.org/download.cgi`
+`http://maven.apache.org/download.cgi`
 
-    解压
+解压
 
-    `sudo tar -zxvf apache-maven-3.6.1-bin.tar.gz -C /opt/`
-    `sudo mv /opt/apache-maven-3.6.1 /opt/maven`
+`sudo tar -zxvf apache-maven-3.6.1-bin.tar.gz -C /opt/`
+`sudo mv /opt/apache-maven-3.6.1 /opt/maven`
 
-    配置 /opt/maven/confsettings.xml
+配置 /opt/maven/conf/settings.xml
 
-    ```
-    <?xml version="1.0" encoding="UTF-8"?>
-    <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
-     
-      <servers>
-        <server>
-          <id>snapshots</id>
-          <username>admin</username>
-          <password>admin123</password>
-        </server>
-        <server>
-          <id>nexus-snapshots</id>
-          <username>admin</username>
-          <password>admin123</password>
-        </server>
-      </servers>
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
     
-      <mirrors>
-        <mirror> 
-          <id>nexus-releases</id> 
-          <mirrorOf>*</mirrorOf> 
-          <url>http://192.168.100.135:8070/nexus/content/groups/public</url> 
-        </mirror>
-        <mirror> 
-          <id>nexus-snapshots</id> 
-          <mirrorOf>*</mirrorOf> 
-          <url>http://192.168.100.135:8070/nexus/content/repositories/snapshots</url> 
-        </mirror> 
-      </mirrors>
-    
-      <profiles>
-        <profile>
-          <id>nexus</id>
-          <repositories>
-            <repository>
-              <id>nexus-releases</id>
-              <url>http://nexus-releases</url>
-              <releases><enabled>true</enabled></releases>
-              <snapshots><enabled>true</enabled></snapshots>
-            </repository>
-            <repository>
-              <id>nexus-snapshots</id>
-              <url>http://nexus-snapshots</url>
-              <releases><enabled>true</enabled></releases>
-              <snapshots><enabled>true</enabled></snapshots>
-            </repository>
-          </repositories>
-          <pluginRepositories>
-            <pluginRepository>
-              <id>nexus-releases</id>
-              <url>http://nexus-releases</url>
-              <releases><enabled>true</enabled></releases>
-              <snapshots><enabled>true</enabled></snapshots>
-            </pluginRepository>
-            <pluginRepository>
-              <id>nexus-snapshots</id>
-              <url>http://nexus-snapshots</url>
-              <releases><enabled>true</enabled></releases>
-              <snapshots><enabled>true</enabled></snapshots>
-            </pluginRepository>
-          </pluginRepositories>
-        </profile>
-      </profiles>
-    
-      <activeProfiles>
-        <activeProfile>nexus</activeProfile>
-      </activeProfiles>
-    
-    </settings>
-    ```
+    <servers>
+    <server>
+        <id>snapshots</id>
+        <username>admin</username>
+        <password>admin123</password>
+    </server>
+    <server>
+        <id>nexus-snapshots</id>
+        <username>admin</username>
+        <password>admin123</password>
+    </server>
+    </servers>
 
-    项目中使用
+    <mirrors>
+    <mirror> 
+        <id>nexus-releases</id> 
+        <mirrorOf>*</mirrorOf> 
+        <url>http://192.168.100.135:8070/nexus/content/groups/public</url> 
+    </mirror>
+    <mirror> 
+        <id>nexus-snapshots</id> 
+        <mirrorOf>*</mirrorOf> 
+        <url>http://192.168.100.135:8070/nexus/content/repositories/snapshots</url> 
+    </mirror> 
+    </mirrors>
 
-    ```
-    <distributionManagement>
-        <!-- 两个ID必须与 setting.xml中的<server><id>nexus-releases</id></server>保持一致-->
+    <profiles>
+    <profile>
+        <id>nexus</id>
+        <repositories>
         <repository>
             <id>nexus-releases</id>
-            <name>Nexus Release Repository</name>
-            <url>http://192.168.100.135:8070/nexus/content/repositories/releases</url>
+            <url>http://nexus-releases</url>
+            <releases><enabled>true</enabled></releases>
+            <snapshots><enabled>true</enabled></snapshots>
         </repository>
-        <snapshotRepository>
+        <repository>
             <id>nexus-snapshots</id>
-            <name>Nexus Snapshot Repository</name>
-            <url>http://192.168.100.135:8070/nexus/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
-    ```
+            <url>http://nexus-snapshots</url>
+            <releases><enabled>true</enabled></releases>
+            <snapshots><enabled>true</enabled></snapshots>
+        </repository>
+        </repositories>
+        <pluginRepositories>
+        <pluginRepository>
+            <id>nexus-releases</id>
+            <url>http://nexus-releases</url>
+            <releases><enabled>true</enabled></releases>
+            <snapshots><enabled>true</enabled></snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>nexus-snapshots</id>
+            <url>http://nexus-snapshots</url>
+            <releases><enabled>true</enabled></releases>
+            <snapshots><enabled>true</enabled></snapshots>
+        </pluginRepository>
+        </pluginRepositories>
+    </profile>
+    </profiles>
+
+    <activeProfiles>
+    <activeProfile>nexus</activeProfile>
+    </activeProfiles>
+
+</settings>
+```
+
+maven 项目的 pom.xml 配置
+
+```
+<distributionManagement>
+    <!-- 两个ID必须与 setting.xml中的<server><id>nexus-releases</id></server>保持一致-->
+    <repository>
+        <id>nexus-releases</id>
+        <name>Nexus Release Repository</name>
+        <url>http://192.168.100.135:8070/nexus/content/repositories/releases</url>
+    </repository>
+    <snapshotRepository>
+        <id>nexus-snapshots</id>
+        <name>Nexus Snapshot Repository</name>
+        <url>http://192.168.100.135:8070/nexus/content/repositories/snapshots</url>
+    </snapshotRepository>
+</distributionManagement>
+```
 
 ## IntelliJ IDEA 安装 （强力推荐）
 
