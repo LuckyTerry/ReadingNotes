@@ -47,34 +47,35 @@
 修改
 
     sudo vim /etc/apt/sources.list 
-    
-更新
-
-    sudo apt-get update
 
 推荐阿里云软件源
 
-```
-# deb包
-deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
-deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
-# 源码镜像，默认注释以提高 apt update 速度，如有需要可自行取消注释
-#deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
-#deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
-#deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
-#deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
-# 预发布源 ，不建议启用
-#deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
-#deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
-```
+    ```
+    # deb包
+    deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+    deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+    deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+    deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+    # 源码镜像，默认注释以提高 apt update 速度，如有需要可自行取消注释
+    #deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+    #deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+    #deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+    #deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+    # 预发布源 ，不建议启用
+    #deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+    #deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+    ```
 
-后面几个参数是对软件包的分类（Ubuntu下是main， restricted，universe ，multiverse这四个）
+    后面几个参数是对软件包的分类（Ubuntu下是main， restricted，universe ，multiverse这四个）
 
-使用sudo vim sources.list打开文件，输入ggdG删除所有内容（这句指令可以理解为从第1行到最后1行之间的内容都删了）
+    使用sudo vim sources.list打开文件，输入ggdG删除所有内容（这句指令可以理解为从第1行到最后1行之间的内容都删了）
 
-将复制的内容粘贴到本文件中；输入:wq保存退出
+    将复制的内容粘贴到本文件中；输入:wq保存退出
+    
+更新软件仓库和软件
+
+    sudo apt update
+    sudo apt upgrade
 
 ## Ubuntu常用命令
 
