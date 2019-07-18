@@ -220,15 +220,19 @@ maven 项目的 pom.xml 配置
     开源 Activation code 激活
 
     ```text
-    # 修改hosts文件
-    sudo vim /etc/hosts
-    添加host映射 account.jetbrains.com   0.0.0.0 
+
+    # 激活前清除hosts中屏蔽的域名
 
     # 获取注册码
-    http://idea.lanyus.com/ 点击获取注册码，复制
+    http://idea.lanyus.com/ 点击获取注册码，复制（注意不要选中注册码文字起始的非Code部分）
 
-    # 添加激活
-    选择Activation code项，粘贴获取到的注册码
+    # 执行激活
+    选择 Activation Code 项，粘贴获取到的注册码
+
+    # 修改hosts文件，屏蔽域名
+    sudo vim /etc/hosts
+    0.0.0.0 account.jetbrains.com
+    0.0.0.0 www.jetbrains.com
 
     ```
 

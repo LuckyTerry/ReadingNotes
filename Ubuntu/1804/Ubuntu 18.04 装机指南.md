@@ -424,6 +424,10 @@ sudo apt install flashplugin-installer
 
     `sudo proxychains apt-get update`
 
+### 5. Cheat
+
+    `sudo snap install cheat`
+
 ### 协作软件
 
 1. deepin-wine-ubuntu
