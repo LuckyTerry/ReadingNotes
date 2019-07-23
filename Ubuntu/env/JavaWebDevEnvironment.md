@@ -98,6 +98,19 @@
 `sudo tar -zxvf apache-maven-3.6.1-bin.tar.gz -C /opt/`
 `sudo mv /opt/apache-maven-3.6.1 /opt/maven`
 
+配置环境变量
+
+```
+sudo vim /etc/profile
+在最后面追加以下代码
+
+export MAVEN_HOME=/opt/maven
+export PATH=$PATH:${MAVEN_HOME}/bin
+
+生效环境变量
+source /etc/profile 
+```
+
 配置 /opt/maven/conf/settings.xml
 
 ```
