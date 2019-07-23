@@ -204,6 +204,13 @@ maven 项目的 pom.xml 配置
 </distributionManagement>
 ```
 
+idea 的 maven 配置
+
+```
+Maven home diretory: 选择 /opt/maven 
+User settings file: override 选择 /opt/maven/conf/settings.xml
+```
+
 ## IntelliJ IDEA 安装 （强力推荐）
 
 1. tar.gz安装
