@@ -116,81 +116,172 @@ source /etc/profile
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
-    
-    <servers>
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+ 
+  <servers>
     <server>
-        <id>snapshots</id>
-        <username>admin</username>
-        <password>admin123</password>
+      <id>nexus-releases</id>
+      <username>admin</username>
+      <password>admin123</password>
     </server>
     <server>
-        <id>nexus-snapshots</id>
-        <username>admin</username>
-        <password>admin123</password>
+      <id>nexus-snapshots</id>
+      <username>admin</username>
+      <password>admin123</password>
     </server>
-    </servers>
+  </servers>
 
-    <mirrors>
-    <mirror> 
-        <id>nexus-releases</id> 
-        <mirrorOf>*</mirrorOf> 
-        <url>http://192.168.100.135:8070/nexus/content/groups/public</url> 
+  <mirrors>
+    <mirror>
+      <id>nexus-aliyun</id>
+      <mirrorOf>central</mirrorOf>
+      <name>Nexus Aliyun</name>
+      <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
     </mirror>
-    <mirror> 
-        <id>nexus-snapshots</id> 
-        <mirrorOf>*</mirrorOf> 
-        <url>http://192.168.100.135:8070/nexus/content/repositories/snapshots</url> 
-    </mirror> 
-    </mirrors>
+  </mirrors>
 
-    <profiles>
+  <profiles>
     <profile>
-        <id>nexus</id>
-        <repositories>
-        <repository>
-            <id>nexus-releases</id>
-            <url>http://nexus-releases</url>
-            <releases><enabled>true</enabled></releases>
-            <snapshots><enabled>true</enabled></snapshots>
-        </repository>
-        <repository>
-            <id>nexus-snapshots</id>
-            <url>http://nexus-snapshots</url>
-            <releases><enabled>true</enabled></releases>
-            <snapshots><enabled>true</enabled></snapshots>
-        </repository>
-        </repositories>
-        <pluginRepositories>
+      <id>nexus-holder</id>
+      <repositories>
+	<repository>
+	  <id>snapshots</id>
+	  <name>Nexus Snapshots</name>
+	  <url>http://192.168.100.135:8070/nexus/content/repositories/snapshots/</url>
+	  <snapshots><enabled>true</enabled></snapshots>
+	</repository>
+	<repository>
+	  <id>thirdparty</id>
+	  <name>Nexus ThirdParty</name>
+	  <url>http://192.168.100.135:8070/nexus/content/repositories/thirdparty/</url>
+	</repository>
+	<repository>
+	  <id>releases</id>
+	  <name>Nexus Releases</name>
+	  <url>http://192.168.100.135:8070/nexus/content/repositories/releases/</url>
+	</repository>
+      </repositories>
+      <pluginRepositories>
         <pluginRepository>
-            <id>nexus-releases</id>
-            <url>http://nexus-releases</url>
-            <releases><enabled>true</enabled></releases>
-            <snapshots><enabled>true</enabled></snapshots>
-        </pluginRepository>
-        <pluginRepository>
-            <id>nexus-snapshots</id>
-            <url>http://nexus-snapshots</url>
-            <releases><enabled>true</enabled></releases>
-            <snapshots><enabled>true</enabled></snapshots>
-        </pluginRepository>
-        </pluginRepositories>
+	  <id>snapshots</id>
+	  <name>Nexus Snapshots</name>
+	  <url>http://192.168.100.135:8070/nexus/content/repositories/snapshots/</url>
+	  <snapshots><enabled>true</enabled></snapshots>
+	</pluginRepository>
+	<pluginRepository>
+	  <id>thirdparty</id>
+	  <name>Nexus ThirdParty</name>
+	  <url>http://192.168.100.135:8070/nexus/content/repositories/thirdparty/</url>
+	</pluginRepository>
+	<pluginRepository>
+	  <id>releases</id>
+	  <name>Nexus Releases</name>
+	  <url>http://192.168.100.135:8070/nexus/content/repositories/releases/</url>
+	</pluginRepository>
+      </pluginRepositories>
     </profile>
-    </profiles>
+    <profile>
+      <id>nexus-aliyun</id>
+      <repositories>
+        <repository>
+          <id>nexus-aliyun</id>
+          <name>local private nexus</name>
+          <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>false</enabled></snapshots>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>nexus-aliyun</id>
+          <name>local private nexus</name>
+          <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>false</enabled></snapshots>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+  </profiles>
 
-    <activeProfiles>
-    <activeProfile>nexus</activeProfile>
-    </activeProfiles>
+  <activeProfiles>
+    <activeProfile>nexus-holder</activeProfile>
+  </activeProfiles>
 
 </settings>
 ```
 
-maven 项目的 pom.xml 配置
+配置 maven 项目的 pom.xml
 
 ```
+<repositories>
+	<repository>
+		<id>nexus-snapshots</id>
+		<name>Nexus Snapshots</name>
+		<url>192.168.100.135:8070/nexus/content/repositories/snapshots/</url>
+		<snapshots>
+			<enabled>true</enabled>
+		</snapshots>
+	</repository>
+	<repository>
+		<id>nexus-thirdparty</id>
+		<name>Nexus ThirdParty</name>
+		<url>192.168.100.135:8070/nexus/content/repositories/thirdparty/</url>
+	</repository>
+	<repository>
+		<id>nexus-releases</id>
+		<name>Nexus Releases</name>
+		<url>192.168.100.135:8070/nexus/content/repositories/releases/</url>
+	</repository>
+	<repository>
+		<id>spring-snapshots</id>
+		<name>Spring Snapshots</name>
+		<url>https://repo.spring.io/snapshot</url>
+		<snapshots><enabled>true</enabled></snapshots>
+	</repository>
+	<repository>
+		<id>spring-milestones</id>
+		<name>Spring Milestones</name>
+		<url>https://repo.spring.io/milestone</url>
+		<snapshots><enabled>false</enabled></snapshots>
+	</repository>
+</repositories>
+
+<pluginRepositories>
+	<pluginRepository>
+		<id>nexus-snapshots</id>
+		<name>Nexus Snapshots</name>
+		<url>192.168.100.135:8070/nexus/content/repositories/snapshots/</url>
+		<snapshots>
+			<enabled>true</enabled>
+		</snapshots>
+	</pluginRepository>
+	<pluginRepository>
+		<id>nexus-thirdparty</id>
+		<name>Nexus ThirdParty</name>
+		<url>192.168.100.135:8070/nexus/content/repositories/thirdparty/</url>
+	</pluginRepository>
+	<pluginRepository>
+		<id>nexus-releases</id>
+		<name>Nexus Releases</name>
+		<url>192.168.100.135:8070/nexus/content/repositories/releases/</url>
+	</pluginRepository>
+	<pluginRepository>
+		<id>spring-snapshots</id>
+		<name>Spring Snapshots</name>
+		<url>https://repo.spring.io/snapshot</url>
+		<snapshots><enabled>true</enabled></snapshots>
+	</pluginRepository>
+	<pluginRepository>
+		<id>spring-milestones</id>
+		<name>Spring Milestones</name>
+		<url>https://repo.spring.io/milestone</url>
+		<snapshots><enabled>false</enabled></snapshots>
+	</pluginRepository>
+</pluginRepositories>
+
 <distributionManagement>
-    <!-- 两个ID必须与 setting.xml中的<server><id>nexus-releases</id></server>保持一致-->
+    <!-- 两个id必须与 setting.xml中的server.id保持一致-->
     <repository>
         <id>nexus-releases</id>
         <name>Nexus Release Repository</name>
@@ -204,12 +295,51 @@ maven 项目的 pom.xml 配置
 </distributionManagement>
 ```
 
-idea 的 maven 配置
+配置 idea 的 maven 选项
 
 ```
 Maven home diretory: 选择 /opt/maven 
 User settings file: override 选择 /opt/maven/conf/settings.xml
 ```
+
+**mirrors中不存在 `<mirrorOf>*</mirrorOf>`**
+
+查找优先级：本地仓库 > profile > pom > mirror
+
+- 本地仓库已存在Jar，则不会从远程仓库下载；如果未找到，进入次优先级。
+- conf/settings.xml 中 activeProfile 标签未配置，则跳过该优先级；若存在，则根据  profile.id 相应的配置，从指定的仓库下载。如果未找到，进入次优先级。
+- 项目 pom.xml 中 repositories 和 pluginRepositories 未配置，则跳过该优先级；若已配置，则根据配置先后顺序，依次从指定的仓库下载。如果未找到，进入次优先级。
+- conf/settings.xml 中 mirrors 标签未配置，则跳过该优先级；若已配置，则根据 mirror.id 的字母序，依次从指定的仓库下载。如果未找到，抛出错误。
+
+**mirrors中有存在 `<mirrorOf>*</mirrorOf>`**
+
+查找优先级：mirror > 无
+
+**高级的镜像配置：**
+
+1.`<mirrorOf>*</mirrorOf> `
+匹配所有远程仓库。 这样所有pom中定义的仓库都不生效
+
+2.`<mirrorOf>external:*</mirrorOf> `
+匹配所有远程仓库，使用localhost的除外，使用file://协议的除外。也就是说，匹配所有不在本机上的远程仓库。 
+
+3.`<mirrorOf>repo1,repo2</mirrorOf> `
+匹配仓库repo1和repo2，使用逗号分隔多个远程仓库。 
+
+4.`<mirrorOf>*,!repo1</miiroOf> `
+匹配所有远程仓库，repo1除外，使用感叹号将仓库从匹配中排除。 
+
+mirrors可以配置多个mirror，每个mirror有id,name,url,mirrorOf属性，id是唯一标识一个mirror就不多说了，name貌似没多大用，相当于描述，url是官方的库地址，mirrorOf代表了一个镜像的替代位置，例如central就表示代替官方的中央库。
+
+我本以为镜像库是一个分库的概念，就是说当a.jar在第一个mirror中不存在的时候，maven会去第二个mirror中查询下载。但事实却不是这样，当第一个mirror中不存在a.jar的时候，并不会去第二个mirror中查找，甚至于，maven根本不会去其他的mirror地址查询。
+
+后来终于知道，maven的mirror是镜像，而不是“分库”，只有当前一个mirror无法连接的时候，才会去找后一个，类似于备份和容灾。
+
+还有，mirror也不是按settings.xml中写的那样的顺序来查询的。
+
+所谓的第一个并不一定是最上面的那个。
+
+当有id为B,A,C的顺序的mirror在mirrors节点中，maven会根据字母排序来指定第一个，所以不管怎么排列，一定会找到A这个mirror来进行查找，当A无法连接，出现意外的情况下，才会去B查询。
 
 ## IntelliJ IDEA 安装 （强力推荐）
 
