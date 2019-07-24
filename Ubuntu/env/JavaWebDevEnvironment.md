@@ -432,3 +432,34 @@ mirrors可以配置多个mirror，每个mirror有id,name,url,mirrorOf属性，id
 3. IntelliJ-IDEA-Tutorial
 
     `https://github.com/judasn/IntelliJ-IDEA-Tutorial`
+
+## Postman
+
+下载postman的linux版本    
+
+    https://www.getpostman.com/
+
+    wget https://dl.pstmn.io/download/latest/linux64 -O postman.tar.gz
+
+解压
+
+    sudo tar -xzf postman.tar.gz -C /opt/
+
+vim建立文件路径
+
+```
+sudo vim  /usr/share/applications/postman.desktop
+
+[Desktop Entry]
+Encoding=UTF-8
+Name=postman
+Exec=/opt/Postman/Postman
+Icon=/opt/Postman/app/resources/app/assets/icon.png
+Terminal=false
+Type=Application
+Categories=Development;
+
+sudo chmod +x /usr/share/applications/postman.desktop
+    
+打开applications文件夹，把postman.desktop文件拖动到Launcher条上sudo nautilus /usr/share/applications
+```
