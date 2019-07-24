@@ -432,3 +432,86 @@ mirrors可以配置多个mirror，每个mirror有id,name,url,mirrorOf属性，id
 3. IntelliJ-IDEA-Tutorial
 
     `https://github.com/judasn/IntelliJ-IDEA-Tutorial`
+
+## Kibana 6.3.2
+
+1. 下载 LINUX 64-BIT 的 kibana-6.3.2-linux-x86_64.tar.gz
+
+    `https://www.elastic.co/cn/downloads/kibana`
+
+2. 解压
+
+    ```bash
+    sudo tar -zxvf kibana-6.3.2-linux-x86_64.tar.gz -C /opt/
+    sudo mv kibana-6.3.2-linux-x86_64 kibana-6.3.2
+    ```
+
+3. 配置系统环境变量
+
+    ```bash
+    sudo vim /etc/profile
+
+    在末尾添加以下几行文字（添加错了可能导致无限循环登录）
+    # set kibana environment
+    export KIBANA_HOME=/opt/kibana-6.3.2
+    export PATH=$PATH:${KIBANA_HOME}/bin
+    ```
+
+4. 使生效
+
+    ```bash
+    source /etc/profile //在当前terminal下生效
+    或
+    logout->login //在当前用户下生效
+    ```
+
+5. 配置 config/kibana.yml，确保如下
+
+    ```bash
+    server.port: 5601
+    server.host: "localhost"
+    elasticsearch.url: "http://192.168.100.57:9200"
+    ```
+
+6. 打开 命令提示行 验证一下
+
+    ```bash
+    kibana
+    ``` 
+
+## Zookeeper
+
+1. 下载
+
+    `https://mirrors.tuna.tsinghua.edu.cn/apache/zookeeper/`
+
+2. 解压
+
+    ```bash
+    sudo tar -zxvf apache-zookeeper-3.5.5.tar.gz -C /opt/
+    ```
+
+3. 配置系统环境变量
+
+    ```bash
+    sudo vim /etc/profile
+
+    在末尾添加以下几行文字（添加错了可能导致无限循环登录）
+    # set zookeeper environment
+    export ZOOKEEPER_HOME=/opt/zookeeper
+    export PATH=$PATH:${ZOOKEEPER_HOME}/bin
+    ```
+
+4. 使生效
+
+    ```bash
+    source /etc/profile //在当前terminal下生效
+    或
+    logout->login //在当前用户下生效
+    ```
+
+5. 打开 命令提示行 验证一下
+
+    ```bash
+    zkCli.sh -server 192.168.100.55:2181
+    ```
