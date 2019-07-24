@@ -468,13 +468,17 @@ sudo chmod +x /usr/share/applications/postman.desktop
 
 1. 下载 LINUX 64-BIT 的 kibana-6.3.2-linux-x86_64.tar.gz
 
-    `https://www.elastic.co/cn/downloads/kibana`
+    ```
+    proxychains wget https://artifacts.elastic.co/downloads/kibana/kibana-6.3.2-linux-x86_64.tar.gz
+
+    官网 https://www.elastic.co/cn/downloads/kibana
+    ```
 
 2. 解压
 
     ```bash
     sudo tar -zxvf kibana-6.3.2-linux-x86_64.tar.gz -C /opt/
-    sudo mv kibana-6.3.2-linux-x86_64 kibana-6.3.2
+    sudo mv /opt/kibana-6.3.2-linux-x86_64 /opt/kibana-6.3.2
     ```
 
 3. 配置系统环境变量
@@ -519,7 +523,7 @@ sudo chmod +x /usr/share/applications/postman.desktop
 2. 解压
 
     ```bash
-    sudo tar -zxvf apache-zookeeper-3.5.5.tar.gz -C /opt/
+    sudo tar -zxvf zookeeper-3.4.14.tar.gz -C /opt/
     ```
 
 3. 配置系统环境变量
@@ -529,7 +533,7 @@ sudo chmod +x /usr/share/applications/postman.desktop
 
     在末尾添加以下几行文字（添加错了可能导致无限循环登录）
     # set zookeeper environment
-    export ZOOKEEPER_HOME=/opt/zookeeper
+    export ZOOKEEPER_HOME=/opt/zookeeper-3.4.14
     export PATH=$PATH:${ZOOKEEPER_HOME}/bin
     ```
 
@@ -546,4 +550,3 @@ sudo chmod +x /usr/share/applications/postman.desktop
     ```bash
     zkCli.sh -server 192.168.100.55:2181
     ```
->>>>>>> e3e9c6de7a1219c51effe708ac8f88b4b83fe1b7
