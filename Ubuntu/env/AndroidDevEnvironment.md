@@ -255,6 +255,29 @@
 
     解决：you can also use "Software" in the Emulated Performance Graphics option, in the AVD settings
 
+## Flutter
+
+3. 配置系统环境变量
+
+    ```bash
+    sudo vim /etc/profile
+
+    在末尾添加以下几行文字（添加错了可能导致无限循环登录）
+    # set flutter enviroment
+    export PUB_HOSTED_URL=https://pub.flutter-io.cn
+    export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
+    export FLUTTER=/opt/flutter
+    export PATH=$PATH:$FLUTTER/bin
+    ```
+
+4. 使生效
+
+    ```bash
+    source /etc/profile //在当前terminal下生效
+    或
+    logout->login //在当前用户下生效
+    ```
+
 ## Android Stuido 插件安装
 
   [1]: https://stackoverflow.com/questions/38892270/delete-failed-internal-error-error-while-installing-apk/43063569
