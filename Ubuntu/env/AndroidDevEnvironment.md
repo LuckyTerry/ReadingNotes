@@ -270,6 +270,16 @@
     export PATH=$PATH:$FLUTTER/bin
     ```
 
+    ```bash
+    sudo vim ~/.bashrc
+
+    在末尾添加以下几行文字（添加错了可能导致无限循环登录）
+    # set flutter enviroment
+    export PUB_HOSTED_URL=https://pub.flutter-io.cn
+    export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
+    export PATH=/opt/flutter/bin:$PATH
+    ```
+
 4. 使生效
 
     ```bash

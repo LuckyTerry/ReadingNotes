@@ -550,3 +550,40 @@ sudo chmod +x /usr/share/applications/postman.desktop
     ```bash
     zkCli.sh -server 192.168.100.55:2181
     ```
+
+## SSH远程登录服务器
+
+1. 生成秘钥 (如果不存在)
+
+    ssh-keygen -t rsa
+
+2. 免密登录方法
+    
+2.1 通过ssh-copy-id的方式（推荐）
+    
+    ssh-copy-id -i ~/.ssh/id_rsa.pub root@<remote_ip>
+
+2.2　通过scp将内容写到对方的文件中（不推荐，会覆盖原文件）
+
+    scp -p ~/.ssh/id_rsa.pub root@<remote_ip>:/root/.ssh/authorized_keys
+
+    scp -P <port> ~/.ssh/id_rsa.pub root@<remote_ip>:/root/.ssh/authorized_keys
+
+3. 设置别名
+
+    vim ~/.bashrc
+
+    添加如下
+
+    ```bash
+    alias 135='ssh root@192.168.100.135'
+    alias 99='ssh root@192.168.100.99'
+    alias 231='ssh root@192.168.102.231'
+    alias terry='ssh root@118.24.149.18'
+    alias wall='ssh root@118.24.149.18'
+    alias jump='ssh dev@49.4.11.170'
+    ```
+
+    立即生效
+
+    source ~/.bashrc
