@@ -244,6 +244,23 @@ sudo passwd -l root // 清除root密码
 
     `sudo apt install gnome-tweak-tool`
 
+3. 安装扩展
+
+    ```
+    sudo apt install gnome-shell-extensions
+    sudo apt install gnome-shell-extension-dash-to-panel gnome-shell-extension-top-icons-plus
+    ```
+
+4. 扩展配置（如果需要）
+
+    略
+
+5. chrome中搜索并安装 GNOME Shell integration
+
+6. chrome在线安装gnome扩展
+
+     https://extensions.gnome.org/ 
+
 ### 6. indicator-sysmonitor
 
 添加源
@@ -504,15 +521,37 @@ Github的Repo
 
     官网下载最新版本
 
-    `http://community.wps.cn/download/`
+    [`WPS下载地址`](http://wps-community.org/downloads)
 
-    或，快速下载10.1.0.6634版本
+    或，快速下载10.1.0.8722版本
 
-    `wget http://kdl.cc.ksosoft.com/wps-community/download/6634/wps-office_10.1.0.6634_amd64.deb`
+    `wget http://kdl.cc.ksosoft.com/wps-community/download/8722/wps-office_11.1.0.8722_amd64.deb`
 
     安装
 
-    `sudo dpkg -i wps-office_10.1.0.6634_amd64.deb`
+    `sudo dpkg -i wps-office_10.1.0.8722_amd64.deb`
+
+    安装缺失字体
+
+        出现提示的原因是因为WPS for Linux没有自带windows的字体，只要在Linux系统中加载字体即可。
+
+        具体操作步骤如下：
+
+        下载缺失的字体文件，然后复制到Linux系统中的/usr/share/fonts文件夹中。
+        国内下载地址：链接: https://pan.baidu.com/s/17xCifc27hNfYw_vtkDs1HQ 提取码: 93tc
+        下载完成后，解压并进入目录中，继续执行：
+
+        sudo cp * /usr/share/fonts
+
+        执行以下命令,生成字体的索引信息：
+        sudo mkfontscale
+
+        sudo mkfontdir
+
+        运行fc-cache命令更新字体缓存。
+        sudo fc-cache
+
+        重启wps即可，字体缺失的提示不再出现
 
 2. FoxitReader
 
