@@ -580,7 +580,7 @@ sudo chmod +x /usr/share/applications/postman.desktop
     alias 99='ssh root@192.168.100.99'
     alias 231='ssh root@192.168.102.231'
     alias terry='ssh root@118.24.149.18'
-    alias wall='ssh root@118.24.149.18'
+    alias wall='ssh root@97.64.21.41'
     alias jump='ssh dev@49.4.11.170'
     ```
 

@@ -188,7 +188,7 @@ deb http://extras.ubuntu.com/ubuntu/ xenial main
 
     alias terry='ssh root@118.24.149.18'
 
-    alias wall='ssh root@118.24.149.18'
+    alias wall='ssh root@97.64.21.41'
 
     立即生效
 
