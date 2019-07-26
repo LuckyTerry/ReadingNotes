@@ -247,8 +247,9 @@ sudo passwd -l root // 清除root密码
 3. 安装扩展
 
     ```
-    sudo apt install gnome-shell-extensions
-    sudo apt install gnome-shell-extension-dash-to-panel gnome-shell-extension-top-icons-plus
+    sudo apt install gnome-shell-extensions（包含 dash to dock）
+    sudo apt install gnome-shell-extension-dash-to-panel  （不推荐，直接用 dash to dock）
+    sudo apt install gnome-shell-extension-top-icons-plus（不推荐，，直接用 dash to dock）
     ```
 
 4. 扩展配置（如果需要）
@@ -260,6 +261,10 @@ sudo passwd -l root // 清除root密码
 6. chrome在线安装gnome扩展
 
      https://extensions.gnome.org/ 
+
+7. dash to dock 配置
+
+    https://www.jianshu.com/p/afa26fe8c7c6
 
 ### 6. indicator-sysmonitor
 
