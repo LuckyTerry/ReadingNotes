@@ -582,7 +582,7 @@ sudo chmod +x /usr/share/applications/postman.desktop
     alias terry='ssh root@118.24.149.18'
     alias wall='ssh root@97.64.21.41'
     alias aliyun='ssh pifeng@jms.holderzone.com'
-    alias huawei='ssh dev@49.4.11.170'
+    alias hwyun='ssh dev@49.4.11.170'
     alias ctyun='echo todo'
     ```
 

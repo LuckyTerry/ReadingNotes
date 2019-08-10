@@ -163,7 +163,7 @@ sudo unzip -d 指定目录名 *.zip（解压 .zip格式的文件到指定目录�
 
 sudo chmod +x *.sh 这个命令是为sh文件增加可执行权限
 
-sudo chmod -R 777 *.*  对当前目录下的所有子目录和子文件进行777权限的变更
+sudo chmod -R 777 *  对当前目录下的所有子目录和子文件进行777权限的变更
 
 sudo chmod -R 777 /opt/*（对opt目录下的所有子目录和子文件进行777权限的变更）
 
@@ -445,6 +445,18 @@ sudo apt install flashplugin-installer
     重新打开终端，使用命令时前面需要加上proxychains，如
 
     `sudo proxychains apt-get update`
+
+    报错提示
+    ERROR: ld.so: object 'libproxychains.so.3' from LD_PRELOAD cannot be preloaded (cannot open shared object file): ignored.
+
+    ```
+    find /usr/ -name libproxychains.so.3 -print
+    /usr/lib/x86_64-linux-gnu/libproxychains.so.3
+
+    sudo vim /usr/bin/proxychains
+
+    把libproxychains.so.3库的绝对路径输入这个脚本
+    ```
 
 ### 5. Cheat
 
@@ -863,6 +875,12 @@ zookeeper
 rocketmq
 
 kibana
+
+## ISSUE
+
+Ubuntu18.04系统提示Failed to load module "canberra-gtk-module"
+
+命令行输入 `sudo apt install libcanberra-gtk-module`
 
 ## 参考资料
 

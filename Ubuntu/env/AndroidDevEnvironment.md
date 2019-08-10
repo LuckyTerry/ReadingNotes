@@ -255,6 +255,15 @@
 
     解决：you can also use "Software" in the Emulated Performance Graphics option, in the AVD settings
 
+    注15:
+
+     问题：
+     提示 /dev/kvm device: permission denied
+
+     解决：为当前用户授予读写访问的权限
+     ls -al /dev/kvm
+     sudo chown terry -R /dev/kvm
+
 ## Flutter
 
 3. 配置系统环境变量
