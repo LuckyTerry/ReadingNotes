@@ -589,3 +589,23 @@ sudo chmod +x /usr/share/applications/postman.desktop
     立即生效
 
     source ~/.bashrc
+
+## 抓包
+
+### Wireshark
+
+应用商店下载安装即可
+
+报错：Couldn't run /usr/bin/dumpcap in child process: 权限不够解决办法
+
+解决：
+```
+sudo apt-get install libcap2-bin wireshark 
+sudo chgrp terry /usr/bin/dumpcap 
+sudo chmod 750 /usr/bin/dumpcap 
+sudo setcap cap_net_raw,cap_net_admin+eip /usr/bin/dumpcap
+```
+
+### Charles
+
+https://blog.csdn.net/huuinn/article/details/82762952
