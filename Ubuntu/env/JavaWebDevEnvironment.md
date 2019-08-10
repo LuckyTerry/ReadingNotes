@@ -576,12 +576,14 @@ sudo chmod +x /usr/share/applications/postman.desktop
     添加如下
 
     ```bash
-    alias 135='ssh root@192.168.100.135'
     alias 99='ssh root@192.168.100.99'
-    alias 231='ssh root@192.168.102.231'
+    alias 135='ssh root@192.168.100.135'
+    alias 140='ssh root@192.168.100.140'
     alias terry='ssh root@118.24.149.18'
     alias wall='ssh root@97.64.21.41'
-    alias jump='ssh dev@49.4.11.170'
+    alias aliyun='ssh pifeng@jms.holderzone.com'
+    alias huawei='ssh dev@49.4.11.170'
+    alias ctyun='echo todo'
     ```
 
     立即生效
