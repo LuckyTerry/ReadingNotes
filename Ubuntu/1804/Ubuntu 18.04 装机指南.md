@@ -482,6 +482,10 @@ Github的Repo
 
     sudo dpkg -i deepin.com.qq.office_2.0.0deepin4_i386.deb
 
+    关于托盘，Ubuntu 18.04 下（Gnome 桌面）：安装 Gnome Shell 插件：[TopIcons Plus](https://extensions.gnome.org/extension/1031/topicons/)
+
+安装 Gnome Shell 插件：TopIcons Plus
+
 下载并安装Wechat(if necessary)
 
     sudo wget http://mirrors.aliyun.com/deepin/pool/non-free/d/deepin.com.wechat/deepin.com.wechat_2.6.8.52deepin0_i386.deb
