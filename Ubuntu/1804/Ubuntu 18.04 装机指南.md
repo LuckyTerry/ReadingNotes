@@ -159,6 +159,10 @@ sudo tar -xjf *.tar.bz2（解压 tar.bz2格式的文件到当前目录）
 
 sudo tar -xjf *.tar.bz2 -C 指定目录名（解压 tar.bz2格式的文件到指定目录）
 
+sudo unzip *.zip（解压 .zip格式的文件到当前目录）
+
+sudo unzip -O CP936 *.zip（解压 .zip格式的文件到当前目录，解决中文乱码）
+
 sudo unzip -d 指定目录名 *.zip（解压 .zip格式的文件到指定目录）
 
 sudo chmod +x *.sh 这个命令是为sh文件增加可执行权限
