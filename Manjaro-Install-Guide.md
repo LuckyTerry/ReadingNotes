@@ -1,5 +1,14 @@
 # 系统配置
 
+0、256GB固态分区方案
+
+fat32       /boot/efi   200.00MiB   （标记: boot, esp）
+ext4        /           60.00GiB
+ext4        /home       80.00GiB
+ext4        /opt        80.00GiB
+linuxswap   swap        8.00GiB
+未分配       未知         10.28GiB
+
 1、配置Manjaro国内源
 
     sudo pacman-mirrors -i -c China -m rank # 在跳出的对话框里勾选科大源(USTC那个)
@@ -19,18 +28,46 @@
 
     sudo pacman -Sy vim
 
-5、添加Archlinux国内源（增加中文社区的源来加速安装软件）
+5、添加 archlinuxcn 国内源（必须）（增加中文社区的源来加速安装软件）
 
-    sudo vim /etc/pacman.conf
+    # 在 /etc/pacman.conf 文件末尾添加以下两行：
 
-    # 在文件末尾添加以下三行
     [archlinuxcn]
     SigLevel = Optional TrustedOnly
     Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
-
-6、安装archlinuxcn签名钥匙(导入 GPG key，否则的话key验证失败会导致无法安装软件)
-
+    Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
+    
+    # 安装 archlinuxcn 签名钥匙(导入 GPG key，否则的话key验证失败会导致无法安装软件)
     sudo pacman -Syy && sudo pacman -S archlinuxcn-keyring  
+
+附：[中科大 Arch Linux CN 源使用帮助](http://mirrors.ustc.edu.cn/help/archlinuxcn.html)
+
+附：[清华 ArchlinuxCN 镜像使用帮助](https://mirrors4.tuna.tsinghua.edu.cn/help/archlinuxcn/)
+
+附：[Arch Linux 中文社区](https://www.archlinuxcn.org/)、[Arch Linux 中文社区仓库](https://www.archlinuxcn.org/archlinux-cn-repo-and-mirror/)、[Arch Linux 中文社区仓库镜像](https://github.com/archlinuxcn/mirrorlist-repo)
+
+5、添加 antergos 国内源（可选）
+
+    # 在 /etc/pacman.conf 文件末尾添加以下两行：
+
+    [antergos]
+    SigLevel = TrustAll
+    Server = https://mirrors.ustc.edu.cn/antergos/$repo/$arch
+    Server = https://mirrors.tuna.tsinghua.edu.cn/antergos/$repo/$arch
+
+5、添加 arch4edu 国内源（可选）
+
+    # 导入 GPG key
+    pacman-key --recv-keys 7931B6D628C8D3BA
+    pacman-key --finger 7931B6D628C8D3BA
+    pacman-key --lsign-key 7931B6D628C8D3BA
+
+    # 在 /etc/pacman.conf 文件末尾添加以下内容：
+    [arch4edu]
+    Server = https://mirrors.tuna.tsinghua.edu.cn/arch4edu/$arch
+
+附：[Arch4edu 镜像使用帮助](https://mirrors4.tuna.tsinghua.edu.cn/help/arch4edu/)
+
 
 7、安装yay
 
@@ -39,7 +76,7 @@
     配置 yay 的 aur 源为清华源 AUR 镜像：
     yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save
 
-    修改的配置文件位于 ~/.config/yay/config.json ，可以通过以下命令查看修改过的配置:
+    修改的配置文件位于 ~/.config/yay/config.json ，还可通过以下命令查看修改过的配置：
     yay -P -g
 
     yay 的常用命令：
@@ -48,6 +85,8 @@
     yay -Syu # 升级所有已安装的包
     yay -Ps # 打印系统统计信息
     yay -Qi package # 检查安装的版本
+
+附：[清华 AUR 镜像使用帮助](https://mirrors.tuna.tsinghua.edu.cn/help/AUR/)
 
 8、安装谷歌拼音输入法
 
@@ -73,9 +112,11 @@
 
 9、安装中文字体（如果需要）
 
-    yay -Sy wqy-zenhei
+    yay -Sy wqy-zenhei 正黑
     yay -Sy wqy-bitmapfont
-    yay -Sy wqy-microhei
+    yay -Sy wqy-microhei 字体雅黑
+    yay -Sy wqy-microhei-lite
+    yay -Sy ttf-dejavu
     yay -Sy ttf-wps-fonts
     yay -Sy adobe-source-han-sans-cn-fonts
     yay -Sy adobe-source-han-serif-cn-fonts
@@ -93,6 +134,16 @@
 2、安装 shadowsocks
 
     yay -Sy shadowsocks-qt5
+
+2、安装 electron-ssr
+
+    yay -Sy electron-ssr # 支持 ShadowsocksR
+
+2、安装 cmatrix
+
+    yay -Sy cmatrix
+
+    cmatrix # 开始装比
 
 3、安装 端口转发工具
 
@@ -210,17 +261,38 @@ yay -S mosh # 一款速度更快的 ssh 工具，网络不稳定时使用有奇�
 
     yay -Sy goldendict # 翻译、取词
 
+    [编辑] - [词典]
+    取消勾选 [维基百科] - [English Wikipedia]
+    取消勾选 [网站] - [Google En-En (Oxford)]
+    添加并启用 [有道] - [http://dict.youdao.com/search?q=%GDWORD%&ue=utf8]
+    添加暂不启用 [百度] - [http://fanyi.baidu.com/#en/zh/%GDWORD%]
+    添加暂不启用 [海词] - [http://dict.cn/%GDWORD%]
+
+[Ubuntu18.04下GoldenDict的安装和词典配置](https://www.jianshu.com/p/49a91181fa3f)
+
+7、安装 deepin截图
+
+    yay -Sy deepin-screenshot
+
+    # 配置系统快捷键
+    在【系统设置】-【工作区】-【自定义快捷键】中，点击【编辑】-【新建】-【全局快捷键】-【命令/URL：】
+    然后填写
+    动作名称：Deepin截图
+    触发器：Ctrl+Print
+    动作：deepin-screenshot
+
 7、安装 deepin工具
 
     yay -Sy deepin-picker # 深度取色器
     yay -Sy deepin-screen-recorder # 录屏软件，可以录制 Gif 或者 MP4 格式
-    yay -Sy deepin-screenshot # 深度截图
     yay -Sy deepin-system-monitor # 系统状态监控
 
 # 办公软件
 
 1、安装 tim
 
+    yay -Sy deepin.com.qq.office
+    yay -Sy deepin.com.qq.im
     yay -Sy deepin-wine-tim
 
 [deepin-wine-tim-arch](https://github.com/countstarlight/deepin-wine-tim-arch)
@@ -246,6 +318,10 @@ yay -S mosh # 一款速度更快的 ssh 工具，网络不稳定时使用有奇�
     export GTK_IM_MODULE=fcitx
     export QT_IM_MODULE=fcitx
     export XMODIFIERS="@im=fcitx"
+
+4、安装 有道词典
+
+    yay -Sy youdao-dict
 
 5、安装 foxitreader
 
@@ -320,14 +396,22 @@ yay -S mosh # 一款速度更快的 ssh 工具，网络不稳定时使用有奇�
 
     yay -Sy jdk8
 
-    或者，手动下载jdk.tar.gz
+    # 或者，手动下载jdk.tar.gz
     右键-解压缩-在此解压缩
     sudo cp -r jdk1.8.0_231 /opt
     sudo ln -s /opt/jdk1.8.0_231/bin/java /usr/bin/java
     java -version
 
-    设置jdk8为默认版本
-    archlinux-java set java-8-jdk # archlinux-java status 检查是否设置正确
+    # 查看jdk默认版本，设置jdk8为默认版本
+    archlinux-java status
+    archlinux-java set java-8-jdk
+
+    # 添加环境变量（由于通过yay安装，所以这里好像不对。好像默认就添加了，但不知道在哪里）
+    vim /etc/profile
+    export JAVA_HOME=/usr/lib/jvm/default
+    export JRE_HOME=${JAVA_HOEM}/jre
+    export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib 
+    source /etc/profile # 应用环境变量
 
 4、安装 open-jdk（不推荐）
 
@@ -335,11 +419,32 @@ yay -S mosh # 一款速度更快的 ssh 工具，网络不稳定时使用有奇�
 
 5、安装 maven
 
-    todo
+    yay -Sy maven
+
+    # 添加环境变量（由于通过yay安装，所以这里好像不对。好像默认就添加了，但不知道在哪里）
+    vim /etc/profile
+    export MAVEN_HOME=/usr/local/apache-maven-3.6.1
+    export PATH=${PATH}:${MAVEN_HOME}/bin
+    source /etc/profile
 
 6、安装 navicat
 
-    todo
+    yay -Sy navicat121_premium_cs_x64（巨慢，而且还容易失败）
+
+或者，手动安装 [Navicat for MySQL 中文版](http://www.navicat.com.cn/download/navicat-for-mysql)
+
+    tar -zxvf  /usr/local/navicat120_mysql_cs_x64.tar.gz
+
+    vim start_navicat
+    export LANG="zh_CN.UTF-8" // 第八行中 export LANG="en_US.UTF-8，解决navicat的中文乱码问题
+
+    ./start_navicat
+    会提示安装wine（wine是Windows应用在Linux下运行的必须的环境）
+    官方下载的navicat已经继承好了wine在压缩包里，所以使用官方下载的更为省心
+
+    破解
+    其实没有什么好的破解方法，有的是把Linux下的exe应用拷贝到Windows中再从Windows中进行破解。
+    还有一个办法就是删除/opt/目录下的/.navicat目录，或者system.reg这个文件（因为这个文件是记录navaicat运行的时间的）
 
 7、安装 mysql-workbench
 
@@ -351,6 +456,9 @@ yay -S mosh # 一款速度更快的 ssh 工具，网络不稳定时使用有奇�
 
 8、安装 redis-desktop
 
+    yay -Sy redis-desktop-manager
+
+    # snap安装
     sudo snap install redis-desktop-manager # 很慢，要有心里准备（即使使用了代理）
 
 9、安装 mongodb-compass
@@ -376,10 +484,21 @@ yay -S mosh # 一款速度更快的 ssh 工具，网络不稳定时使用有奇�
 
     jetbrains-toolbox 安装即可
     
-    或者，yay安装
+    # 或者，yay安装
     yay -Sy intellij-idea-ultimate-edition # JAVA IDE
     yay -Sy pycharm-professional # Python IDE
     yay -Sy goland # Go IDE
+
+3、安装 sublime text 3
+
+    yay -S sublime-text-3-imfix
+
+3、安装 datagrip
+
+    jetbrains-toolbox 安装即可
+
+    # 或者，yay安装
+    yay -Sy datagrip
 
 3、安装 android studio
 
@@ -394,7 +513,17 @@ yay -S mosh # 一款速度更快的 ssh 工具，网络不稳定时使用有奇�
 
 3、安装 flutter
 
+    todo
+
 3、安装 jd-gui
+
+    yay -Sy jd-gui-bin
+
+    # Gui界面中文乱码
+    yay -Sy wqy-zenhei 正黑
+
+    # Class内容中文乱码
+    todo
 
 3、安装 postman
 
@@ -408,31 +537,57 @@ yay -S mosh # 一款速度更快的 ssh 工具，网络不稳定时使用有奇�
 
     yay -Sy jmeter
 
-3、安装 datagrip
-
 3、安装 echosite
+
+    todo
+
+3、安装 ngrok
+
+    todo
 
 3、安装 docker
 
+    yay -Sy docker
+    yay -Sy docker-compose
+
+    sudo groupadd docker # 添加docker用户组
+    sudo gpasswd -a terry docker # 将登陆用户加入到docker用户组中
+    newgrp docker # 更新用户组
+    docker ps # 测试docker命令是否可以使用sudo正常使用
+    sudo systemctl start docker # 启动服务
+    sudo systemctl enable docker # 加入开机启动
+
 3、安装 kibana
 
+    yay -Sy kibana
+
 3、安装 mat
+
+    yay -Sy eclipse-mat
+
+3、安装 cheat
+
+    sudo pip install cheat # manjaro自带了pip
 
 3、安装 zookeeper
 
 3、安装 make
 
+    yay -Sy make
+
 3、安装 cmake
 
+    yay -Sy cmake
 
 3、安装 clang
 
 3、安装 nodejs
 
+    yay -Sy nodejs
+
 3、安装 npm
 
 3、安装 golang
-
 
 3、安装 net-tools
 
@@ -507,6 +662,7 @@ Pycharm Professional sudo pacman -S pycharm-professional
 深度截图 sudo pacman -S deepin-screenshot
 深度画板 sudo pacman -S deepin-draw
 深度录屏 sudo pacman -S deepin-screen-recorder
+yay -Sy deepin-calculator
 Anaconda
 
 sudo pacman -S anaconda
@@ -550,3 +706,70 @@ https://www.jianshu.com/p/e878f1e36ff4
 [todo Manjaro 安装体验小结](http://michael728.github.io/2019/08/03/linux-manjaro-install/)
 
 [todo 关于manjaro的一系列配置&使用方法](https://www.cnblogs.com/hztjiayou/p/11772862.html)
+
+[安利向 | Arch Linux好软](https://blog.asucreyau.xyz/2019/01/08/apps-under-arch/)
+
+仿制mac
+yay -Sy docky 
+
+安装 百度云网盘
+yay -Sy archlinuxcn/baidunetdisk-bin
+
+安装 vmware-workstation
+yay -Sy vmware-workstation
+
+yay -S spotify
+
+
+美化
+Manjaro默认的桌面跟windows差不多，要自己美化。
+
+我安装了Plank作为Docky，再用sudo in -s /usr/share/applications/plank.desktop /etc/xdg/autostart/指令建立开机启动Plank。
+
+把原有的状态栏取消锁定，并移动至屏幕上方进行美化。
+
+gimp mame
+
+nmap zmap mycli
+skypeforlinux-stable-bin
+linux414-virtualbox-host-modules virtualbox-ext-oracle virtualbox
+
+maven
+
+
+yaourt -S charles # Http代理服务器、监视器、反转代理服务器
+yaourt -S medis # Redis可视化管理工具
+yaourt -S bcompare-kde5 # 代码文档比较工具
+yaourt -S easyconnect # EasyConnect
+
+安装录屏软件
+sudo pacman -S simplescreensecorder
+
+安装视频剪辑软件
+sudo pacman -S kdenlive
+
+
+xfce4-mime-settings：设置文件关联应用程序的图形化工具，Linux桌面找不到第2个这样的工具
+
+archlinuxcn/android-sdk-platform-tools 29.0.5-1 (4.3 MiB 23.3 MiB) 
+    Platform-Tools for Google Android SDK (adb and fastboot)
+archlinuxcn/android-sdk-build-tools r29.0.2-1.1 (27.8 MiB 112.4 MiB) 
+    Build-Tools for Google Android SDK (aapt, aidl, dexdump, dx, llvm-rs-cc)
+archlinuxcn/android-sdk 26.1.1-1.1 (141.6 MiB 167.3 MiB) 
+    Google Android SDK
+archlinuxcn/android-emulator 29.2.1-3 (194.1 MiB 659.0 MiB) 
+    Google Android Emulator
+
+aur/android-sdk-build-tools r29.0.2-1 (+458 0.59%) 
+    Build-Tools for Google Android SDK (aapt, aidl, dexdump, dx, llvm-rs-cc)
+
+
+
+
+mat
+
+
+和 
+
+
+navicat
