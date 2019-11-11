@@ -2,12 +2,12 @@
 
 0、256GB固态分区方案
 
-fat32       /boot/efi   200.00MiB   （标记: boot, esp）
-ext4        /           60.00GiB
-ext4        /home       80.00GiB
-ext4        /opt        80.00GiB
-linuxswap   swap        8.00GiB
-未分配       未知         10.28GiB
+    fat32       /boot/efi   200.00MiB   （标记: boot, esp）
+    ext4        /           60.00GiB
+    ext4        /home       80.00GiB
+    ext4        /opt        80.00GiB
+    linuxswap   swap        8.00GiB
+    未分配       未知         10.28GiB
 
 1、配置Manjaro国内源
 
