@@ -436,6 +436,9 @@ yay -S copyq #  剪贴板工具，类似 Windows 上的 Ditto
     export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib 
     source /etc/profile # 应用环境变量
 
+    # 安装后的地址，/usr/lib/jvm/java-8-jdk
+    IDEA等需要jdk的软件按需重新设置，如IDEA: Project Structure - Platform Settings - JDK home path - 更改为 /usr/lib/jvm/java-8-jdk
+
 4、安装 open-jdk（不推荐）
 
     yay -Sy jdk8-openjdk
@@ -499,6 +502,8 @@ yay -S copyq #  剪贴板工具，类似 Windows 上的 Ditto
 
     yay -Sy visual-studio-code-bin
 
+    # oh-my-zsh 个性化后，vscode的zsh终端中图标乱码，现无好的解决办法，强迫症患者可以更改默认shell为bash
+    
 3、安装 Jetbrains管理工具
 
     yay -Sy jetbrains-toolbox # Jetbrains家族软件的管理工具，推荐
