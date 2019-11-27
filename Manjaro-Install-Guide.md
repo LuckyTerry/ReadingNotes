@@ -121,9 +121,24 @@
     yay -Sy adobe-source-han-sans-cn-fonts
     yay -Sy adobe-source-han-serif-cn-fonts
 
-10、安装 Snap
+10、安装 snap
 
     yay -Sy snapd
+
+11、安装 debtap（在manjaro中安装deb包的工具）
+
+    检测是否已安装debtap：不用检测肯定没按
+    sudo pacman -Q debtap
+
+    安装debtap
+    yay -S debtap
+
+    升级debtap
+    sudo debtap -u
+
+    debtap使用方法
+    sudo debtap *.deb     会将deb文件转化成.tar.gz文件
+    sudo pacman -U *.tar.gz
 
 # 系统工具
 
@@ -215,13 +230,13 @@ yay -S copyq #  剪贴板工具，类似 Windows 上的 Ditto
 
 6、安装 
 
-yay -S tldr
-yay -S ncdu # 命令行下的磁盘分析器，支持Vim操作
-yay -S mosh # 一款速度更快的 ssh 工具，网络不稳定时使用有奇效
+    yay -S tldr
+    yay -S ncdu # 命令行下的磁盘分析器，支持Vim操作
+    yay -S mosh # 一款速度更快的 ssh 工具，网络不稳定时使用有奇效
 
 # 系统优化
 
-3、安装
+1、安装
 
     todo
 
@@ -289,11 +304,15 @@ yay -S mosh # 一款速度更快的 ssh 工具，网络不稳定时使用有奇�
 
 # 办公软件
 
+0、安装 qq
+
+    yay -Sy deepin-wine-qq
+    yay -Sy deepin.com.qq.im
+
 1、安装 tim
 
-    yay -Sy deepin.com.qq.office
-    yay -Sy deepin.com.qq.im
     yay -Sy deepin-wine-tim
+    yay -Sy deepin.com.qq.office
 
 [deepin-wine-tim-arch](https://github.com/countstarlight/deepin-wine-tim-arch)
 
@@ -305,7 +324,9 @@ yay -S mosh # 一款速度更快的 ssh 工具，网络不稳定时使用有奇�
 
 3、安装 百度网盘
 
-    yay -S deepin-wine-baidupan
+    yay -Sy baidunetdisk-bin（实测，完美）
+    yay -S deepin-wine-baidupan（实测，启动失败）
+    yay -S deepin-baidu-pan（实测，启动失败）
 
 4、安装 wps（如果未安装LibreOffice）
 
@@ -355,15 +376,17 @@ yay -S mosh # 一款速度更快的 ssh 工具，网络不稳定时使用有奇�
 
 9、安装 有道笔记
 
-    todo
+[youdao-note-electron](https://github.com/jamasBian/youdao-note-electron)
 
 10、安装 印象笔记|NixNote2
 
-    todo
+    yay -Sy nixnote2
 
-11、安装
+11、安装 钉钉
 
-    todo
+[推荐：dingtalk](https://github.com/nashaofu/dingtalk)
+
+[备选：DingTalk-linux](https://github.com/jamasBian/DingTalk-linux)
 
 # 娱乐软件
 
@@ -561,9 +584,9 @@ yay -S mosh # 一款速度更快的 ssh 工具，网络不稳定时使用有奇�
 
     yay -Sy kibana
 
-3、安装 mat
+3、安装 eclipse-mat
 
-    yay -Sy eclipse-mat
+    yay -Sy eclipse-mat（巨慢，还很容易失败）
 
 3、安装 cheat
 
@@ -654,12 +677,10 @@ yay 的命令参数跟pacman参数基本一致。
 tim/qq yay -Ss deepin tim 根据需求选择合适的安装即可
 
 微信 sudo pacman -S electronic-wechat yay -S deepin-wine-wechat
-百度网盘 sudo pacman -S baidunetdisk-bin
 迅雷极速版 sudo pacman -S deepin-wine-thunderspeed
 360浏览器 yay -S browser360
 VisualStudioCode sudo pacman -S visual-studio-code-bin
 Pycharm Professional sudo pacman -S pycharm-professional
-深度截图 sudo pacman -S deepin-screenshot
 深度画板 sudo pacman -S deepin-draw
 深度录屏 sudo pacman -S deepin-screen-recorder
 yay -Sy deepin-calculator
@@ -711,9 +732,6 @@ https://www.jianshu.com/p/e878f1e36ff4
 
 仿制mac
 yay -Sy docky 
-
-安装 百度云网盘
-yay -Sy archlinuxcn/baidunetdisk-bin
 
 安装 vmware-workstation
 yay -Sy vmware-workstation
@@ -773,3 +791,10 @@ mat
 
 
 navicat
+
+
+
+
+
+
+[Deepin-Wine移植贡献者Codist](https://github.com/countstarlight?utf8=%E2%9C%93&tab=repositories&q=deepin-wine&type=&language=)
