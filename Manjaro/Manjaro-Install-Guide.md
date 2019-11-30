@@ -803,3 +803,32 @@ navicat
 
 
 [Deepin-Wine移植贡献者Codist](https://github.com/countstarlight?utf8=%E2%9C%93&tab=repositories&q=deepin-wine&type=&language=)
+
+# 美化相关
+
+## Dock
+
+### docky
+
+### latte-dock
+
+### plank
+
+
+
+
+## Plasma主题
+
+McMojava Plasma
+
+## 图标
+
+### 仿苹果图标
+
+McMojave-circle
+
+Mojave CT icons 
+
+### 其他图标
+
+Papirus
