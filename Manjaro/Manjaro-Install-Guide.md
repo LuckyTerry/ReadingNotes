@@ -150,6 +150,12 @@
 
     yay -Sy shadowsocks-qt5
 
+    我操他妈的天坑：AES-256-GCM 这种加密方式，Https总是会出现中断的问题
+
+    c19s1.jamjams.net - c19s4.jamjams.net，它们的加密方式都是 AES-256-GCM，经测试，总是连接中断。
+
+    c19s5.jamjams.net，它的加密方式是 AES-256-CFB，经测试，无任何问题。
+
 2、安装 electron-ssr
 
     yay -Sy electron-ssr # 支持 ShadowsocksR
