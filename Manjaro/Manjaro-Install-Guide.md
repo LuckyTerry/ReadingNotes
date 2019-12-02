@@ -493,6 +493,14 @@ yay -S copyq #  剪贴板工具，类似 Windows 上的 Ditto
     # snap安装
     sudo snap install redis-desktop-manager # 很慢，要有心里准备（即使使用了代理）
 
+    # 2019.12.02 安装后，启动出现闪退。
+    原因：最新的 rdm 依赖 Python>=3.8.0，而系统的python版本低于3.8.0
+    过程：aur中无法下载到最新的，这就很尴尬了！！！
+    解决方案：下载源文件，手动安装
+    https://www.archlinux.org/packages/extra/x86_64/python/
+    页面右方 Package Actions，点击 Download From Mirror 下载源文件
+    然后通过 sudo pacman -U python-3.8.0-1-x86_64.pkg.tar.xz 安装，即可。
+
 9、安装 mongodb-compass
 
     yay -Sy mongodb-compass # 很慢，要有心里准备
