@@ -140,6 +140,14 @@
     sudo debtap *.deb     会将deb文件转化成.tar.gz文件
     sudo pacman -U *.tar.gz
 
+12、按张 appImageLauncher
+
+    yay -S appimagelauncher
+
+    安装AppImageLauncher后，直接双击AppImage文件会出现AppImageLauncher提示框，并有两个选项
+    - Run once 仅仅像以前一样正常运行，什么都不做
+    - Integrate and run 这个 AppImage 就被复制到 ~/.bin/ （家目录中的隐藏文件夹）并添加到菜单中，然后启动该程序。
+
 # 系统工具
 
 1、安装screenfetch
