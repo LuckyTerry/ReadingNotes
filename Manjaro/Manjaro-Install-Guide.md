@@ -506,6 +506,11 @@ yay -S copyq #  剪贴板工具，类似 Windows 上的 Ditto
 
     yay -Sy mongodb-compass # 很慢，要有心里准备
 
+    或者，手动安装，这个快
+    gfw wget https://downloads.mongodb.com/compass/mongodb-compass_1.19.12_amd64.deb
+    sudo debtap mongodb-compass_1.19.12_amd64.deb
+    sudo pacman -U mongodb-compass-1.19.12-1-x86_64.pkg.tar.xz
+
 10、安装 wireshark-qt
 
     yay -Sy wireshark-qt
@@ -604,6 +609,9 @@ yay -S copyq #  剪贴板工具，类似 Windows 上的 Ditto
 
     yay -Sy kibana
 
+    问题：unable to find usable node.js executable.
+    解决：TODO
+
 3、安装 eclipse-mat
 
     yay -Sy eclipse-mat（巨慢，还很容易失败）
@@ -613,6 +621,8 @@ yay -S copyq #  剪贴板工具，类似 Windows 上的 Ditto
     sudo pip install cheat # manjaro自带了pip
 
 3、安装 zookeeper
+
+    TODO
 
 3、安装 make
 
@@ -627,6 +637,8 @@ yay -S copyq #  剪贴板工具，类似 Windows 上的 Ditto
 3、安装 nodejs
 
     yay -Sy nodejs
+
+    配置环境变量 TODO
 
 3、安装 npm
 
