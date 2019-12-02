@@ -140,7 +140,7 @@
     sudo debtap *.deb     会将deb文件转化成.tar.gz文件
     sudo pacman -U *.tar.gz
 
-12、按张 appImageLauncher
+12、安装 appImageLauncher
 
     yay -S appimagelauncher
 
