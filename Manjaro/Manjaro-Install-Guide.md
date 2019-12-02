@@ -500,6 +500,7 @@ yay -S copyq #  剪贴板工具，类似 Windows 上的 Ditto
     https://www.archlinux.org/packages/extra/x86_64/python/
     页面右方 Package Actions，点击 Download From Mirror 下载源文件
     然后通过 sudo pacman -U python-3.8.0-1-x86_64.pkg.tar.xz 安装，即可。
+    后遗症！！！：其他软件可是依赖的低版本，这下，其他软件又没法用了。。先还原，rdm和autojump暂时先不用，等2个月应该就好了。
 
 9、安装 mongodb-compass
 
