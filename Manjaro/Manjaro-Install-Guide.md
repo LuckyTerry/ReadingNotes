@@ -320,15 +320,35 @@ yay -S copyq #  剪贴板工具，类似 Windows 上的 Ditto
 
 0、安装 qq
 
-    yay -Sy deepin-wine-qq
     yay -Sy deepin.com.qq.im
+    yay -Sy deepin-wine-qq（暂不推荐）
 
 1、安装 tim
 
-    yay -Sy deepin-wine-tim
     yay -Sy deepin.com.qq.office
+    yay -Sy deepin-wine-tim（暂不推荐）
+
+    问题一：
+    X Error of failed request: BadWindow (invalid Window parameter)
+        Major opcode of failed request: 20 (X_GetProperty)
+        Resource id in failed request: 0x0
+        Serial number of failed request: 10
+        Current serial number in output stream: 10
+    解决：安装gnome-settings-daemon，然后运行/usr/lib/gsd-xsettings
+
+    问题二：
+    字体发虚
+    解决：安装lib32-freetype2-infinality-ultimate包即可解决
 
 [deepin-wine-tim-arch](https://github.com/countstarlight/deepin-wine-tim-arch)
+
+[软件包详情: deepin.com.qq.office 2.0.0_4-2，评论有惊喜](https://aur.archlinux.org/packages/deepin.com.qq.office/)
+
+[2019年wine QQ最完美解决方案（多Linux发行版通过测试并稳定运行）](https://blog.csdn.net/Scythe666/article/details/86592035)
+
+[Linux下wine QQ终于有正式稳定的版本啦，后盾强大，同步腾讯](https://www.lulinux.com/archives/3713)
+
+[KDE程序自启动](https://wiki.archlinux.org/index.php/KDE_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E7%A8%8B%E5%BA%8F%E8%87%AA%E5%90%AF%E5%8A%A8)
 
 2、安装 微信
 
