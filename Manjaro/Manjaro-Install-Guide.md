@@ -412,6 +412,27 @@ yay -S copyq #  剪贴板工具，类似 Windows 上的 Ditto
 
 [youdao-note-electron](https://github.com/jamasBian/youdao-note-electron)
 
+    创建desktop图标
+
+    sudo ln -s /opt/Youdao-Note-Electron-linux-x64/Youdao-Note-Electron /usr/bin/youdao-note
+    sudo cp /opt/Youdao-Note-Electron-linux-x64/resources/icon.png /usr/share/icons/youdao-note.png
+    sudo vim /usr/share/applications/youdao-note.desktop
+
+```
+[Desktop Entry]
+Name=Youdao Note
+Name[zh_CN]=有道笔记
+Name[zh_TW]=有道笔记
+Exec=youdao-note %f
+Icon=youdao-note
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Encoding=UTF-8
+Categories=Application;Utility;
+StartupNotify=false
+```
+
 10、安装 印象笔记|NixNote2
 
     yay -Sy nixnote2
