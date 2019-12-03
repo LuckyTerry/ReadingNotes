@@ -112,14 +112,147 @@
 
 9、安装中文字体（如果需要）
 
-    yay -Sy wqy-zenhei 正黑
-    yay -Sy wqy-bitmapfont
-    yay -Sy wqy-microhei 字体雅黑
-    yay -Sy wqy-microhei-lite
-    yay -Sy ttf-dejavu
+常规的Linux系统中文字体都很缺乏，需要自己安装
+
+    # wps字体
     yay -Sy ttf-wps-fonts
-    yay -Sy adobe-source-han-sans-cn-fonts
-    yay -Sy adobe-source-han-serif-cn-fonts
+    # ？
+    yay -S ttf-roboto noto-fonts ttf-dejavu
+    # 文泉驿：？、雅黑、？、？
+    yay -S wqy-bitmapfont wqy-microhei wqy-microhei-lite wqy-zenhei
+    # noto中文字体
+    yay -S noto-fonts-cjk
+    # 思源字体：黑体、宋体
+    yay -S noto-fonts-cjk adobe-source-han-sans-cn-fonts adobe-source-han-serif-cn-fonts
+
+创建文件.config/fontconfig/fonts.conf，加入下面的配置：
+
+    <?xml version="1.0"?>
+    <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+
+    <fontconfig>
+
+        <its:rules xmlns:its="http://www.w3.org/2005/11/its" version="1.0">
+            <its:translateRule translate="no" selector="/fontconfig/*[not(self::description)]"/>
+        </its:rules>
+
+        <description>Manjaro Font Config</description>
+
+        <!-- Font directory list -->
+        <dir>/usr/share/fonts</dir>
+        <dir>/usr/local/share/fonts</dir>
+        <dir prefix="xdg">fonts</dir>
+        <dir>~/.fonts</dir> <!-- this line will be removed in the future -->
+
+        <!-- 自动微调 微调 抗锯齿 内嵌点阵字体 -->
+        <match target="font">
+            <edit name="autohint"> <bool>false</bool> </edit>
+            <edit name="hinting"> <bool>true</bool> </edit>
+            <edit name="antialias"> <bool>true</bool> </edit>
+            <edit name="embeddedbitmap" mode="assign"> <bool>false</bool> </edit>
+        </match>
+
+        <!-- 英文默认字体使用 Roboto 和 Noto Serif ,终端使用 DejaVu Sans Mono. -->
+        <match>
+            <test qual="any" name="family">
+                <string>serif</string>
+            </test>
+            <edit name="family" mode="prepend" binding="strong">
+                <string>Noto Serif</string>
+            </edit>
+        </match>
+        <match target="pattern">
+            <test qual="any" name="family">
+                <string>sans-serif</string>
+            </test>
+            <edit name="family" mode="prepend" binding="strong">
+                <string>Roboto</string>
+            </edit>
+        </match>
+        <match target="pattern">
+            <test qual="any" name="family">
+                <string>monospace</string>
+            </test>
+            <edit name="family" mode="prepend" binding="strong">
+                <string>DejaVu Sans Mono</string>
+            </edit>
+        </match>
+
+        <!-- 中文默认字体使用思源宋体,不使用 Noto Sans CJK SC 是因为这个字体会在特定情况下显示片假字. -->
+        <match>
+            <test name="lang" compare="contains">
+                <string>zh</string>
+            </test>
+            <test name="family">
+                <string>serif</string>
+            </test>
+            <edit name="family" mode="prepend">
+                <string>Source Han Serif CN</string>
+            </edit>
+        </match>
+        <match>
+            <test name="lang" compare="contains">
+                <string>zh</string>
+            </test>
+            <test name="family">
+                <string>sans-serif</string>
+            </test>
+            <edit name="family" mode="prepend">
+                <string>Source Han Sans CN</string>
+            </edit>
+        </match>
+        <match>
+            <test name="lang" compare="contains">
+                <string>zh</string>
+            </test>
+            <test name="family">
+                <string>monospace</string>
+            </test>
+            <edit name="family" mode="prepend">
+                <string>Noto Sans Mono CJK SC</string>
+            </edit>
+        </match>
+
+        <!-- 把Linux没有的中文字体映射到已有字体，这样当这些字体未安装时会有替代字体 -->
+        <match target="pattern">
+            <test qual="any" name="family">
+                <string>SimHei</string>
+            </test>
+            <edit name="family" mode="assign" binding="same">
+                <string>Source Han Sans CN</string>
+            </edit>
+        </match>
+        <match target="pattern">
+            <test qual="any" name="family">
+                <string>SimSun</string>
+            </test>
+            <edit name="family" mode="assign" binding="same">
+                <string>Source Han Serif CN</string>
+            </edit>
+        </match>
+        <match target="pattern">
+            <test qual="any" name="family">
+                <string>SimSun-18030</string>
+            </test>
+            <edit name="family" mode="assign" binding="same">
+                <string>Source Han Serif CN</string>
+            </edit>
+        </match>
+
+        <!-- Load local system customization file -->
+        <include ignore_missing="yes">conf.d</include>
+        <!-- Font cache directory list -->
+        <cachedir>/var/cache/fontconfig</cachedir>
+        <cachedir prefix="xdg">fontconfig</cachedir>
+        <!-- will be removed in the future -->
+        <cachedir>~/.fontconfig</cachedir>
+
+        <config>
+            <!-- Rescan in every 30s when FcFontSetList is called -->
+            <rescan> <int>30</int> </rescan>
+        </config>
+
+    </fontconfig>
 
 10、安装 snap
 
@@ -508,6 +641,10 @@ StartupNotify=false
     export PATH=${PATH}:${MAVEN_HOME}/bin
     source /etc/profile
 
+5. 安装 gradle
+
+    yay -S gradle
+
 6、安装 navicat
 
     yay -Sy navicat121_premium_cs_x64（巨慢，而且还容易失败）
@@ -683,6 +820,8 @@ StartupNotify=false
 
 3、安装 clang
 
+    yay -S ?
+
 3、安装 nodejs
 
     yay -Sy nodejs
@@ -691,7 +830,16 @@ StartupNotify=false
 
 3、安装 npm
 
+    yay -S npm
+    yay -S npm-check-updates ts-node (可选)
+
+3. 安装 yarn
+
+    yay -S yarn
+
 3、安装 golang
+
+    yay -S go
 
 3、安装 net-tools
 
