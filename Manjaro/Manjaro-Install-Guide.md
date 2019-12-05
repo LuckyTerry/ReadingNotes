@@ -86,6 +86,21 @@
     yay -Ps # 打印系统统计信息
     yay -Qi package # 检查安装的版本
 
+
+    自己编译安装：
+
+    1. 下载项目：
+    从AUR软件包主页提供的“Git 克隆地址”下载项目
+
+    2. 修改文件：
+    eg_autojump：打开 PKGBUILD 文件，修改 depends= 和 _python= 为 python3.7
+
+    3. 编译打包：
+    eg_autojump：执行 makepkg
+
+    4. 安装新包：
+    eg_automump：yay -U autojump-22.5.3-5-any.pkg.tar.xz
+
 附：[清华 AUR 镜像使用帮助](https://mirrors.tuna.tsinghua.edu.cn/help/AUR/)
 
 8、安装谷歌拼音输入法
@@ -257,6 +272,16 @@
 10、安装 snap
 
     yay -Sy snapd
+
+    查看软件包的信息
+    snap info redis-desktop-manager
+
+    安装软件包
+    sudo snap install redis-desktop-manager
+
+    安装指定版本的软件包
+    sudo snap install node --edge
+    sudo snap install node --channel=13/stable --classic
 
 11、安装 debtap（在manjaro中安装deb包的工具）
 
@@ -687,6 +712,16 @@ StartupNotify=false
     页面右方 Package Actions，点击 Download From Mirror 下载源文件
     然后通过 sudo pacman -U python-3.8.0-1-x86_64.pkg.tar.xz 安装，即可。
     后遗症！！！：其他软件可是依赖的低版本，这下，其他软件又没法用了。。先还原，rdm和autojump暂时先不用，等2个月应该就好了。
+
+    安装必要依赖 qt5-charts 
+    手动编译安装旧版本
+        克隆 git clone https://aur.archlinux.org/redis-desktop-manager.git 
+        修改 PKGBUILD，#tag=2019.4，
+        pkgver=2019.5   ->  修改为AUR的最新版本，避免系统提示升级
+        pkgrel=1        ->  修改为AUR的最新版本，避免系统提示升级
+        #tag=$pkgver    ->  修改为 #tag=2019.4。老版本，不依赖于python3.8。之所以要改，是因为写这段话的时候manjaro的python版本还是3.7，AUR的最新版本启动会报错。
+        执行命令 gfw makepkg
+    别折腾了，最终还是失败了。。。。
 
 9、安装 mongodb-compass
 
