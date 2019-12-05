@@ -720,8 +720,9 @@ StartupNotify=false
         pkgver=2019.5   ->  修改为AUR的最新版本，避免系统提示升级
         pkgrel=1        ->  修改为AUR的最新版本，避免系统提示升级
         #tag=$pkgver    ->  修改为 #tag=2019.4。老版本，不依赖于python3.8。之所以要改，是因为写这段话的时候manjaro的python版本还是3.7，AUR的最新版本启动会报错。
+        脚本会删除pkg、新建pkg、授权pkg文件夹，但是授权的时候好像不成功，可以在脚本删除并新建了pkg后、还未访问pkg的时间窗口内（脚本执行不快的），手动chmod修改权限。
         执行命令 gfw makepkg
-    别折腾了，最终还是失败了。。。。
+    别折腾了，最终还是失败了。。。。makefile引用的cpp内部报错。。。
 
 9、安装 mongodb-compass
 
