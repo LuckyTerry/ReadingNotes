@@ -86,6 +86,21 @@
     yay -Ps # 打印系统统计信息
     yay -Qi package # 检查安装的版本
 
+
+    自己编译安装：
+
+    1. 下载项目：
+    从AUR软件包主页提供的“Git 克隆地址”下载项目
+
+    2. 修改文件：
+    eg_autojump：打开 PKGBUILD 文件，修改 depends= 和 _python= 为 python3.7
+
+    3. 编译打包：
+    eg_autojump：执行 makepkg
+
+    4. 安装新包：
+    eg_automump：yay -U autojump-22.5.3-5-any.pkg.tar.xz
+
 附：[清华 AUR 镜像使用帮助](https://mirrors.tuna.tsinghua.edu.cn/help/AUR/)
 
 8、安装谷歌拼音输入法
@@ -112,18 +127,161 @@
 
 9、安装中文字体（如果需要）
 
-    yay -Sy wqy-zenhei 正黑
-    yay -Sy wqy-bitmapfont
-    yay -Sy wqy-microhei 字体雅黑
-    yay -Sy wqy-microhei-lite
-    yay -Sy ttf-dejavu
+常规的Linux系统中文字体都很缺乏，需要自己安装
+
+    # wps字体
     yay -Sy ttf-wps-fonts
-    yay -Sy adobe-source-han-sans-cn-fonts
-    yay -Sy adobe-source-han-serif-cn-fonts
+    # ？
+    yay -S ttf-roboto noto-fonts ttf-dejavu
+    # 文泉驿：？、雅黑、？、？
+    yay -S wqy-bitmapfont wqy-microhei wqy-microhei-lite wqy-zenhei
+    # noto中文字体
+    yay -S noto-fonts-cjk
+    # 思源字体：黑体、宋体
+    yay -S noto-fonts-cjk adobe-source-han-sans-cn-fonts adobe-source-han-serif-cn-fonts
+
+创建文件.config/fontconfig/fonts.conf，加入下面的配置：
+
+    <?xml version="1.0"?>
+    <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+
+    <fontconfig>
+
+        <its:rules xmlns:its="http://www.w3.org/2005/11/its" version="1.0">
+            <its:translateRule translate="no" selector="/fontconfig/*[not(self::description)]"/>
+        </its:rules>
+
+        <description>Manjaro Font Config</description>
+
+        <!-- Font directory list -->
+        <dir>/usr/share/fonts</dir>
+        <dir>/usr/local/share/fonts</dir>
+        <dir prefix="xdg">fonts</dir>
+        <dir>~/.fonts</dir> <!-- this line will be removed in the future -->
+
+        <!-- 自动微调 微调 抗锯齿 内嵌点阵字体 -->
+        <match target="font">
+            <edit name="autohint"> <bool>false</bool> </edit>
+            <edit name="hinting"> <bool>true</bool> </edit>
+            <edit name="antialias"> <bool>true</bool> </edit>
+            <edit name="embeddedbitmap" mode="assign"> <bool>false</bool> </edit>
+        </match>
+
+        <!-- 英文默认字体使用 Roboto 和 Noto Serif ,终端使用 DejaVu Sans Mono. -->
+        <match>
+            <test qual="any" name="family">
+                <string>serif</string>
+            </test>
+            <edit name="family" mode="prepend" binding="strong">
+                <string>Noto Serif</string>
+            </edit>
+        </match>
+        <match target="pattern">
+            <test qual="any" name="family">
+                <string>sans-serif</string>
+            </test>
+            <edit name="family" mode="prepend" binding="strong">
+                <string>Roboto</string>
+            </edit>
+        </match>
+        <match target="pattern">
+            <test qual="any" name="family">
+                <string>monospace</string>
+            </test>
+            <edit name="family" mode="prepend" binding="strong">
+                <string>DejaVu Sans Mono</string>
+            </edit>
+        </match>
+
+        <!-- 中文默认字体使用思源宋体,不使用 Noto Sans CJK SC 是因为这个字体会在特定情况下显示片假字. -->
+        <match>
+            <test name="lang" compare="contains">
+                <string>zh</string>
+            </test>
+            <test name="family">
+                <string>serif</string>
+            </test>
+            <edit name="family" mode="prepend">
+                <string>Source Han Serif CN</string>
+            </edit>
+        </match>
+        <match>
+            <test name="lang" compare="contains">
+                <string>zh</string>
+            </test>
+            <test name="family">
+                <string>sans-serif</string>
+            </test>
+            <edit name="family" mode="prepend">
+                <string>Source Han Sans CN</string>
+            </edit>
+        </match>
+        <match>
+            <test name="lang" compare="contains">
+                <string>zh</string>
+            </test>
+            <test name="family">
+                <string>monospace</string>
+            </test>
+            <edit name="family" mode="prepend">
+                <string>Noto Sans Mono CJK SC</string>
+            </edit>
+        </match>
+
+        <!-- 把Linux没有的中文字体映射到已有字体，这样当这些字体未安装时会有替代字体 -->
+        <match target="pattern">
+            <test qual="any" name="family">
+                <string>SimHei</string>
+            </test>
+            <edit name="family" mode="assign" binding="same">
+                <string>Source Han Sans CN</string>
+            </edit>
+        </match>
+        <match target="pattern">
+            <test qual="any" name="family">
+                <string>SimSun</string>
+            </test>
+            <edit name="family" mode="assign" binding="same">
+                <string>Source Han Serif CN</string>
+            </edit>
+        </match>
+        <match target="pattern">
+            <test qual="any" name="family">
+                <string>SimSun-18030</string>
+            </test>
+            <edit name="family" mode="assign" binding="same">
+                <string>Source Han Serif CN</string>
+            </edit>
+        </match>
+
+        <!-- Load local system customization file -->
+        <include ignore_missing="yes">conf.d</include>
+        <!-- Font cache directory list -->
+        <cachedir>/var/cache/fontconfig</cachedir>
+        <cachedir prefix="xdg">fontconfig</cachedir>
+        <!-- will be removed in the future -->
+        <cachedir>~/.fontconfig</cachedir>
+
+        <config>
+            <!-- Rescan in every 30s when FcFontSetList is called -->
+            <rescan> <int>30</int> </rescan>
+        </config>
+
+    </fontconfig>
 
 10、安装 snap
 
     yay -Sy snapd
+
+    查看软件包的信息
+    snap info redis-desktop-manager
+
+    安装软件包
+    sudo snap install redis-desktop-manager
+
+    安装指定版本的软件包
+    sudo snap install node --edge
+    sudo snap install node --channel=13/stable --classic
 
 11、安装 debtap（在manjaro中安装deb包的工具）
 
@@ -140,6 +298,14 @@
     sudo debtap *.deb     会将deb文件转化成.tar.gz文件
     sudo pacman -U *.tar.gz
 
+12、安装 appImageLauncher
+
+    yay -S appimagelauncher
+
+    安装AppImageLauncher后，直接双击AppImage文件会出现AppImageLauncher提示框，并有两个选项
+    - Run once 仅仅像以前一样正常运行，什么都不做
+    - Integrate and run 这个 AppImage 就被复制到 ~/.bin/ （家目录中的隐藏文件夹）并添加到菜单中，然后启动该程序。
+
 # 系统工具
 
 1、安装screenfetch
@@ -149,6 +315,12 @@
 2、安装 shadowsocks
 
     yay -Sy shadowsocks-qt5
+
+    我操他妈的天坑：AES-256-GCM 这种加密方式，Https总是会出现中断的问题
+
+    c19s1.jamjams.net - c19s4.jamjams.net，它们的加密方式都是 AES-256-GCM，经测试，总是连接中断。
+
+    c19s5.jamjams.net，它的加密方式是 AES-256-CFB，经测试，无任何问题。
 
 2、安装 electron-ssr
 
@@ -306,15 +478,35 @@ yay -S copyq #  剪贴板工具，类似 Windows 上的 Ditto
 
 0、安装 qq
 
-    yay -Sy deepin-wine-qq
     yay -Sy deepin.com.qq.im
+    yay -Sy deepin-wine-qq（暂不推荐）
 
 1、安装 tim
 
-    yay -Sy deepin-wine-tim
     yay -Sy deepin.com.qq.office
+    yay -Sy deepin-wine-tim（暂不推荐）
+
+    问题一：
+    X Error of failed request: BadWindow (invalid Window parameter)
+        Major opcode of failed request: 20 (X_GetProperty)
+        Resource id in failed request: 0x0
+        Serial number of failed request: 10
+        Current serial number in output stream: 10
+    解决：安装gnome-settings-daemon，然后运行/usr/lib/gsd-xsettings
+
+    问题二：
+    字体发虚
+    解决：安装lib32-freetype2-infinality-ultimate包即可解决
 
 [deepin-wine-tim-arch](https://github.com/countstarlight/deepin-wine-tim-arch)
+
+[软件包详情: deepin.com.qq.office 2.0.0_4-2，评论有惊喜](https://aur.archlinux.org/packages/deepin.com.qq.office/)
+
+[2019年wine QQ最完美解决方案（多Linux发行版通过测试并稳定运行）](https://blog.csdn.net/Scythe666/article/details/86592035)
+
+[Linux下wine QQ终于有正式稳定的版本啦，后盾强大，同步腾讯](https://www.lulinux.com/archives/3713)
+
+[KDE程序自启动](https://wiki.archlinux.org/index.php/KDE_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E7%A8%8B%E5%BA%8F%E8%87%AA%E5%90%AF%E5%8A%A8)
 
 2、安装 微信
 
@@ -377,6 +569,27 @@ yay -S copyq #  剪贴板工具，类似 Windows 上的 Ditto
 9、安装 有道笔记
 
 [youdao-note-electron](https://github.com/jamasBian/youdao-note-electron)
+
+    创建desktop图标
+
+    sudo ln -s /opt/Youdao-Note-Electron-linux-x64/Youdao-Note-Electron /usr/bin/youdao-note
+    sudo cp /opt/Youdao-Note-Electron-linux-x64/resources/icon.png /usr/share/icons/youdao-note.png
+    sudo vim /usr/share/applications/youdao-note.desktop
+
+```
+[Desktop Entry]
+Name=Youdao Note
+Name[zh_CN]=有道笔记
+Name[zh_TW]=有道笔记
+Exec=youdao-note %f
+Icon=youdao-note
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Encoding=UTF-8
+Categories=Application;Utility;
+StartupNotify=false
+```
 
 10、安装 印象笔记|NixNote2
 
@@ -453,6 +666,10 @@ yay -S copyq #  剪贴板工具，类似 Windows 上的 Ditto
     export PATH=${PATH}:${MAVEN_HOME}/bin
     source /etc/profile
 
+5. 安装 gradle
+
+    yay -S gradle
+
 6、安装 navicat
 
     yay -Sy navicat121_premium_cs_x64（巨慢，而且还容易失败）
@@ -487,9 +704,34 @@ yay -S copyq #  剪贴板工具，类似 Windows 上的 Ditto
     # snap安装
     sudo snap install redis-desktop-manager # 很慢，要有心里准备（即使使用了代理）
 
+    # 2019.12.02 安装后，启动出现闪退。
+    原因：最新的 rdm 依赖 Python>=3.8.0，而系统的python版本低于3.8.0
+    过程：aur中无法下载到最新的，这就很尴尬了！！！
+    解决方案：下载源文件，手动安装
+    https://www.archlinux.org/packages/extra/x86_64/python/
+    页面右方 Package Actions，点击 Download From Mirror 下载源文件
+    然后通过 sudo pacman -U python-3.8.0-1-x86_64.pkg.tar.xz 安装，即可。
+    后遗症！！！：其他软件可是依赖的低版本，这下，其他软件又没法用了。。先还原，rdm和autojump暂时先不用，等2个月应该就好了。
+
+    安装必要依赖 qt5-charts 
+    手动编译安装旧版本
+        克隆 git clone https://aur.archlinux.org/redis-desktop-manager.git 
+        修改 PKGBUILD，#tag=2019.4，
+        pkgver=2019.5   ->  修改为AUR的最新版本，避免系统提示升级
+        pkgrel=1        ->  修改为AUR的最新版本，避免系统提示升级
+        #tag=$pkgver    ->  修改为 #tag=2019.4。老版本，不依赖于python3.8。之所以要改，是因为写这段话的时候manjaro的python版本还是3.7，AUR的最新版本启动会报错。
+        脚本会删除pkg、新建pkg、授权pkg文件夹，但是授权的时候好像不成功，可以在脚本删除并新建了pkg后、还未访问pkg的时间窗口内（脚本执行不快的），手动chmod修改权限。
+        执行命令 gfw makepkg
+    别折腾了，最终还是失败了。。。。makefile引用的cpp内部报错。。。
+
 9、安装 mongodb-compass
 
     yay -Sy mongodb-compass # 很慢，要有心里准备
+
+    或者，手动安装，这个快
+    gfw wget https://downloads.mongodb.com/compass/mongodb-compass_1.19.12_amd64.deb
+    sudo debtap mongodb-compass_1.19.12_amd64.deb
+    sudo pacman -U mongodb-compass-1.19.12-1-x86_64.pkg.tar.xz
 
 10、安装 wireshark-qt
 
@@ -589,6 +831,9 @@ yay -S copyq #  剪贴板工具，类似 Windows 上的 Ditto
 
     yay -Sy kibana
 
+    问题：unable to find usable node.js executable.
+    解决：TODO
+
 3、安装 eclipse-mat
 
     yay -Sy eclipse-mat（巨慢，还很容易失败）
@@ -598,6 +843,8 @@ yay -S copyq #  剪贴板工具，类似 Windows 上的 Ditto
     sudo pip install cheat # manjaro自带了pip
 
 3、安装 zookeeper
+
+    TODO
 
 3、安装 make
 
@@ -609,13 +856,26 @@ yay -S copyq #  剪贴板工具，类似 Windows 上的 Ditto
 
 3、安装 clang
 
+    yay -S ?
+
 3、安装 nodejs
 
     yay -Sy nodejs
 
+    配置环境变量 TODO
+
 3、安装 npm
 
+    yay -S npm
+    yay -S npm-check-updates ts-node (可选)
+
+3. 安装 yarn
+
+    yay -S yarn
+
 3、安装 golang
+
+    yay -S go
 
 3、安装 net-tools
 
