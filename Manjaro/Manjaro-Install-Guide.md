@@ -781,6 +781,11 @@ StartupNotify=false
     # 安装 SDK Tolls
     Android SDK Build-Tools，Android Emulator，Android SDK Platform-Tools 和 Android SDK Tools
 
+    # watch
+    sudo vim /etc/sysctl.d/50-max_user_watches.conf
+    修改为 fs.inotify.max_user_watches = 524288
+    sudo sysctl -p --system
+
 3、安装 flutter
 
     todo
