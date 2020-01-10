@@ -19,6 +19,12 @@
 
 更改文件位置： /var/lib/pacman-mirrors/custom-mirrors.josn
 
+3、升级核显驱动
+
+    系统设置-硬件设定-右键video-vesa安装-重启即可
+
+也可以不安装video-vesa，日常使用感受不到太大的区别，唯有别的主机使用Teamviewer连接当前设备的时候会闪屏。
+
 3、调整时间
 
     右键“时间控件”，点击“配置数字时钟”，更改“时间显示”为“24小时制”
@@ -67,7 +73,6 @@
     Server = https://mirrors.tuna.tsinghua.edu.cn/arch4edu/$arch
 
 附：[Arch4edu 镜像使用帮助](https://mirrors4.tuna.tsinghua.edu.cn/help/arch4edu/)
-
 
 7、安装yay
 
@@ -729,7 +734,7 @@ StartupNotify=false
     yay -Sy mongodb-compass # 很慢，要有心里准备
 
     或者，手动安装，这个快
-    gfw wget https://downloads.mongodb.com/compass/mongodb-compass_1.19.12_amd64.deb
+    gfw wget https://downloads.mongodb.com/compass/mongodb-compass_1.20.4_amd64.deb
     sudo debtap mongodb-compass_1.19.12_amd64.deb
     sudo pacman -U mongodb-compass-1.19.12-1-x86_64.pkg.tar.xz
 
