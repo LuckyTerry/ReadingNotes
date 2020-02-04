@@ -21,6 +21,8 @@
 
 3、升级核显驱动
 
+[参考文档:配置显卡设备](https://wiki.manjaro.org/index.php/Configure_Graphics_Cards)
+
     系统设置-硬件设定-右键video-linux安装-重启即可
 
     video-linux 默认已安装
@@ -88,6 +90,9 @@
 
     配置 yay 的 aur 源为清华源 AUR 镜像：
     yay --aururl "https://aur.tuna.tsinghua.edu.cn" --save
+
+    官方源是：
+    yay --aururl "https://aur.archlinux.org/" --save
 
     修改的配置文件位于 ~/.config/yay/config.json ，还可通过以下命令查看修改过的配置：
     yay -P -g
