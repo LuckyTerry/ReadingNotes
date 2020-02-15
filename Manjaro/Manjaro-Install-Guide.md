@@ -324,6 +324,14 @@
     - Run once 仅仅像以前一样正常运行，什么都不做
     - Integrate and run 这个 AppImage 就被复制到 ~/.bin/ （家目录中的隐藏文件夹）并添加到菜单中，然后启动该程序。
 
+13、定时 reboot （如果需要）
+
+    若要自动启动应用程序，请浏览到 系统设置 > 开关机 > 自启动 并添加您想要的程序或shell脚本。对于应用程序，.desktop 文件将被创建。对于shell脚本，symlink 将被创建。
+
+    shutdown -r 04:00 &
+
+    最后记得勾选 启用
+
 # 系统工具
 
 1、安装screenfetch
