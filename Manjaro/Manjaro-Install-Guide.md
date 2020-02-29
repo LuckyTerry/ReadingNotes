@@ -1,3 +1,17 @@
+# 系统安装
+
+参照 [Manjaro Linux安装以及日常配置](https://manjaro.top/post/Manjaro-Linux%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8A%E6%97%A5%E5%B8%B8%E9%85%8D%E7%BD%AE/) 即可
+
+1、推荐中科大的源，下载速度比较快
+
+http://mirrors.ustc.edu.cn/manjaro-cd/
+
+2、刻录工具
+
+- 首推：这里我们选择使用usbwrite，亲测这个软件最方便也是支持最好的，链接：http://7dx.pc6.com/wwb5/USBWriter13.zip
+- 次选：版本需要是1.0.0及以下，勾选...
+- 最后：软碟通工具，但是要切记使用raw刻录方式。
+
 # 系统配置
 
 0、256GB固态分区方案
