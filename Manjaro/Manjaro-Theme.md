@@ -96,6 +96,10 @@
 安装 Adapta 全局主题
 安装 Papirus-Icon-Theme-Vectorel-Folders 图标，40多M，下载
 
-## 网友篇
+## 配置下
 
-### Mac篇
+右键latte-dock，点击添加部件，选择：应用程序面板、、、
+
+# 网友篇
+
+## Mac篇
