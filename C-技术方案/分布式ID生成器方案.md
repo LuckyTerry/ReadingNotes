@@ -210,6 +210,15 @@ Snowflake算法描述：指定机器 & 同一时刻 & 某一并发序列，是�
 28.125 * (2 ^ 9) = 14400 (UID/s)
 ```
 
+**源码分析**
+
+- CachedUidGenerator 作为入口，getUID是调用RingBuffer来实现
+- RingBuffer中take时会懒加载填充，通过调用BufferPaddingExecutor#asyncPadding()来填充
+- 另外，BufferPaddingExecutor#start()也开启了后台线程可以定时填充
+- 填充逻辑见BufferPaddingExecutor#paddingBuffer()，注意lastSecond.incrementAndGet()，lastSecond仅在启动的时候设置为当前时间戳，后续都是靠自增。所以不仅是借用未来时间，还可以借用过去时间。
+- UidProvider接口，在源码中没有实现类，是靠CachedUidGenerator#nextIdsForOneSecond()的lamda方法类型推断而来（详见initRingBuffer()中Line128）。
+
+
 # 美团的Leaf
 
 GitHub 地址：https://github.com/Meituan-Dianping/Leaf
